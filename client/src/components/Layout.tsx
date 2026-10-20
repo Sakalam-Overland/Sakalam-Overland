@@ -113,16 +113,16 @@ function Nav() {
       <div
         id="mobile-menu"
         inert={!open}
-        className={`fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto bg-surface-2 px-5 pt-6 pb-10 shadow-[0_-1px_0_rgba(24,59,34,0.08)] transition duration-500 ease-(--ease-trail) md:hidden ${
+        className={`fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto bg-surface-2 px-5 pt-4 pb-44 shadow-[0_-1px_0_rgba(24,59,34,0.08)] transition duration-500 ease-(--ease-trail) md:hidden ${
           open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0'
         }`}
       >
-        <ul className="space-y-2">
+        <ul className="relative">
           {[{ to: '/', label: 'Home', icon: 'home', tl: 'Tahanan', bay: 'ᜆᜑᜈᜈ᜔' }, ...navItems].map((n) => (
             <li key={n.to}>
-              <NavLink to={n.to} className="flex items-center gap-4 border-b border-line/10 py-3.5">
-                <img src={`/icons/${n.icon}.png`} alt="" className="h-11 w-11" />
-                <span className="font-display text-2xl font-bold text-heading">{n.label}</span>
+              <NavLink to={n.to} className="flex min-h-14 items-center gap-3.5 border-b border-line/10 py-3">
+                <img src={`/icons/${n.icon}.png`} alt="" className="h-9 w-9" />
+                <span className="font-display text-lg font-bold text-heading">{n.label}</span>
                 <span className="ml-auto text-right leading-tight">
                   <span lang="tl" className="block font-baybayin text-xl text-dahon" aria-hidden>
                     {n.bay}
@@ -133,9 +133,15 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <Link to="/community#join" className="btn-primary mt-8 w-full justify-center">
+        <Link to="/community#join" className="btn-primary relative mt-8 w-full justify-center">
           Join the crew
         </Link>
+        {/* Decorative ridgelines along the bottom of the panel */}
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full text-dahon" aria-hidden>
+          <path d="M0,92 L48,58 L86,80 L132,34 L176,74 L214,50 L262,86 L306,42 L352,70 L400,48 L400,160 L0,160Z" fill="currentColor" opacity="0.1" />
+          <path d="M0,118 L60,86 L104,108 L158,72 L210,112 L262,84 L318,116 L366,92 L400,104 L400,160 L0,160Z" fill="currentColor" opacity="0.16" />
+          <path d="M0,142 L72,120 L130,138 L196,114 L260,140 L330,118 L400,134 L400,160 L0,160Z" fill="currentColor" opacity="0.24" />
+        </svg>
       </div>
     </>
   );
@@ -245,7 +251,7 @@ export function Layout() {
         aria-hidden
         className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] bg-gradient-to-r from-dahon via-araw to-araw animate-[route-line_0.9s_var(--ease-trail)_forwards] motion-reduce:hidden"
       />
-      <main id="main" ref={mainRef} key={pageKey} className="animate-[page-in_0.7s_var(--ease-trail)_backwards]">
+      <main id="main" ref={mainRef} key={pageKey} className="animate-[page-in_0.45s_ease-out_backwards]">
         <Outlet />
       </main>
       <Footer />

@@ -54,7 +54,7 @@ export default function EventDetail() {
       </section>
 
       <section className="bg-surface py-10 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12 [&>*]:min-w-0">
           <Reveal className="space-y-10 lg:col-span-7">
             <div>
               <p className="eyebrow text-heading">The plan</p>

@@ -27,14 +27,14 @@ function elevationAt(profile: [number, number][], mile: number) {
 
 export function ElevationChart({ profile, name }: { profile: [number, number][]; name: string }) {
   const wrap = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(600);
+  const [width, setWidth] = useState(320);
   const [hover, setHover] = useState<number | null>(null);
   const gradId = useId();
 
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setWidth(Math.max(280, e.contentRect.width)));
+    const ro = new ResizeObserver(([e]) => setWidth(Math.max(240, e.contentRect.width)));
     ro.observe(el);
     return () => ro.disconnect();
   }, []);

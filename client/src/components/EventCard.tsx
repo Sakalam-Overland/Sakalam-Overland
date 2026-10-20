@@ -27,7 +27,7 @@ export function EventCard({ event, featured = false }: { event: TripEvent; featu
   return (
     <Link
       to={`/events/${event.slug}`}
-      className="group relative flex w-full flex-col rounded-2xl bg-surface pt-2 shadow-[0_14px_30px_-20px_rgba(24,59,34,0.55)] ring-1 ring-line/10 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:shadow-[0_24px_44px_-24px_rgba(24,59,34,0.6)]"
+      className="group relative flex w-full flex-col rounded-2xl bg-surface pt-2 shadow-[0_14px_30px_-20px_rgba(24,59,34,0.55)] ring-1 ring-line/10 transition duration-500 ease-(--ease-trail) md:hover:-translate-y-1 md:hover:shadow-[0_24px_44px_-24px_rgba(24,59,34,0.6)]"
     >
       {/* Binder rings */}
       {['left-6', 'right-6'].map((pos) => (

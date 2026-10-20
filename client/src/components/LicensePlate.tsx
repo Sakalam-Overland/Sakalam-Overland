@@ -126,14 +126,13 @@ export function SpareTire({ className = '' }: { className?: string }) {
   const windows = Array.from({ length: 8 }, (_, i) => i * 45 + 22.5);
   return (
     <div className={`relative ${className}`}>
-      <svg viewBox="0 0 600 600" className="h-auto w-full" aria-hidden>
-        <defs>
-          <radialGradient id="tire-shade" cx="0.4" cy="0.35" r="0.75">
-            <stop offset="0.6" stopColor="#000" stopOpacity="0" />
-            <stop offset="1" stopColor="#000" stopOpacity="0.45" />
-          </radialGradient>
-        </defs>
-        <g className="origin-center animate-[spin_40s_linear_infinite] [transform-box:fill-box] motion-reduce:animate-none">
+      {/* The wheel is its own layer so the GPU rotates it; animating an SVG group repaints every frame. */}
+      <svg
+        viewBox="0 0 600 600"
+        className="absolute inset-0 h-full w-full animate-[spin_40s_linear_infinite] will-change-transform motion-reduce:animate-none"
+        aria-hidden
+      >
+        <g>
           <circle cx="300" cy="300" r="296" fill="#171918" />
           {treads.map((a) => (
             <g key={a} transform={`rotate(${a} 300 300)`}>
@@ -157,6 +156,14 @@ export function SpareTire({ className = '' }: { className?: string }) {
           ))}
           <circle cx="300" cy="300" r="76" fill="#3a3d3b" stroke="#4d514e" strokeWidth="4" />
         </g>
+      </svg>
+      <svg viewBox="0 0 600 600" className="relative block h-auto w-full" aria-hidden>
+        <defs>
+          <radialGradient id="tire-shade" cx="0.4" cy="0.35" r="0.75">
+            <stop offset="0.6" stopColor="#000" stopOpacity="0" />
+            <stop offset="1" stopColor="#000" stopOpacity="0.45" />
+          </radialGradient>
+        </defs>
         {/* Fixed lighting on top so the spin reads as rotation, not a spinning picture */}
         <circle cx="300" cy="300" r="296" fill="url(#tire-shade)" />
         {/* Mounting bracket behind the plate */}

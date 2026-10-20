@@ -164,7 +164,7 @@ export default function Trails() {
       </section>
 
       <section className="bg-surface-2 pb-24">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 md:px-8 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 md:px-8 lg:grid-cols-12 [&>*]:min-w-0">
           <div className="lg:col-span-5">
             <div className="no-scrollbar mb-4 flex gap-2 overflow-x-auto">
               {(['all', 'offroad', 'beach', 'hike'] as const).map((t) => (

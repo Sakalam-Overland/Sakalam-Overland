@@ -9,6 +9,7 @@ import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { LogoMark, starPath } from '../components/SunMark';
 import { useAsync } from '../hooks/useAsync';
+import { usePauseOffscreen } from '../hooks/usePauseOffscreen';
 import { api } from '../lib/api';
 import { fmt } from '../lib/format';
 
@@ -151,11 +152,12 @@ function HeroStats() {
 }
 
 function Hero() {
+  const heroRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section className="relative isolate flex h-[100svh] min-h-[540px] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:h-auto md:min-h-[100svh] md:pt-32">
+    <section ref={heroRef} data-no-reveal className="relative isolate flex h-[100svh] min-h-[540px] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:h-auto md:min-h-[100svh] md:pt-32">
       {/* Soft light: warm sun top right, green bottom left */}
-      <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-araw/20 blur-3xl dark:bg-[#ff8a3c]/10" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-dahon/20 blur-3xl dark:bg-dahon/10" />
+      {/* Radial gradients instead of blur filters: same glow, far cheaper to paint on phones */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(40rem_32rem_at_100%_0%,rgba(246,184,26,0.2),transparent_70%),radial-gradient(34rem_28rem_at_0%_100%,rgba(97,171,115,0.2),transparent_70%)] dark:bg-[radial-gradient(40rem_32rem_at_100%_0%,rgba(255,138,60,0.09),transparent_70%),radial-gradient(34rem_28rem_at_0%_100%,rgba(97,171,115,0.09),transparent_70%)]" />
       <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-heading opacity-[0.08]" />
 
       <div className="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-[max(16px,2.5svh)] px-5 pt-[2svh] pb-[clamp(56px,10svh,200px)] md:grid md:content-center md:items-center md:gap-14 md:px-8 md:pt-6 lg:grid-cols-12 lg:gap-20">
@@ -332,18 +334,18 @@ function UpcomingEvents() {
             </Link>
           </Reveal>
         </div>
-        <div className="relative">
+        <Reveal className="relative">
           <div
             ref={rail}
             onScroll={onScroll}
             role="region"
             aria-label="Upcoming events, swipe for more"
-            className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0"
+            className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0"
           >
             {list.map((e, i) => (
-              <Reveal key={e.slug} delay={i * 100} className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
+              <div key={e.slug} data-no-reveal className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
                 <EventCard event={e} featured={i === 0} />
-              </Reveal>
+              </div>
             ))}
             {!data && [0, 1, 2].map((i) => <div key={i} className="h-56 w-[74%] shrink-0 animate-pulse rounded-2xl bg-surface-2 md:w-auto" />)}
             {/* Trailing room so the last card can snap clear of the edge */}
@@ -354,7 +356,7 @@ function UpcomingEvents() {
             aria-hidden
             className={`pointer-events-none absolute inset-y-0 -right-5 w-14 bg-gradient-to-l from-surface to-transparent transition-opacity duration-300 md:hidden ${atEnd ? 'opacity-0' : 'opacity-100'}`}
           />
-        </div>
+        </Reveal>
         {list.length > 1 && (
           <div className="mt-3 flex items-center justify-between md:hidden">
             <div className="flex items-center gap-1" role="tablist" aria-label="Choose an event">
@@ -597,8 +599,9 @@ function RouteSign() {
 }
 
 export function JoinBand() {
+  const bandRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section className="banana-leaf relative isolate flex min-h-[100svh] items-center overflow-hidden pt-20 pb-12 text-puti md:block md:min-h-0 md:pt-32 md:pb-28">
+    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] items-center overflow-hidden pt-20 pb-12 text-puti md:block md:min-h-0 md:pt-32 md:pb-28">
       {/* The flag's sun rising behind the band */}
       <svg viewBox="-100 -100 200 200" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 h-[38rem] w-[38rem] text-araw opacity-[0.12] md:-right-20" aria-hidden>
         {Array.from({ length: 8 }, (_, i) => (
