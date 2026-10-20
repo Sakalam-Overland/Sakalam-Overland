@@ -1,14 +1,19 @@
 # Content editor for Sakalam Overland. Every save is committed to the repo
-# and the site republishes itself (about a minute on Netlify).
+# and the site redeploys itself (about a minute on Vercel).
+# Owners sign in with their GitHub account (they need write access to the repo).
+# The login handshake runs in /api/auth and /api/callback on Vercel.
 backend:
-  name: git-gateway
+  name: github
+  repo: jessiey2/Sakalam-Overland
   branch: main
+  base_url: https://sakalam-overland.vercel.app
+  auth_endpoint: api/auth
 
 # Lets you edit locally without logging in: run `npm run cms` next to `npm run dev`.
 local_backend: true
 
-site_url: https://sakalamoverland.netlify.app
-display_url: https://sakalamoverland.netlify.app
+site_url: https://sakalam-overland.vercel.app
+display_url: https://sakalam-overland.vercel.app
 logo_url: /brand/mark-forest.png
 
 media_folder: client/public/photos
