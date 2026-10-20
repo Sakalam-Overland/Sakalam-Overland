@@ -53,7 +53,7 @@ export default function EventDetail() {
         </div>
       </section>
 
-      <section className="bg-surface py-16 md:py-24">
+      <section className="bg-surface py-10 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
           <Reveal className="space-y-14 lg:col-span-7">
             <div>

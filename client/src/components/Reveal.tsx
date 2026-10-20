@@ -1,6 +1,6 @@
 import type { ElementType, ReactNode } from 'react';
-import { useReveal } from '../hooks/useReveal';
 
+/** Marks a block to ease in on first scroll. The page-level useAutoReveal does the work. */
 export function Reveal({
   as: Tag = 'div',
   delay = 0,
@@ -12,13 +12,8 @@ export function Reveal({
   className?: string;
   children: ReactNode;
 }) {
-  const [ref, shown] = useReveal<HTMLElement>();
   return (
-    <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition duration-1000 ease-(--ease-trail) ${shown ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'} ${className}`}
-    >
+    <Tag data-reveal="" style={delay ? { transitionDelay: `${delay}ms` } : undefined} className={className}>
       {children}
     </Tag>
   );
@@ -47,8 +42,8 @@ export function SectionHead({
         {eyebrow}
         {tagalog && <span className={`normal-case tracking-normal italic ${dark ? 'text-abo' : 'text-ink-muted'}`}>· {tagalog}</span>}
       </p>
-      <h2 className={`mt-4 text-4xl leading-[1.05] font-bold tracking-tight md:text-6xl ${dark ? 'text-puti' : 'text-heading'}`}>{title}</h2>
-      {children && <div className={`lead mt-5 ${dark ? 'text-puti/75' : 'text-ink/80'}`}>{children}</div>}
+      <h2 className={`mt-3 text-[1.85rem] leading-[1.05] font-bold tracking-tight sm:text-4xl md:mt-4 md:text-6xl ${dark ? 'text-puti' : 'text-heading'}`}>{title}</h2>
+      {children && <div className={`lead mt-3 md:mt-5 ${dark ? 'text-puti/75' : 'text-ink/80'}`}>{children}</div>}
     </Reveal>
   );
 }

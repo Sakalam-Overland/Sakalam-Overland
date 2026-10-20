@@ -155,7 +155,7 @@ export default function Community() {
       </PageHero>
 
       {/* Story */}
-      <section className="bg-surface py-24 md:py-32">
+      <section className="bg-surface py-14 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
           <Reveal className="grid grid-cols-2 gap-4">
             <Photo name="crew-group" alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[16/9] rounded-3xl" />
@@ -183,7 +183,7 @@ export default function Community() {
           <SectionHead dark eyebrow="Rig showcase" tagalog="Mga sasakyan" title="Every rig gets a name.">
             Most of them are named after food or family. Tag us on Instagram to get yours featured.
           </SectionHead>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {(rigs ?? []).map((r, i) => (
               <Reveal key={r.nickname} delay={(i % 3) * 80}>
                 <article className="group overflow-hidden rounded-3xl bg-puti/5 ring-1 ring-puti/10">
@@ -214,16 +214,16 @@ export default function Community() {
           <SectionHead dark eyebrow="Trail Tagalog" tagalog="Matuto tayo" title="Words you'll hear on the radio.">
             No fluency required. By your third ride you'll be saying "tara na" too.
           </SectionHead>
-          <dl className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-6 grid grid-cols-2 gap-3 md:mt-12 md:gap-4 lg:grid-cols-4">
             {glossary.map(([word, say, meaning], i) => (
-              <Reveal key={word} delay={(i % 4) * 60} className="card-raised p-6">
+              <Reveal key={word} delay={(i % 4) * 60} className="card-raised p-4 md:p-5">
                 <dt>
-                  <span lang="tl" className="block font-display text-2xl font-bold">
+                  <span lang="tl" className="block font-display text-lg font-bold md:text-xl">
                     {word}
                   </span>
-                  <span className="text-sm text-dahon-300 italic">{say}</span>
+                  <span className="text-xs text-dahon-300 italic md:text-sm">{say}</span>
                 </dt>
-                <dd className="mt-3 text-puti/85">{meaning}</dd>
+                <dd className="mt-2 text-xs leading-snug text-puti/85 md:text-sm md:leading-relaxed">{meaning}</dd>
               </Reveal>
             ))}
           </dl>
@@ -231,7 +231,7 @@ export default function Community() {
       </section>
 
       {/* Merch */}
-      <section id="merch" className="scroll-mt-20 bg-surface-2 py-24 md:py-32">
+      <section id="merch" className="scroll-mt-20 bg-surface-2 py-14 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionHead eyebrow="Merch" tagalog="Pang-porma" title="Wear the sun.">
@@ -243,7 +243,7 @@ export default function Community() {
               </a>
             </Reveal>
           </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {merch.map((m, i) => (
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
@@ -265,13 +265,13 @@ export default function Community() {
       </section>
 
       {/* Join + FAQ */}
-      <section id="join" className="scroll-mt-20 bg-surface py-24 md:py-32">
+      <section id="join" className="scroll-mt-20 bg-surface py-14 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list.">
               Ride invites, trail updates and first dibs on merch. Takes 30 seconds.
             </SectionHead>
-            <Reveal delay={100} className="mt-12 space-y-3">
+            <Reveal delay={100} className="mt-8 md:mt-12 space-y-3">
               {faq.map(([q, a]) => (
                 <details key={q} className="group rounded-2xl bg-surface-2 px-5 py-4 open:bg-tint">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-heading">
