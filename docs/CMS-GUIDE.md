@@ -10,11 +10,11 @@ This guide is for the crew members who keep the website up to date. You don't ne
 
 ## 1. Log in
 
-Go to **sakalamoverland.netlify.app/admin** (or your site address followed by `/admin`) and press **Login**. Use the email address you were invited with.
+Go to **sakalam-overland.vercel.app/admin** and press **Login with GitHub**. A small window opens: sign in to GitHub (first time only, press **Authorize**) and it closes by itself.
 
 ![Login screen with the Sakalam logo and a Login button](images/01-login.png)
 
-> First time? Check your email for an invite from Netlify, click the link, and choose a password. If you don't have an invite, ask whoever manages the site to add you.
+> First time? You need a free GitHub account, and the site manager has to add you to the project (you'll get an email from GitHub: press **Accept invitation**). Your GitHub email and password are your login for the editor.
 
 ---
 
@@ -132,7 +132,7 @@ The bar turns green ("CHANGES SAVED"). Give it **1–2 minutes**, then refresh t
 
 | Problem | What to do |
 |---|---|
-| "Login" does nothing / I can't log in | Check your invite email, or use **Forgot password** on the login box. Still stuck? Ask the site manager to re-send your invite. |
+| "Login" does nothing / I can't log in | Allow pop-ups for the site, then try again. Make sure you accepted the GitHub invitation email. Forgot your password? Reset it at github.com. |
 | I published but the site didn't change | Wait 2 minutes, then refresh. On a phone, close the tab and reopen it. |
 | I made a mistake and published it | Fix it and publish again. Every version is saved, so the site manager can also restore an older one if needed. |
 | A red message says a box is required or invalid | Read the hint under that box (e.g. Web address must be lowercase with dashes). The form won't publish until it's fixed. |
@@ -143,14 +143,20 @@ The bar turns green ("CHANGES SAVED"). Give it **1–2 minutes**, then refresh t
 
 ## For whoever manages the website (one-time setup)
 
-You only do this once when the site is first put on Netlify.
+The site is on Vercel, and owners sign in with GitHub. You only do this once.
 
-1. Deploy the repo to Netlify (the included `netlify.toml` already has the build settings).
-2. In Netlify: **Site configuration → Identity → Enable Identity**.
-3. Under Identity → **Registration**, choose **Invite only**.
-4. Under Identity → **Services → Git Gateway**, press **Enable**. This lets the editor save to GitHub.
-5. Under Identity, press **Invite users** and enter each owner's email.
-6. If your site address isn't `sakalamoverland.netlify.app`, update `site_url` and `display_url` in `client/public/admin/config.yml`.
+1. **Create a GitHub OAuth app:** GitHub → your profile picture → **Settings → Developer settings → OAuth Apps → New OAuth App**.
+   - Application name: `Sakalam Overland CMS`
+   - Homepage URL: `https://sakalam-overland.vercel.app`
+   - Authorization callback URL: `https://sakalam-overland.vercel.app/api/callback`
+   - Press **Register application**, then **Generate a new client secret**. Keep the page open.
+2. **Give Vercel the keys:** Vercel → the `sakalam-overland` project → **Settings → Environment Variables**. Add:
+   - `GITHUB_CLIENT_ID` = the Client ID from step 1
+   - `GITHUB_CLIENT_SECRET` = the client secret from step 1
+3. **Redeploy:** Vercel → **Deployments** → the latest one → **⋯ → Redeploy** (new variables only apply to new deployments).
+4. **Add each owner:** GitHub → the `Sakalam-Overland` repo → **Settings → Collaborators → Add people** → their GitHub username or email. They get an email and press **Accept invitation**. Anyone you add can edit the site; remove them here to take access away.
+
+If the site moves to a new address, update the callback URL in the GitHub OAuth app and `base_url`, `site_url` and `display_url` in `client/public/admin/config.yml`.
 
 **Editing on your own computer (no login needed):** run `npm run dev` and, in a second terminal, `npm run cms`, then open http://localhost:5173/admin. Changes save straight into the `content/` folder; commit them like any other change.
 

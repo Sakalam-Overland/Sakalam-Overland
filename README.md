@@ -28,7 +28,7 @@ A website for **Sakalam Overland** ([@nysakalamoverland](https://www.instagram.c
 - **Client:** React 19, TypeScript, Vite, Tailwind CSS 4, React Router, Three.js (custom GLSL), hand-built SVG illustration and charts
 - **API:** Node.js, Express 5, MongoDB/Mongoose, Zod validation, Helmet, rate limiting
 - **Tests:** `node:test` with Supertest
-- **Content:** Decap CMS (Git-based, Netlify Identity)
+- **Content:** Decap CMS (Git-based, GitHub OAuth via Vercel functions)
 - **Ops:** Docker and docker-compose (web + api + mongo), Netlify config for a static deploy
 
 The API uses MongoDB when `MONGODB_URI` is set. Otherwise it falls back to an in-memory store. The client calls the API, and if none is reachable (for example on Netlify) it uses the bundled data from `shared/data.ts`, and forms run in demo mode. The site works anywhere.
@@ -57,7 +57,7 @@ docker compose up --build    # http://localhost:8080
 
 ## Editing content (CMS)
 
-Events, trails, campsites, rigs, merch, vocab, FAQ, home photos and a few settings are edited in **Decap CMS** at `/admin`. Edits are saved as JSON in `content/` and photos in `client/public/photos/`, committed to the repo through Netlify Identity + Git Gateway, and the site rebuilds automatically.
+Events, trails, campsites, rigs, merch, vocab, FAQ, home photos and a few settings are edited in **Decap CMS** at `/admin`. Edits are saved as JSON in `content/` and photos in `client/public/photos/`, committed to the repo by the editor (owners sign in with GitHub; the OAuth handshake runs in `client/api/` on Vercel), and the site redeploys automatically.
 
 - Owner guide with screenshots: [docs/CMS-GUIDE.md](docs/CMS-GUIDE.md)
 - Local editing: `npm run dev` plus `npm run cms`, then open http://localhost:5173/admin
