@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sakalam Overland: Filipino-founded overland crew, New York</title>
     <meta name="description" content="Sakalam Overland is a Filipino-founded community of overlanders and hikers in New York. Group rides, campouts, trail guides and salu-salo." />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#12301c" />
+    <script>
+      // Pick the theme before first paint so there's no flash: saved choice, else the system setting.
+      try {
+        var t = localStorage.getItem('sakalam:theme');
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
     <meta property="og:title" content="Sakalam Overland" />
     <meta property="og:description" content="Sama-sama sa daan: together on the trail." />
     <meta property="og:image" content="/brand/logo-color.png" />

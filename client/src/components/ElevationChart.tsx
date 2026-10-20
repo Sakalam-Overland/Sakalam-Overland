@@ -99,34 +99,34 @@ export function ElevationChart({ profile, name }: { profile: [number, number][];
           {geo.yTicks.map((t) => (
             <g key={t}>
               <line x1={PAD.left} x2={width - PAD.right} y1={geo.y(t)} y2={geo.y(t)} stroke="currentColor" strokeOpacity="0.08" />
-              <text x={PAD.left - 10} y={geo.y(t)} dy="0.32em" textAnchor="end" className="fill-abo-ink text-[11px] tabular-nums">
+              <text x={PAD.left - 10} y={geo.y(t)} dy="0.32em" textAnchor="end" className="fill-ink-muted text-[11px] tabular-nums">
                 {t.toLocaleString()}
               </text>
             </g>
           ))}
           {geo.xTicks.map((t) => (
-            <text key={t} x={geo.x(t)} y={H - 8} textAnchor="middle" className="fill-abo-ink text-[11px] tabular-nums">
+            <text key={t} x={geo.x(t)} y={H - 8} textAnchor="middle" className="fill-ink-muted text-[11px] tabular-nums">
               {t} mi
             </text>
           ))}
           <path d={geo.area} fill={`url(#${gradId})`} />
-          <path d={geo.line} fill="none" stroke="var(--color-gubat)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+          <path d={geo.line} fill="none" stroke="var(--color-heading)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
           {/* Direct label on the peak only */}
           {!hv && (
             <g>
-              <circle cx={geo.x(geo.peak[0])} cy={geo.y(geo.peak[1])} r="4" fill="var(--color-gubat)" stroke="white" strokeWidth="2" />
-              <text x={geo.x(geo.peak[0])} y={geo.y(geo.peak[1]) - 10} textAnchor="middle" className="fill-uling font-display text-[11px] font-semibold">
+              <circle cx={geo.x(geo.peak[0])} cy={geo.y(geo.peak[1])} r="4" fill="var(--color-heading)" stroke="var(--color-surface)" strokeWidth="2" />
+              <text x={geo.x(geo.peak[0])} y={geo.y(geo.peak[1]) - 10} textAnchor="middle" className="fill-ink font-display text-[11px] font-semibold">
                 Peak {geo.peak[1].toLocaleString()} ft
               </text>
             </g>
           )}
           {hv && (
             <g pointerEvents="none">
-              <line x1={geo.x(hv.m)} x2={geo.x(hv.m)} y1={PAD.top} y2={H - PAD.bottom} stroke="var(--color-uling)" strokeOpacity="0.35" strokeDasharray="3 3" />
-              <circle cx={geo.x(hv.m)} cy={geo.y(hv.e)} r="5" fill="var(--color-gubat)" stroke="white" strokeWidth="2" />
+              <line x1={geo.x(hv.m)} x2={geo.x(hv.m)} y1={PAD.top} y2={H - PAD.bottom} stroke="var(--color-ink)" strokeOpacity="0.35" strokeDasharray="3 3" />
+              <circle cx={geo.x(hv.m)} cy={geo.y(hv.e)} r="5" fill="var(--color-heading)" stroke="var(--color-surface)" strokeWidth="2" />
             </g>
           )}
-          <text x={PAD.left - 10} y={10} textAnchor="end" className="fill-abo-ink text-[10px]">ft</text>
+          <text x={PAD.left - 10} y={10} textAnchor="end" className="fill-ink-muted text-[10px]">ft</text>
         </svg>
         {hv && (
           <div
@@ -140,17 +140,17 @@ export function ElevationChart({ profile, name }: { profile: [number, number][];
         )}
       </div>
       <details className="mt-3 text-sm">
-        <summary className="cursor-pointer font-display text-xs font-semibold text-gubat">View as table</summary>
+        <summary className="cursor-pointer font-display text-xs font-semibold text-heading">View as table</summary>
         <table className="mt-2 w-full max-w-sm text-left tabular-nums">
           <thead>
-            <tr className="text-abo-ink">
+            <tr className="text-ink-muted">
               <th className="py-1 font-semibold">Mile</th>
               <th className="py-1 font-semibold">Elevation (ft)</th>
             </tr>
           </thead>
           <tbody>
             {profile.map(([m, e]) => (
-              <tr key={m} className="border-t border-uling/10">
+              <tr key={m} className="border-t border-line/10">
                 <td className="py-1">{m}</td>
                 <td className="py-1">{e.toLocaleString()}</td>
               </tr>

@@ -2,6 +2,7 @@ import { useEffect, useId, useMemo, useRef } from 'react';
 import { Link } from 'react-router';
 import { DifficultyBadge, StatusBadge } from '../components/Badges';
 import { EventCard } from '../components/EventCard';
+import { BoodleFight, dishes } from '../components/Food';
 import { IG_URL, InstagramIcon, navItems } from '../components/Layout';
 import { SpareTire } from '../components/LicensePlate';
 import { Photo } from '../components/Photo';
@@ -75,7 +76,7 @@ function Ridges() {
       <g ref={mid}>
         <path d="M0,150 L140,112 L260,138 L380,96 L520,140 L650,108 L790,146 L930,104 L1080,138 L1210,110 L1340,140 L1440,124 L1440,200 L0,200Z" fill="var(--color-dahon)" opacity="0.28" />
       </g>
-      <path d="M0,178 L180,150 L320,170 L470,142 L640,174 L800,150 L980,176 L1140,148 L1300,170 L1440,156 L1440,200 L0,200Z" fill="var(--color-puti)" />
+      <path d="M0,178 L180,150 L320,170 L470,142 L640,174 L800,150 L980,176 L1140,148 L1300,170 L1440,156 L1440,200 L0,200Z" fill="var(--color-surface)" />
     </svg>
   );
 }
@@ -84,19 +85,19 @@ function Ridges() {
 function RouteStamp({ className = '' }: { className?: string }) {
   const id = useId();
   return (
-    <div className={`grid place-items-center rounded-full bg-papel shadow-[0_10px_30px_-12px_rgba(24,59,34,0.45)] ring-1 ring-gubat/10 ${className}`}>
+    <div className={`grid place-items-center rounded-full bg-surface-2 shadow-[0_10px_30px_-12px_rgba(24,59,34,0.45)] ring-1 ring-line/10 ${className}`}>
       <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full animate-[spin_45s_linear_infinite] motion-reduce:animate-none" aria-hidden>
         <defs>
           <path id={`${id}ring`} d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0" />
         </defs>
         {/* textLength = the ring's circumference, so the phrase closes the loop exactly */}
-        <text fill="var(--color-gubat)" fontFamily="Montserrat, sans-serif" fontWeight="700" fontSize="14" textLength="460" lengthAdjust="spacing">
+        <text fill="var(--color-heading)" fontFamily="Montserrat, sans-serif" fontWeight="700" fontSize="14" textLength="460" lengthAdjust="spacing">
           <textPath href={`#${id}ring`} textLength="460" lengthAdjust="spacing">
             NEW YORK · PILIPINAS · SAMA-SAMA SA DAAN ·
           </textPath>
         </text>
       </svg>
-      <LogoMark decorative tone="forest" className="h-[42%] w-[42%]" />
+      <LogoMark decorative tone="forest" className="h-[42%] w-[42%] dark:brightness-0 dark:invert" />
     </div>
   );
 }
@@ -109,7 +110,7 @@ function NextRide({ className = '' }: { className?: string }) {
   return (
     <Link
       to={`/events/${next.slug}`}
-      className={`group flex items-center gap-4 rounded-2xl bg-puti p-4 pr-5 shadow-[0_24px_50px_-20px_rgba(24,59,34,0.55)] ring-1 ring-gubat/5 transition hover:-translate-y-0.5 ${className}`}
+      className={`group flex items-center gap-4 rounded-2xl bg-surface p-4 pr-5 shadow-[0_24px_50px_-20px_rgba(24,59,34,0.55)] ring-1 ring-line/5 transition hover:-translate-y-0.5 ${className}`}
     >
       <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gubat text-center font-display leading-none text-puti">
         <div>
@@ -119,10 +120,10 @@ function NextRide({ className = '' }: { className?: string }) {
       </div>
       <div className="min-w-0">
         <p className="eyebrow text-dahon">Next ride</p>
-        <p className="truncate font-display font-bold text-gubat">{next.title}</p>
-        <p className="text-xs text-abo-ink">{left === 0 ? 'Full · waitlist open' : `${left} spots left`}</p>
+        <p className="truncate font-display font-bold text-heading">{next.title}</p>
+        <p className="text-xs text-ink-muted">{left === 0 ? 'Full · waitlist open' : `${left} spots left`}</p>
       </div>
-      <span className="ml-auto text-gubat transition group-hover:translate-x-1" aria-hidden>
+      <span className="ml-auto text-heading transition group-hover:translate-x-1" aria-hidden>
         →
       </span>
     </Link>
@@ -139,10 +140,10 @@ function HeroStats() {
   return (
     <dl className="mt-12 flex animate-rise gap-x-5 [animation-delay:400ms] sm:gap-x-8">
       {stats.map(([n, label], i) => (
-        <div key={label} className={i ? 'border-l border-gubat/15 pl-5 sm:pl-8' : ''}>
+        <div key={label} className={i ? 'border-l border-heading/15 pl-5 sm:pl-8' : ''}>
           <dt className="sr-only">{label}</dt>
-          <dd className="font-display text-2xl font-extrabold text-gubat tabular-nums sm:text-3xl">{n}</dd>
-          <dd className="text-xs text-abo-ink sm:text-sm">{label}</dd>
+          <dd className="font-display text-2xl font-extrabold text-heading tabular-nums sm:text-3xl">{n}</dd>
+          <dd className="text-xs text-ink-muted sm:text-sm">{label}</dd>
         </div>
       ))}
     </dl>
@@ -151,20 +152,20 @@ function HeroStats() {
 
 function Hero() {
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-papel pt-28 md:pt-32">
+    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-surface-2 pt-28 md:pt-32">
       {/* Soft light: warm sun top right, green bottom left */}
-      <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-araw/20 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-dahon/20 blur-3xl" />
-      <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-gubat opacity-[0.08]" />
+      <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-araw/20 blur-3xl dark:bg-[#ff8a3c]/10" />
+      <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-dahon/20 blur-3xl dark:bg-dahon/10" />
+      <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-heading opacity-[0.08]" />
 
       <div className="relative mx-auto grid w-full max-w-7xl flex-1 content-center items-center gap-14 px-5 lg:gap-20 pt-6 pb-[clamp(110px,18vh,200px)] md:px-8 lg:grid-cols-12">
         <div className="lg:col-span-7">
-          <p className="eyebrow flex animate-rise items-center gap-3 text-gubat">
-            <span className="h-px w-8 bg-gubat" />
+          <p className="eyebrow flex animate-rise items-center gap-3 text-heading">
+            <span className="h-px w-8 bg-heading" />
             Filipino-founded · New York · Overland + Hike
           </p>
           <h1 className="mt-6 animate-rise font-display leading-[0.85] [animation-delay:100ms]">
-            <span className="block text-[clamp(3.6rem,13vw,9rem)] font-extrabold tracking-[-0.04em] text-gubat lg:text-[8vw] xl:text-[9rem]">SAKALAM</span>
+            <span className="block text-[clamp(3.6rem,13vw,9rem)] font-extrabold tracking-[-0.04em] text-heading lg:text-[8vw] xl:text-[9rem]">SAKALAM</span>
             <span className="mt-3 flex items-center gap-4 text-[clamp(1.3rem,4vw,2.6rem)] font-semibold tracking-[0.42em] text-dahon">
               OVERLAND
               <svg viewBox="0 0 40 12" className="h-3 w-10 shrink-0 text-araw" aria-hidden>
@@ -174,15 +175,15 @@ function Hero() {
               </svg>
             </span>
           </h1>
-          <p className="lead mt-8 max-w-lg animate-rise text-uling/80 [animation-delay:200ms]">
-            <em className="font-normal text-gubat not-italic">Sama-sama sa daan,</em> together on the trail. A barkada of overlanders and
+          <p className="lead mt-8 max-w-lg animate-rise text-ink/80 [animation-delay:200ms]">
+            <em className="font-normal text-heading not-italic">Sama-sama sa daan,</em> together on the trail. A barkada of overlanders and
             hikers out of New York with Filipino roots and room in the convoy for you.
           </p>
           <div className="mt-9 flex animate-rise flex-wrap gap-3 [animation-delay:300ms]">
             <Link to="/events" className="btn-dark">
               Upcoming rides <span aria-hidden>→</span>
             </Link>
-            <Link to="/community#join" className="btn-ghost text-gubat">
+            <Link to="/community#join" className="btn-ghost text-heading">
               Join the crew
             </Link>
           </div>
@@ -192,13 +193,15 @@ function Hero() {
         <div className="animate-rise [animation-delay:250ms] lg:col-span-5">
           <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
             {/* Snapshot tucked behind the tire */}
-            <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-puti p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
+            <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
               <Photo name="hero-snapshot" alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
-              <p className="absolute right-0 bottom-1.5 left-0 text-center font-display text-[0.6rem] font-semibold tracking-[0.2em] text-abo-ink uppercase">
+              <p className="absolute right-0 bottom-1.5 left-0 text-center font-display text-[0.6rem] font-semibold tracking-[0.2em] text-ink-muted uppercase">
                 Rausch Creek, PA
               </p>
             </div>
-            <SpareTire className="relative" />
+            {/* Night mode: warm backlight and a rim highlight so the dark tire separates from the dark page */}
+            <div aria-hidden className="pointer-events-none absolute inset-[-12%] hidden rounded-full bg-[radial-gradient(circle,rgba(246,184,26,0.28)_0%,rgba(97,171,115,0.14)_45%,transparent_70%)] dark:block" />
+            <SpareTire className="relative rounded-full dark:shadow-[0_0_0_2px_rgba(241,239,230,0.55),0_0_40px_6px_rgba(246,184,26,0.18)]" />
             {/* Ground shadow */}
             <div aria-hidden className="mx-auto -mt-2 h-5 w-3/4 rounded-[100%] bg-itim/25 blur-md" />
             <RouteStamp className="absolute -top-4 -left-3 h-24 w-24 sm:h-28 sm:w-28" />
@@ -214,32 +217,32 @@ function Hero() {
 function Meaning() {
   const word = 'MALAKAS'.split('');
   return (
-    <section className="relative bg-puti py-24 md:py-36">
+    <section className="relative bg-surface py-24 md:py-36">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-5 md:grid-cols-12 md:px-8">
         <div className="md:col-span-7">
           <Reveal>
-            <p className="eyebrow text-gubat">What's in a name</p>
-            <p className="mt-6 font-display text-5xl font-bold tracking-tight text-gubat md:text-7xl">
-              sa·ka·lam <span className="align-middle text-base font-normal tracking-normal text-abo-ink italic md:text-xl">adj.</span>
+            <p className="eyebrow text-heading">What's in a name</p>
+            <p className="mt-6 font-display text-5xl font-bold tracking-tight text-heading md:text-7xl">
+              sa·ka·lam <span className="align-middle text-base font-normal tracking-normal text-ink-muted italic md:text-xl">adj.</span>
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-display text-2xl font-bold tracking-[0.25em] md:text-3xl">
-              <span className="text-abo-ink/50">
+              <span className="text-ink-muted/50">
                 {word.map((c, i) => (
                   <span key={i}>{c}</span>
                 ))}
               </span>
               <span className="h-px w-10 bg-araw" aria-hidden />
-              <span className="text-gubat">
+              <span className="text-heading">
                 {[...word].reverse().map((c, i) => (
                   <span key={i}>{c}</span>
                 ))}
               </span>
             </div>
-            <p className="lead mt-8 max-w-xl text-uling/80">
-              Filipino slang. Take <em className="font-normal not-italic text-gubat">malakas</em> (strong) and flip it. It means tough, solid,
+            <p className="lead mt-8 max-w-xl text-ink/80">
+              Filipino slang. Take <em className="font-normal not-italic text-heading">malakas</em> (strong) and flip it. It means tough, solid,
               hard to stop, the way a good rig should be and the way a good crew is.
             </p>
-            <p className="lead mt-5 max-w-xl text-uling/80">
+            <p className="lead mt-5 max-w-xl text-ink/80">
               We started as a few Filipino-American friends with trucks and a group chat. Now we run group rides, campouts, sunrise hikes and a
               salu-salo or two. Everyone's welcome. Bring your rig, and bring a dish.
             </p>
@@ -247,7 +250,7 @@ function Meaning() {
         </div>
         <Reveal delay={150} className="md:col-span-5">
           <div className="relative mx-auto aspect-square max-w-sm">
-            <div className="banig absolute inset-0 rounded-[2.5rem] text-gubat opacity-[0.08]" />
+            <div className="banig absolute inset-0 rounded-[2.5rem] text-heading opacity-[0.08]" />
             <div className="absolute inset-6 grid place-items-center rounded-[2rem] bg-gubat text-center">
               <div>
                 <p lang="tl" className="font-baybayin text-5xl text-puti md:text-6xl" aria-label="Sakalam in Baybayin script">
@@ -272,18 +275,18 @@ const pillarCopy: Record<string, string> = {
 
 function Pillars() {
   return (
-    <section className="bg-papel py-24 md:py-32">
+    <section className="bg-surface-2 py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionHead eyebrow="Start here" tagalog="Saan tayo?" title="Everything you need to get out there." />
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {navItems.map((n, i) => (
             <Reveal key={n.to} delay={i * 80}>
-              <Link to={n.to} className="group flex h-full flex-col rounded-3xl bg-puti p-7 ring-1 ring-uling/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:bg-gubat">
+              <Link to={n.to} className="group flex h-full flex-col rounded-3xl bg-surface p-7 ring-1 ring-line/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:bg-gubat">
                 <img src={`/icons/${n.icon}.png`} alt="" className="h-14 w-14 transition group-hover:scale-110" />
-                <p className="mt-8 text-sm text-abo-ink italic transition group-hover:text-dahon">{n.tl}</p>
-                <h3 className="mt-1 text-2xl font-bold text-gubat transition group-hover:text-puti">{n.label}</h3>
-                <p className="mt-3 text-uling/75 transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
-                <span className="mt-auto pt-8 font-display text-sm font-semibold text-gubat transition group-hover:text-dahon">
+                <p className="mt-8 text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
+                <h3 className="mt-1 text-2xl font-bold text-heading transition group-hover:text-puti">{n.label}</h3>
+                <p className="mt-3 text-ink/75 transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
+                <span className="mt-auto pt-8 font-display text-sm font-semibold text-heading transition group-hover:text-dahon">
                   Explore <span className="inline-block transition group-hover:translate-x-1">→</span>
                 </span>
               </Link>
@@ -298,12 +301,12 @@ function Pillars() {
 function UpcomingEvents() {
   const { data } = useAsync(() => api.events(), []);
   return (
-    <section className="bg-puti py-24 md:py-32">
+    <section className="bg-surface py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHead eyebrow="Upcoming events" tagalog="Mga lakad" title="Next on the calendar." />
           <Reveal>
-            <Link to="/events" className="btn-ghost text-gubat">
+            <Link to="/events" className="btn-ghost text-heading">
               All events →
             </Link>
           </Reveal>
@@ -314,7 +317,7 @@ function UpcomingEvents() {
               <EventCard event={e} featured={i === 0} />
             </Reveal>
           ))}
-          {!data && [0, 1, 2].map((i) => <div key={i} className="h-96 animate-pulse rounded-3xl bg-papel" />)}
+          {!data && [0, 1, 2].map((i) => <div key={i} className="h-96 animate-pulse rounded-3xl bg-surface-2" />)}
         </div>
       </div>
     </section>
@@ -324,7 +327,7 @@ function UpcomingEvents() {
 function TrailBoard() {
   const { data } = useAsync(() => api.trails(), []);
   return (
-    <section className="relative overflow-hidden bg-itim py-24 text-puti md:py-32">
+    <section className="relative overflow-hidden bg-deep py-24 text-puti md:py-32">
       <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <SectionHead dark eyebrow="Trail intel" tagalog="Balita sa daan" title="Conditions, from people who were just there.">
@@ -337,7 +340,7 @@ function TrailBoard() {
           </Reveal>
         </div>
         <Reveal delay={100} className="lg:col-span-8">
-          <ul className="divide-y divide-puti/10 rounded-3xl bg-uling/60 ring-1 ring-puti/10">
+          <ul className="divide-y divide-puti/10 rounded-3xl bg-puti/5 ring-1 ring-puti/10">
             {(data ?? []).map((t) => (
               <li key={t.slug}>
                 <Link to={`/trails/${t.slug}`} className="grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 px-6 py-5 transition hover:bg-puti/5 md:grid-cols-[1.6fr_1fr_auto_auto]">
@@ -373,19 +376,19 @@ const beliefs = [
 
 function Beliefs() {
   return (
-    <section className="relative overflow-hidden bg-gubat py-24 text-puti md:py-32">
+    <section className="relative overflow-hidden bg-gubat py-24 text-puti md:py-32 dark:bg-[#0f2717]">
       <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.04]" />
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <SectionHead dark eyebrow="#ourcorebelief" tagalog="Ang paniniwala namin" title="Four words we ride by." />
-        <div className="mt-16 grid gap-px overflow-hidden rounded-3xl bg-puti/10 md:grid-cols-2">
+        <div className="mt-16 grid gap-5 md:grid-cols-2">
           {beliefs.map((b, i) => (
-            <Reveal key={b.tl} delay={i * 80} className="bg-gubat p-8 md:p-12">
+            <Reveal key={b.tl} delay={i * 80} className="card-raised p-8 md:p-12">
               <div className="flex items-baseline gap-4">
                 <span className="font-display text-sm font-semibold text-araw tabular-nums">0{i + 1}</span>
                 <h3 className="text-4xl font-extrabold tracking-tight md:text-5xl">{b.tl}</h3>
               </div>
-              <p className="mt-4 font-display text-lg font-semibold text-dahon">{b.en}</p>
-              <p className="lead mt-3 max-w-md text-puti/70">{b.body}</p>
+              <p className="mt-4 font-display text-lg font-semibold text-dahon-300">{b.en}</p>
+              <p className="lead mt-3 max-w-md text-puti/80">{b.body}</p>
             </Reveal>
           ))}
         </div>
@@ -401,14 +404,55 @@ const shots = [
   { name: 'rock-crawl', alt: 'Jeep climbing a rock ledge', tone: 'dusk' as const, cls: 'md:col-span-2', cap: 'Rausch Creek' },
 ];
 
+function SaluSalo() {
+  // Sized to fit one screen on a laptop: copy beside the spread, dishes in one compact band.
+  return (
+    <section className="flex min-h-[100svh] flex-col justify-center bg-surface-2 py-16 lg:py-12">
+      <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow flex items-center gap-3 text-heading">
+              <span className="h-px w-8 bg-heading" />
+              Salu-salo <span className="normal-case tracking-normal text-ink-muted italic">· Kain tayo</span>
+            </p>
+            <h2 className="mt-4 text-4xl leading-[1.05] font-bold tracking-tight text-heading md:text-5xl">Every trail ends at a table.</h2>
+            <p className="mt-4 text-base leading-relaxed text-ink/80 md:text-lg">
+              The food is half the reason we go. After every big run we lay banana leaves down the tailgates for a boodle fight: rice down the
+              middle, everyone's ulam around it, no plates, no forks. Kamayan style.
+            </p>
+          </Reveal>
+          <Reveal delay={100} className="lg:col-span-7">
+            <figure className="overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(24,59,34,0.6)]">
+              <BoodleFight className="block h-auto w-full" />
+            </figure>
+          </Reveal>
+        </div>
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6">
+          {dishes.map(({ name, Art, note }, i) => (
+            <Reveal as="li" key={name} delay={i * 60}>
+              <div className="group flex h-full flex-col items-center rounded-3xl bg-surface p-4 text-center ring-1 ring-line/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1">
+                <svg viewBox="0 0 120 120" className="h-16 w-16 shrink-0 transition duration-700 ease-(--ease-trail) group-hover:rotate-12" aria-hidden>
+                  <Art />
+                </svg>
+                <p className="mt-2 font-display font-bold text-heading">{name}</p>
+                <p className="mt-1 text-xs leading-snug text-ink-muted">{note}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function Gallery() {
   return (
-    <section className="bg-puti py-24 md:py-32">
+    <section className="bg-surface py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHead eyebrow="From the trail" tagalog="Mula sa daan" title="Mud, sand, sunrise. Repeat." />
           <Reveal>
-            <a href={IG_URL} target="_blank" rel="noreferrer" className="btn-ghost text-gubat">
+            <a href={IG_URL} target="_blank" rel="noreferrer" className="btn-ghost text-heading">
               <InstagramIcon className="h-4 w-4" /> @nysakalamoverland
             </a>
           </Reveal>
@@ -425,22 +469,112 @@ function Gallery() {
   );
 }
 
+/** Banderitas: the triangle bunting strung up for every barrio fiesta. */
+function Banderitas({ className = '' }: { className?: string }) {
+  const colors = ['var(--color-araw)', 'var(--color-puti)', 'var(--color-dahon)', '#e8553e', 'var(--color-puti)', 'var(--color-araw)', '#2f6fb3'];
+  const flags = 34;
+  const width = 1440;
+  const step = width / flags;
+  // The string sags between three posts.
+  const sag = (x: number) => 14 + Math.abs(Math.sin((x / width) * Math.PI * 3)) * 22;
+  return (
+    <svg viewBox={`0 0 ${width} 80`} preserveAspectRatio="xMidYMin slice" className={className} aria-hidden>
+      <path
+        d={Array.from({ length: 121 }, (_, i) => `${i ? 'L' : 'M'}${(i / 120) * width},${sag((i / 120) * width).toFixed(1)}`).join('')}
+        fill="none"
+        stroke="var(--color-puti)"
+        strokeOpacity="0.5"
+        strokeWidth="1.5"
+      />
+      {Array.from({ length: flags }, (_, i) => {
+        const x0 = i * step + 3;
+        const x1 = (i + 1) * step - 3;
+        const xm = (x0 + x1) / 2;
+        return (
+          <path
+            key={i}
+            d={`M${x0},${sag(x0)} L${x1},${sag(x1)} L${xm},${sag(xm) + 30}Z`}
+            fill={colors[i % colors.length]}
+            opacity={0.92}
+            className="origin-top animate-[sway_4s_ease-in-out_infinite] motion-reduce:animate-none"
+            style={{ animationDelay: `${(i % 5) * -0.7}s`, transformBox: 'fill-box' }}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+/** A jeepney route signboard: painted letters, pinstripes, and where the ride is headed. */
+function RouteSign() {
+  return (
+    <div className="relative w-full max-w-md rotate-[-2deg] rounded-[1.75rem] bg-[#f6efdc] p-2 text-gubat shadow-[0_30px_60px_-24px_rgba(0,0,0,0.7)] dark:bg-[#ece3c9]">
+      {/* Chrome hooks the sign hangs from */}
+      {['left-10', 'right-10'].map((pos) => (
+        <span key={pos} aria-hidden className={`absolute -top-5 ${pos} h-6 w-1.5 rounded-full bg-gradient-to-b from-[#e7eae6] to-[#8b918d]`} />
+      ))}
+      <div className="rounded-[1.4rem] border-[3px] border-araw p-1">
+        <div className="rounded-[1.1rem] border border-dashed border-[#e8553e]/70 px-4 py-5 text-center sm:px-6">
+          <p className="font-display text-[0.65rem] font-bold tracking-[0.4em] text-[#e8553e]">BIYAHENG</p>
+          <p className="mt-1 flex items-center justify-center gap-2 font-display text-[clamp(1.4rem,6.5vw,2.25rem)] leading-none font-extrabold tracking-tight whitespace-nowrap sm:gap-3">
+            NYC <span className="text-araw">⇄</span> KAHIT SAAN
+          </p>
+          <div className="mx-auto my-3 flex items-center justify-center gap-2" aria-hidden>
+            <span className="h-px w-10 bg-gubat/30" />
+            <svg viewBox="0 0 40 12" className="h-3 w-10 text-araw">
+              <path d={starPath(6, 6, 5)} fill="currentColor" />
+              <path d={starPath(20, 6, 5)} fill="currentColor" />
+              <path d={starPath(34, 6, 5)} fill="currentColor" />
+            </svg>
+            <span className="h-px w-10 bg-gubat/30" />
+          </div>
+          <p className="font-display text-sm font-bold">Sakay na! · Every weekend</p>
+          <p className="mt-0.5 text-xs text-gubat/70 italic">Kahit saan means "anywhere." Hop on.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function JoinBand() {
   return (
-    <section className="relative overflow-hidden bg-dahon py-24 text-itim md:py-32">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-10 px-5 md:flex-row md:items-end md:px-8">
-        <Reveal>
-          <p className="eyebrow">There's room in the convoy</p>
-          <h2 className="mt-4 text-[clamp(4rem,14vw,11rem)] leading-[0.85] font-extrabold tracking-[-0.04em]">Tara na.</h2>
-          <p className="lead mt-4 max-w-md text-itim/75">That means "let's go." First ride? We'll pair you with a lead rig and teach you to air down.</p>
+    <section className="banana-leaf relative isolate overflow-hidden pt-28 pb-24 text-puti md:pt-32 md:pb-28">
+      {/* The flag's sun rising behind the band */}
+      <svg viewBox="-100 -100 200 200" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 h-[38rem] w-[38rem] text-araw opacity-[0.12] md:-right-20" aria-hidden>
+        {Array.from({ length: 8 }, (_, i) => (
+          <g key={i} transform={`rotate(${i * 45})`} fill="currentColor">
+            <path d="M-6,-34 L-8,-96 L8,-96 L6,-34Z" />
+            <path d="M-14,-35 L-22,-86 L-17,-86 L-10,-35Z" />
+            <path d="M14,-35 L22,-86 L17,-86 L10,-35Z" />
+          </g>
+        ))}
+        <circle r="30" fill="currentColor" />
+      </svg>
+      <Banderitas className="absolute inset-x-0 top-0 h-16 w-full md:h-20" />
+
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-12">
+        <Reveal className="lg:col-span-7">
+          <p className="eyebrow text-araw">
+            May puwesto pa <span className="ml-1 normal-case tracking-normal text-puti/60 italic">· there's room in the convoy</span>
+          </p>
+          <h2 className="mt-5 font-display text-[clamp(4rem,12vw,9.5rem)] leading-[0.85] font-extrabold tracking-[-0.04em]">
+            Tara na<span className="text-araw">.</span>
+          </h2>
+          <p className="lead mt-6 max-w-lg text-puti/75">
+            That means <em className="font-normal text-puti not-italic">"let's go."</em> First ride? We'll pair you with a lead rig, teach you to
+            air down, and save you a plate at the salu-salo.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link to="/community#join" className="btn bg-araw text-itim hover:bg-puti">
+              Join the crew <span aria-hidden>→</span>
+            </Link>
+            <Link to="/events" className="btn-ghost text-puti">
+              Find a ride
+            </Link>
+          </div>
         </Reveal>
-        <Reveal delay={150} className="flex flex-wrap gap-3">
-          <Link to="/community#join" className="btn bg-itim text-puti hover:bg-gubat">
-            Join the crew
-          </Link>
-          <Link to="/events" className="btn border border-itim/30 hover:border-itim">
-            Find a ride
-          </Link>
+        <Reveal delay={150} className="flex justify-center lg:col-span-5 lg:justify-end">
+          <RouteSign />
         </Reveal>
       </div>
     </section>
@@ -456,6 +590,7 @@ export default function Home() {
       <UpcomingEvents />
       <TrailBoard />
       <Beliefs />
+      <SaluSalo />
       <Gallery />
       <JoinBand />
     </>

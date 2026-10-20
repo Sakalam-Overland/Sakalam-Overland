@@ -5,12 +5,12 @@ import { difficultyMeta } from '../lib/format';
 export function DifficultyBadge({ value, dark = false }: { value: Difficulty; dark?: boolean }) {
   const { label, level } = difficultyMeta[value];
   return (
-    <span className={`inline-flex items-center gap-2 font-display text-xs font-semibold ${dark ? 'text-puti' : 'text-uling'}`}>
+    <span className={`inline-flex items-center gap-2 font-display text-xs font-semibold ${dark ? 'text-puti' : 'text-ink'}`}>
       <span className="flex gap-0.5" aria-hidden>
         {[1, 2, 3, 4].map((i) => (
           <span
             key={i}
-            className={`h-3 w-1.5 rounded-sm ${i <= level ? (dark ? 'bg-dahon' : 'bg-gubat') : dark ? 'bg-puti/15' : 'bg-uling/15'}`}
+            className={`h-3 w-1.5 rounded-sm ${i <= level ? (dark ? 'bg-dahon' : 'bg-heading') : dark ? 'bg-puti/15' : 'bg-line/15'}`}
           />
         ))}
       </span>
@@ -20,10 +20,10 @@ export function DifficultyBadge({ value, dark = false }: { value: Difficulty; da
 }
 
 const statusMeta: Record<TrailStatus, { label: string; cls: string }> = {
-  open: { label: 'Open', cls: 'bg-dahon/15 text-gubat ring-dahon/40' },
-  caution: { label: 'Caution', cls: 'bg-araw/20 text-[#7a5600] ring-araw/50' },
-  seasonal: { label: 'Seasonal', cls: 'bg-uling/10 text-uling ring-uling/20' },
-  closed: { label: 'Closed', cls: 'bg-[#b3261e]/10 text-[#8c1d18] ring-[#b3261e]/30' },
+  open: { label: 'Open', cls: 'bg-dahon/15 text-heading ring-dahon/40' },
+  caution: { label: 'Caution', cls: 'bg-araw/20 text-[#7a5600] ring-araw/50 dark:text-araw' },
+  seasonal: { label: 'Seasonal', cls: 'bg-line/10 text-ink ring-line/20' },
+  closed: { label: 'Closed', cls: 'bg-[#b3261e]/10 text-[#8c1d18] dark:text-[#f2b8b5] ring-[#b3261e]/30' },
 };
 
 const darkStatus: Record<TrailStatus, string> = {
@@ -47,7 +47,7 @@ export function Tag({ children, dark = false }: { children: React.ReactNode; dar
   return (
     <span
       className={`inline-flex items-center rounded-full px-2.5 py-1 font-display text-[0.7rem] font-semibold ${
-        dark ? 'bg-puti/10 text-puti' : 'bg-dahon-100 text-gubat'
+        dark ? 'bg-puti/10 text-puti' : 'bg-tint text-heading'
       }`}
     >
       {children}

@@ -18,6 +18,7 @@ A website for **Sakalam Overland** ([@nysakalamoverland](https://www.instagram.c
 
 ### Design system
 - **Palette** (from the brand board), with Tagalog token names: `puti` #FFFFFF, `dahon` #61AB73, `gubat` #183B22, `uling` #272928, `itim` #000000, plus `araw` #F6B81A (taken from the logo's sun and used only as an accent).
+- **Themes:** Araw (day) and Gabi (night). The toggle is a rig's headlights: switch them on for night mode. Colors are theme-aware roles (`surface`, `ink`, `heading`, `deep`, …) set as CSS variables, and the choice is remembered per browser.
 - **Type:** Montserrat Bold for headings, Montserrat SemiBold for sub-headings, Outfit Extra Light for body copy. Small text steps up to Light (300) so it stays readable. Noto Sans Tagalog is used for Baybayin.
 - **Heritage motifs:** the eight-rayed sun and three stars, a banig (woven mat) texture, Baybayin script, and Filipino words for values and section names (*Bayanihan, Kapwa, Malasakit, Salu-salo*).
 - The section icons and logos are the original Figma/Photoshop assets.

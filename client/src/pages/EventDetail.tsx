@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router';
 import { DifficultyBadge, StatusBadge, Tag } from '../components/Badges';
 import { ElevationChart } from '../components/ElevationChart';
 import { SpotsMeter } from '../components/EventCard';
+import { Reveal } from '../components/Reveal';
 import { RsvpForm } from '../components/RsvpForm';
 import { HEADER_BOX, HeaderBackdrop } from '../components/Layout';
 import { useAsync } from '../hooks/useAsync';
@@ -15,28 +16,28 @@ export default function EventDetail() {
   const { data: event, error, loading, setData } = useAsync(() => api.event(slug), [slug]);
 
   if (error) return <NotFound what="event" />;
-  if (loading || !event) return <div className="min-h-screen bg-itim" />;
+  if (loading || !event) return <div className="min-h-screen bg-deep" />;
 
   const trail = trails.find((t) => t.slug === event.trailSlug);
   const camp = campsites.find((c) => c.slug === event.campsiteSlug);
 
   return (
     <>
-      <section className={`${HEADER_BOX} bg-itim text-puti`}>
+      <section className={`${HEADER_BOX} bg-deep text-puti`}>
         <HeaderBackdrop scene="event" />
         <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
-          <Link to="/events" className="font-display text-sm font-semibold text-abo transition hover:text-puti">
+          <Link to="/events" className="animate-rise font-display text-sm font-semibold text-abo transition hover:text-puti">
             ← All events
           </Link>
-          <div className="mt-5 flex flex-wrap items-center gap-3">
+          <div className="mt-5 flex animate-rise flex-wrap items-center gap-3 [animation-delay:80ms]">
             <Tag dark>{kindLabels[event.kind]}</Tag>
             <DifficultyBadge value={event.difficulty} dark />
           </div>
-          <h1 className="mt-4 max-w-3xl text-4xl leading-[1.02] font-extrabold tracking-tight md:text-6xl">{event.title}</h1>
-          <p className="mt-5 border-t border-puti/10 pt-4 text-sm leading-relaxed text-puti/80 md:hidden">
+          <h1 className="mt-4 max-w-3xl animate-rise text-4xl leading-[1.02] font-extrabold tracking-tight [animation-delay:160ms] md:text-6xl">{event.title}</h1>
+          <p className="mt-5 animate-rise border-t border-puti/10 pt-4 text-sm leading-relaxed text-puti/80 [animation-delay:240ms] md:hidden">
             {fmt.range(event)} · Meet {event.meetTime} · {event.location}
           </p>
-          <dl className="mt-6 hidden max-w-4xl grid-cols-4 gap-x-6 border-t border-puti/10 pt-5 md:grid">
+          <dl className="mt-6 hidden max-w-4xl animate-rise grid-cols-4 [animation-delay:240ms] gap-x-6 border-t border-puti/10 pt-5 md:grid">
             {[
               ['When', fmt.range(event)],
               ['Meet', event.meetTime],
@@ -52,18 +53,18 @@ export default function EventDetail() {
         </div>
       </section>
 
-      <section className="bg-puti py-16 md:py-24">
+      <section className="bg-surface py-16 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
-          <div className="space-y-14 lg:col-span-7">
+          <Reveal className="space-y-14 lg:col-span-7">
             <div>
-              <p className="eyebrow text-gubat">The plan</p>
-              <p className="lead mt-4 text-uling/85">{event.summary}</p>
+              <p className="eyebrow text-heading">The plan</p>
+              <p className="lead mt-4 text-ink/85">{event.summary}</p>
             </div>
             <div>
-              <p className="eyebrow text-gubat">Bring</p>
+              <p className="eyebrow text-heading">Bring</p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {event.bring.map((b) => (
-                  <li key={b} className="flex items-start gap-3 rounded-2xl bg-papel px-4 py-3">
+                  <li key={b} className="flex items-start gap-3 rounded-2xl bg-surface-2 px-4 py-3">
                     <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dahon" aria-hidden />
                     <span className="font-normal">{b}</span>
                   </li>
@@ -74,18 +75,18 @@ export default function EventDetail() {
               <div className="card p-6 md:p-8">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="eyebrow text-gubat">The trail</p>
-                    <h2 className="mt-2 text-2xl font-bold text-gubat">{trail.name}</h2>
-                    <p className="mt-1 text-sm text-abo-ink">
+                    <p className="eyebrow text-heading">The trail</p>
+                    <h2 className="mt-2 text-2xl font-bold text-heading">{trail.name}</h2>
+                    <p className="mt-1 text-sm text-ink-muted">
                       {trail.lengthMi} mi · {trail.gainFt.toLocaleString()} ft gain · {trail.permit}
                     </p>
                   </div>
                   <StatusBadge value={trail.status} />
                 </div>
-                <div className="mt-6 text-uling">
+                <div className="mt-6 text-ink">
                   <ElevationChart profile={trail.profile} name={trail.name} />
                 </div>
-                <Link to={`/trails/${trail.slug}`} className="mt-4 inline-block font-display text-sm font-semibold text-gubat hover:underline">
+                <Link to={`/trails/${trail.slug}`} className="mt-4 inline-block font-display text-sm font-semibold text-heading hover:underline">
                   Full trail intel →
                 </Link>
               </div>
@@ -105,19 +106,19 @@ export default function EventDetail() {
                 </Link>
               </div>
             )}
-          </div>
+          </Reveal>
 
-          <aside className="lg:col-span-5">
-            <div className="sticky top-28 space-y-6 rounded-3xl bg-papel p-6 md:p-8">
+          <Reveal as="aside" delay={120} className="lg:col-span-5">
+            <div className="sticky top-28 space-y-6 rounded-3xl bg-surface-2 p-6 md:p-8">
               <div>
-                <p className="eyebrow text-gubat">RSVP</p>
-                <h2 className="mt-2 text-3xl font-bold text-gubat">Save a spot</h2>
+                <p className="eyebrow text-heading">RSVP</p>
+                <h2 className="mt-2 text-3xl font-bold text-heading">Save a spot</h2>
                 <div className="mt-5">
                   <SpotsMeter event={event} />
                 </div>
               </div>
               <RsvpForm event={event} onDone={setData} />
-              <div className="flex flex-wrap gap-4 border-t border-uling/10 pt-5 font-display text-sm font-semibold text-gubat">
+              <div className="flex flex-wrap gap-4 border-t border-line/10 pt-5 font-display text-sm font-semibold text-heading">
                 <a href={icsFor(event)} download={`${event.slug}.ics`} className="hover:underline">
                   + Calendar
                 </a>
@@ -128,7 +129,7 @@ export default function EventDetail() {
                 )}
               </div>
             </div>
-          </aside>
+          </Reveal>
         </div>
       </section>
     </>

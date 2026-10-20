@@ -30,12 +30,15 @@ export function Photo({
   tone = 'forest',
   className = '',
   caption,
+  fallback,
 }: {
   name: string;
   alt: string;
   tone?: Tone;
   className?: string;
   caption?: string;
+  /** Art to show until a real photo exists; defaults to a drawn ridge scene. */
+  fallback?: React.ReactNode;
 }) {
   const [failed, setFailed] = useState(false);
   const seed = [...name].reduce((n, c) => n + c.charCodeAt(0), 0);
@@ -51,6 +54,8 @@ export function Photo({
           onError={() => setFailed(true)}
           className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-(--ease-trail) group-hover:scale-105"
         />
+      ) : fallback ? (
+        <div className="absolute inset-0 [&>svg]:h-full [&>svg]:w-full">{fallback}</div>
       ) : (
         <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" role="img" aria-label={alt}>
           <defs>

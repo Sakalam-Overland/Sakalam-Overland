@@ -9,10 +9,10 @@ export function SpotsMeter({ event, dark = false }: { event: TripEvent; dark?: b
   const pct = Math.min(100, (event.rsvps / event.capacity) * 100);
   return (
     <div>
-      <div className={`h-1.5 overflow-hidden rounded-full ${dark ? 'bg-puti/10' : 'bg-uling/10'}`}>
+      <div className={`h-1.5 overflow-hidden rounded-full ${dark ? 'bg-puti/10' : 'bg-line/10'}`}>
         <div className={`h-full rounded-full ${left === 0 ? 'bg-araw' : 'bg-dahon'}`} style={{ width: `${pct}%` }} />
       </div>
-      <p className={`mt-2 font-display text-xs font-semibold ${dark ? 'text-puti/70' : 'text-abo-ink'}`}>
+      <p className={`mt-2 font-display text-xs font-semibold ${dark ? 'text-puti/70' : 'text-ink-muted'}`}>
         {left === 0 ? 'Full · waitlist open' : `${left} of ${event.capacity} spots left`}
       </p>
     </div>
@@ -26,14 +26,14 @@ export function EventCard({ event, featured = false }: { event: TripEvent; featu
     <Link
       to={`/events/${event.slug}`}
       className={`group relative flex flex-col overflow-hidden rounded-3xl p-6 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 md:p-7 ${
-        featured ? 'bg-gubat text-puti hover:bg-gubat-700' : 'bg-puti ring-1 ring-uling/10 hover:shadow-[0_24px_60px_-30px_rgba(24,59,34,0.45)]'
+        featured ? 'bg-gubat text-puti hover:bg-gubat-700' : 'bg-surface ring-1 ring-line/10 hover:shadow-[0_24px_60px_-30px_rgba(24,59,34,0.45)]'
       }`}
     >
       <div className="flex items-start justify-between gap-4">
-        <div className={`font-display leading-none ${featured ? 'text-puti' : 'text-gubat'}`}>
+        <div className={`font-display leading-none ${featured ? 'text-puti' : 'text-heading'}`}>
           <span className="block text-6xl font-extrabold tracking-tighter tabular-nums">
             {fmt.day(event.start)}
-            {multi && <span className={`text-3xl ${featured ? 'text-puti/50' : 'text-gubat/40'}`}>–{fmt.day(event.end)}</span>}
+            {multi && <span className={`text-3xl ${featured ? 'text-puti/50' : 'text-heading/40'}`}>–{fmt.day(event.end)}</span>}
           </span>
           <span className={`eyebrow mt-2 block ${featured ? 'text-dahon' : 'text-dahon'}`}>
             {fmt.month(event.start)} · {fmt.weekday(event.start)}
@@ -42,13 +42,13 @@ export function EventCard({ event, featured = false }: { event: TripEvent; featu
         <Tag dark={featured}>{kindLabels[event.kind]}</Tag>
       </div>
       <h3 className="mt-8 text-2xl leading-tight font-bold">{event.title}</h3>
-      <p className={`mt-2 text-sm ${featured ? 'text-puti/70' : 'text-abo-ink'}`}>{event.location}</p>
-      <p className={`mt-4 line-clamp-3 ${featured ? 'text-puti/80' : 'text-uling/80'}`}>{event.summary}</p>
+      <p className={`mt-2 text-sm ${featured ? 'text-puti/70' : 'text-ink-muted'}`}>{event.location}</p>
+      <p className={`mt-4 line-clamp-3 ${featured ? 'text-puti/80' : 'text-ink/80'}`}>{event.summary}</p>
       <div className="mt-auto pt-6">
         <div className="mb-5 flex items-center justify-between">
           <DifficultyBadge value={event.difficulty} dark={featured} />
           {until >= 0 && until <= 30 && (
-            <span className={`font-display text-xs font-semibold ${featured ? 'text-araw' : 'text-gubat'}`}>
+            <span className={`font-display text-xs font-semibold ${featured ? 'text-araw' : 'text-heading'}`}>
               {until === 0 ? 'Today' : `In ${until} day${until === 1 ? '' : 's'}`}
             </span>
           )}

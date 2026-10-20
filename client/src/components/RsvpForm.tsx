@@ -62,7 +62,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
   const full = event.rsvps >= event.capacity;
   const fieldErr = (k: keyof Errors) =>
     errors[k] && (
-      <p id={`${k}-err`} className="mt-1.5 text-sm font-normal text-[#b3261e]">
+      <p id={`${k}-err`} className="mt-1.5 text-sm font-normal text-[#b3261e] dark:text-[#f2b8b5]">
         {errors[k]}
       </p>
     );
@@ -71,7 +71,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
     <form onSubmit={submit} noValidate className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block">
-          <span className="eyebrow text-gubat">Name</span>
+          <span className="eyebrow text-heading">Name</span>
           <input
             className="field mt-2"
             value={values.name}
@@ -83,7 +83,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
           {fieldErr('name')}
         </label>
         <label className="block">
-          <span className="eyebrow text-gubat">Email</span>
+          <span className="eyebrow text-heading">Email</span>
           <input
             className="field mt-2"
             type="email"
@@ -98,11 +98,11 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
       </div>
       <div className="grid gap-5 sm:grid-cols-[1fr_8rem]">
         <label className="block">
-          <span className="eyebrow text-gubat">Rig</span>
+          <span className="eyebrow text-heading">Rig</span>
           <input className="field mt-2" placeholder="e.g. '19 4Runner, 33s, no lockers" value={values.vehicle} onChange={(e) => set('vehicle', e.target.value)} />
         </label>
         <label className="block">
-          <span className="eyebrow text-gubat">Passengers</span>
+          <span className="eyebrow text-heading">Passengers</span>
           <input
             className="field mt-2"
             type="number"
@@ -116,7 +116,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
         </label>
       </div>
       <fieldset>
-        <legend className="eyebrow text-gubat">Trail experience</legend>
+        <legend className="eyebrow text-heading">Trail experience</legend>
         <div className="mt-2 grid grid-cols-3 gap-2">
           {(
             [
@@ -128,7 +128,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
             <label
               key={v}
               className={`cursor-pointer rounded-xl border px-3 py-3 text-center font-display text-sm font-semibold transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-araw ${
-                values.experience === v ? 'border-gubat bg-gubat text-puti' : 'border-uling/15 hover:border-gubat'
+                values.experience === v ? 'border-heading bg-gubat text-puti' : 'border-line/15 hover:border-heading'
               }`}
             >
               <input type="radio" name="experience" value={v} checked={values.experience === v} onChange={() => set('experience', v)} className="sr-only" />
@@ -136,10 +136,10 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
             </label>
           ))}
         </div>
-        <p className="mt-2 text-sm text-abo-ink">First-timers get paired with a lead rig. Nobody gets left behind.</p>
+        <p className="mt-2 text-sm text-ink-muted">First-timers get paired with a lead rig. Nobody gets left behind.</p>
       </fieldset>
       {errors.form && (
-        <p className="rounded-xl bg-[#b3261e]/10 px-4 py-3 text-sm font-normal text-[#8c1d18]" role="alert">
+        <p className="rounded-xl bg-[#b3261e]/10 px-4 py-3 text-sm font-normal text-[#8c1d18] dark:text-[#f2b8b5]" role="alert">
           {errors.form}
         </p>
       )}

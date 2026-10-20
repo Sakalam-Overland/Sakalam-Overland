@@ -3,7 +3,7 @@ import { LogoMark } from '../components/SunMark';
 
 export default function NotFound({ what = 'page' }: { what?: string }) {
   return (
-    <section className="grid min-h-[80vh] place-items-center bg-itim px-5 pt-28 text-center text-puti">
+    <section className="grid min-h-[80vh] place-items-center bg-deep px-5 pt-28 text-center text-puti">
       <div>
         <LogoMark className="mx-auto w-24" />
         <p className="eyebrow mt-8 text-dahon">Naligaw ka, you're lost</p>

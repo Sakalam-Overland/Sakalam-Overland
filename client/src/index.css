@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Gabi (night) mode is opted into with data-theme="dark" on <html>. */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
   /* Brand palette */
   --color-puti: #ffffff;
@@ -18,6 +21,7 @@
   --color-abo: #8b918d; /* muted ink on dark */
   --color-abo-ink: #5c625e; /* muted ink on light */
   --color-papel: #f4f5f1; /* off-white surface */
+  --color-dahon-300: #8fd19e; /* leaf green that keeps 4.5:1 on forest cards */
 
   --font-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
@@ -32,6 +36,51 @@
   }
 }
 
+/* Theme-aware roles. Components use these instead of raw brand colors
+   wherever the color has to change between Araw (light) and Gabi (dark). */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-heading: var(--heading);
+  --color-line: var(--line);
+  --color-tint: var(--tint);
+  --color-deep: var(--deep);
+  --color-btn: var(--btn);
+  --color-btn-ink: var(--btn-ink);
+}
+
+/* Araw: the daytime site. Dark bands are deep forest instead of black. */
+:root {
+  --surface: #ffffff;
+  --surface-2: #f4f5f1;
+  --ink: #272928;
+  --ink-muted: #5c625e;
+  --heading: #183b22;
+  --line: #272928;
+  --tint: #e6f2e9;
+  --deep: #12301c;
+  --btn: #183b22;
+  --btn-ink: #ffffff;
+  color-scheme: light;
+}
+
+/* Gabi: night at camp. Pine-dark greens, warm off-white type, leaf-green actions. */
+:root[data-theme='dark'] {
+  --surface: #0f1913;
+  --surface-2: #0a120d;
+  --ink: #dfe3dc;
+  --ink-muted: #95a097;
+  --heading: #f1efe6;
+  --line: #dfe3dc;
+  --tint: #1b3123;
+  --deep: #060b08;
+  --btn: #61ab73;
+  --btn-ink: #000000;
+  color-scheme: dark;
+}
+
 
 @layer base {
   html {
@@ -39,7 +88,8 @@
     -webkit-font-smoothing: antialiased;
   }
   body {
-    @apply bg-puti font-body text-uling;
+    @apply bg-surface font-body text-ink;
+    transition: background-color 0.4s, color 0.4s;
     font-weight: 300;
   }
   h1, h2, h3, h4 {
@@ -58,11 +108,35 @@
   }
 }
 
-/* Small uppercase label, like a trail marker. */
 /* A slow hover, for cards that sit on top of the hero art. */
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
+}
+
+/* Small uppercase label, like a trail marker. */
+/* Scale-only entrance for popovers in the fixed nav (an opacity fade there leaves them see-through in Chrome). */
+@keyframes pop {
+  from { transform: translateY(-6px) scale(0.92); }
+  to { transform: none; }
+}
+
+/* Bunting swaying in a light breeze. */
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Every page enters the same way: a short fade and rise. */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* A gold trail line sweeps under the nav on each route change. */
+@keyframes route-line {
+  0% { transform: scaleX(0); opacity: 1; transform-origin: left; }
+  60% { transform: scaleX(1); opacity: 1; transform-origin: left; }
+  100% { transform: scaleX(1); opacity: 0; transform-origin: left; }
 }
 
 @utility eyebrow {
@@ -83,13 +157,13 @@
   @apply btn border border-current/30 hover:border-current hover:bg-current/5;
 }
 @utility btn-dark {
-  @apply btn bg-gubat text-puti hover:bg-itim;
+  @apply btn bg-btn text-btn-ink hover:bg-dahon hover:text-itim;
 }
 @utility field {
-  @apply w-full rounded-xl border border-uling/15 bg-puti px-4 py-3 font-body font-normal text-uling placeholder:text-abo-ink/70 transition focus:border-gubat focus:outline-none focus:ring-2 focus:ring-dahon/40;
+  @apply w-full rounded-xl border border-line/15 bg-surface px-4 py-3 font-body font-normal text-ink placeholder:text-ink-muted/70 transition focus:border-heading focus:outline-none focus:ring-2 focus:ring-dahon/40;
 }
 @utility card {
-  @apply rounded-3xl bg-puti ring-1 ring-uling/10;
+  @apply rounded-3xl bg-surface ring-1 ring-line/10;
 }
 
 /* Banig: the woven palm mat. Diagonal strips at low contrast. */
@@ -98,6 +172,27 @@
     repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px),
     repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 14px);
 }
+/* A card raised off a forest-green section: lighter fill, hairline edge, soft drop shadow. */
+@utility card-raised {
+  @apply rounded-3xl bg-gubat-700 ring-1 ring-puti/15 shadow-[0_24px_48px_-24px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] transition duration-500 ease-(--ease-trail);
+  &:hover {
+    @apply -translate-y-1 ring-dahon/50;
+  }
+}
+
+/* Banana leaves laid down for a boodle fight: fine crossing veins over leaf-green light. */
+@utility banana-leaf {
+  background-color: #2b6236;
+  background-image:
+    repeating-linear-gradient(118deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 13px),
+    repeating-linear-gradient(62deg, rgba(0, 0, 0, 0.08) 0 1px, transparent 1px 19px),
+    radial-gradient(120% 90% at 20% 0%, #3c8148, transparent 60%),
+    radial-gradient(90% 80% at 100% 100%, #1d4626, transparent 70%);
+  [data-theme='dark'] & {
+    background-color: #173a20;
+  }
+}
+
 /* Outlined display type. Set --stroke to change the outline color. */
 @utility text-stroke {
   -webkit-text-stroke: 1.5px var(--stroke, var(--color-puti));

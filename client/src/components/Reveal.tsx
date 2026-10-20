@@ -42,13 +42,13 @@ export function SectionHead({
 }) {
   return (
     <Reveal className={`max-w-3xl ${className}`}>
-      <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-dahon' : 'text-gubat'}`}>
-        <span className={`h-px w-8 ${dark ? 'bg-dahon' : 'bg-gubat'}`} />
+      <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-dahon' : 'text-heading'}`}>
+        <span className={`h-px w-8 ${dark ? 'bg-dahon' : 'bg-heading'}`} />
         {eyebrow}
-        {tagalog && <span className={`normal-case tracking-normal italic ${dark ? 'text-abo' : 'text-abo-ink'}`}>· {tagalog}</span>}
+        {tagalog && <span className={`normal-case tracking-normal italic ${dark ? 'text-abo' : 'text-ink-muted'}`}>· {tagalog}</span>}
       </p>
-      <h2 className={`mt-4 text-4xl leading-[1.05] font-bold tracking-tight md:text-6xl ${dark ? 'text-puti' : 'text-gubat'}`}>{title}</h2>
-      {children && <div className={`lead mt-5 ${dark ? 'text-puti/75' : 'text-uling/80'}`}>{children}</div>}
+      <h2 className={`mt-4 text-4xl leading-[1.05] font-bold tracking-tight md:text-6xl ${dark ? 'text-puti' : 'text-heading'}`}>{title}</h2>
+      {children && <div className={`lead mt-5 ${dark ? 'text-puti/75' : 'text-ink/80'}`}>{children}</div>}
     </Reveal>
   );
 }

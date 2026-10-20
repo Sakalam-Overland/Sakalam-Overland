@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { DifficultyBadge, StatusBadge, Tag } from '../components/Badges';
 import { ElevationChart } from '../components/ElevationChart';
 import { PageHero } from '../components/Layout';
+import { Reveal } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { difficultyMeta, directionsUrl, fmt } from '../lib/format';
@@ -29,7 +30,7 @@ export function fitFor(t: Trail, rig: number, exp: number): Fit {
 const fitMeta: Record<Fit, { label: string; cls: string }> = {
   good: { label: 'Good fit', cls: 'bg-dahon text-itim' },
   stretch: { label: 'Stretch: go with a lead rig', cls: 'bg-araw text-itim' },
-  no: { label: 'Not yet', cls: 'bg-uling/10 text-abo-ink' },
+  no: { label: 'Not yet', cls: 'bg-line/10 text-ink-muted' },
 };
 
 const typeLabel: Record<Trail['type'], string> = { offroad: 'Off-road', hike: 'Hike', beach: 'Beach' };
@@ -64,27 +65,27 @@ function TrailDetail({ trail }: { trail: Trail }) {
       </div>
       <div className="space-y-8 p-6 md:p-8">
         <div
-          className={`rounded-2xl px-5 py-4 ${trail.status === 'caution' ? 'bg-araw/15' : trail.status === 'closed' ? 'bg-[#b3261e]/10' : 'bg-dahon-100'}`}
+          className={`rounded-2xl px-5 py-4 ${trail.status === 'caution' ? 'bg-araw/15' : trail.status === 'closed' ? 'bg-[#b3261e]/10' : 'bg-tint'}`}
         >
-          <p className="eyebrow text-uling">Current conditions · checked {fmt.long(trail.lastVerified)}</p>
+          <p className="eyebrow text-ink">Current conditions · checked {fmt.long(trail.lastVerified)}</p>
           <p className="mt-2 font-normal">{trail.statusNote}</p>
         </div>
-        <p className="lead text-uling/85">{trail.summary}</p>
-        <div className="text-uling">
-          <p className="eyebrow mb-4 text-gubat">Elevation profile</p>
+        <p className="lead text-ink/85">{trail.summary}</p>
+        <div className="text-ink">
+          <p className="eyebrow mb-4 text-heading">Elevation profile</p>
           <ElevationChart profile={trail.profile} name={trail.name} />
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <p className="eyebrow text-gubat">Permit and access</p>
+            <p className="eyebrow text-heading">Permit and access</p>
             <p className="mt-2 font-normal">{trail.permit}</p>
             <div className="mt-4">
               <DifficultyBadge value={trail.difficulty} />
-              <p className="mt-1 text-sm text-abo-ink">{difficultyMeta[trail.difficulty].note}</p>
+              <p className="mt-1 text-sm text-ink-muted">{difficultyMeta[trail.difficulty].note}</p>
             </div>
           </div>
           <div>
-            <p className="eyebrow text-gubat">Gear list</p>
+            <p className="eyebrow text-heading">Gear list</p>
             <ul className="mt-2 space-y-1.5">
               {trail.gear.map((g) => (
                 <li key={g} className="flex gap-2 font-normal">
@@ -99,11 +100,11 @@ function TrailDetail({ trail }: { trail: Trail }) {
           <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="btn-dark">
             Directions
           </a>
-          <Link to="/events" className="btn-ghost text-gubat">
+          <Link to="/events" className="btn-ghost text-heading">
             Find a group ride
           </Link>
         </div>
-        <p className="text-xs text-abo-ink">Conditions change fast. Always confirm with the land manager before you go.</p>
+        <p className="text-xs text-ink-muted">Conditions change fast. Always confirm with the land manager before you go.</p>
       </div>
     </article>
   );
@@ -133,13 +134,13 @@ export default function Trails() {
         sort the list by what fits.
       </PageHero>
 
-      <section className="bg-papel py-10">
+      <section className="bg-surface-2 py-10">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="rounded-3xl bg-puti p-6 ring-1 ring-uling/5 md:p-8">
+          <div className="rounded-3xl bg-surface p-6 ring-1 ring-line/5 md:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
               <div className="lg:w-56">
-                <p className="eyebrow text-gubat">Rig matcher</p>
-                <p className="mt-2 text-sm text-abo-ink">Pick your setup to see which trails are a good fit right now.</p>
+                <p className="eyebrow text-heading">Rig matcher</p>
+                <p className="mt-2 text-sm text-ink-muted">Pick your setup to see which trails are a good fit right now.</p>
               </div>
               <div className="flex-1 space-y-4">
                 <div className="flex flex-wrap gap-2" role="group" aria-label="Your rig">
@@ -162,7 +163,7 @@ export default function Trails() {
         </div>
       </section>
 
-      <section className="bg-papel pb-24">
+      <section className="bg-surface-2 pb-24">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 md:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="no-scrollbar mb-4 flex gap-2 overflow-x-auto">
@@ -173,11 +174,11 @@ export default function Trails() {
               ))}
             </div>
             <ul className="space-y-3">
-              {sorted.map((t) => {
+              {sorted.map((t, i) => {
                 const fit = rig === null ? null : fitFor(t, rig, exp);
                 const active = selected?.slug === t.slug;
                 return (
-                  <li key={t.slug}>
+                  <Reveal as="li" key={t.slug} delay={i * 60}>
                     <button
                       type="button"
                       onClick={() => {
@@ -185,14 +186,14 @@ export default function Trails() {
                         if (window.innerWidth < 1024) document.getElementById('trail-detail')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                       aria-current={active}
-                      className={`w-full rounded-2xl p-5 text-left transition ${active ? 'bg-gubat text-puti' : 'bg-puti hover:bg-dahon-100'} ${
+                      className={`w-full rounded-2xl p-5 text-left transition ${active ? 'bg-gubat text-puti' : 'bg-surface hover:bg-tint'} ${
                         fit === 'no' ? 'opacity-60' : ''
                       }`}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="font-display font-semibold">{t.name}</p>
-                          <p className={`mt-0.5 text-sm ${active ? 'text-puti/70' : 'text-abo-ink'}`}>
+                          <p className={`mt-0.5 text-sm ${active ? 'text-puti/70' : 'text-ink-muted'}`}>
                             {typeLabel[t.type]} · {t.region}, {t.state} · {t.lengthMi} mi
                           </p>
                         </div>
@@ -203,13 +204,19 @@ export default function Trails() {
                         {fit && <span className={`rounded-full px-2.5 py-1 font-display text-[0.7rem] font-semibold ${fitMeta[fit].cls}`}>{fitMeta[fit].label}</span>}
                       </div>
                     </button>
-                  </li>
+                  </Reveal>
                 );
               })}
             </ul>
           </div>
           <div id="trail-detail" className="scroll-mt-24 lg:col-span-7">
-            <div className="lg:sticky lg:top-24">{selected && <TrailDetail key={selected.slug} trail={selected} />}</div>
+            <div className="lg:sticky lg:top-24">
+              {selected && (
+                <div key={selected.slug} className="animate-[page-in_0.6s_var(--ease-trail)_backwards]">
+                  <TrailDetail trail={selected} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

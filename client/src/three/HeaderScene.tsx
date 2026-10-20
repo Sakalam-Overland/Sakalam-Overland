@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '../lib/theme';
 
 // A floating topographic relief tile for page headers. Height and contour
 // shading run in shaders; routes, pins and the convoy are drawn on the surface.
@@ -98,6 +99,7 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uLow;
   uniform vec3 uHigh;
   uniform vec3 uGold;
+  uniform vec3 uBase;
   varying float vH;
   varying vec2 vXZ;
   ${shared}
@@ -112,7 +114,7 @@ const fragmentShader = /* glsl */ `
     if (r > 1.0) discard;
 
     float k = smoothstep(0.0, 22.0, vH);
-    vec3 col = mix(vec3(0.0), uLow, 0.18 + k * 0.4);
+    vec3 col = mix(uBase, uLow, 0.18 + k * 0.4);
     float line = aaLine(vH / 1.5, 1.0);
     float index = aaLine(vH / 7.5, 1.4);
     col = mix(col, mix(uHigh * 0.5, uHigh, k), clamp(line * 0.5 + index * 0.5, 0.0, 1.0));
@@ -165,6 +167,7 @@ const fragmentShader = /* glsl */ `
 export default function HeaderScene({ variant, className = '' }: { variant: SceneVariant; className?: string }) {
   const host = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const el = host.current;
@@ -202,6 +205,8 @@ export default function HeaderScene({ variant, className = '' }: { variant: Scen
       uLow: { value: new THREE.Color('#183b22') },
       uHigh: { value: new THREE.Color('#61ab73') },
       uGold: { value: new THREE.Color('#f6b81a') },
+      // Blend the tile into whatever the header color is in this theme.
+      uBase: { value: new THREE.Color(getComputedStyle(document.documentElement).getPropertyValue('--deep').trim() || '#000') },
     };
     const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms, transparent: true });
     tile.add(new THREE.Mesh(geometry, material));
@@ -400,7 +405,7 @@ export default function HeaderScene({ variant, className = '' }: { variant: Scen
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [variant]);
+  }, [variant, theme]);
 
   return (
     <div

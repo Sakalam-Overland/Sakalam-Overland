@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router';
 import type { SceneVariant } from '../three/HeaderScene';
+import { useTheme } from '../lib/theme';
+import { HeadlightsToggle } from './HeadlightsToggle';
 import { LogoMark } from './SunMark';
 
 const HeaderScene = lazy(() => import('../three/HeaderScene'));
@@ -18,7 +20,7 @@ function Wordmark({ light = false }: { light?: boolean }) {
   return (
     <Link to="/" className="group flex items-center gap-3" aria-label="Sakalam Overland home">
       <LogoMark decorative tone={light ? 'forest' : 'white'} className="h-10 w-10 transition-transform duration-700 ease-(--ease-trail) group-hover:rotate-[22.5deg]" />
-      <span className={`font-display leading-none transition-colors ${light ? 'text-gubat' : 'text-puti'}`}>
+      <span className={`font-display leading-none transition-colors ${light ? 'text-heading' : 'text-puti'}`}>
         <span className="block text-[1.05rem] font-extrabold tracking-[0.02em]">SAKALAM</span>
         <span className="block text-[0.58rem] font-semibold tracking-[0.5em] text-dahon">OVERLAND</span>
       </span>
@@ -39,8 +41,11 @@ function Nav() {
   }, []);
 
   useEffect(() => setOpen(false), [pathname]);
-  // The home hero is light; every other page opens on a dark header.
-  const light = pathname === '/' && !scrolled && !open;
+  const { theme } = useTheme();
+  const solid = scrolled || open;
+  // Araw: the bar turns to light paper once it's solid, and it sits on the light home hero.
+  // Gabi: everything under the bar is dark, so it stays dark.
+  const light = theme === 'light' && (solid || pathname === '/');
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
   }, [open]);
@@ -48,7 +53,9 @@ function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-(--ease-trail) ${
-        scrolled || open ? 'bg-itim/85 py-3 backdrop-blur-md' : 'bg-transparent py-5'
+        solid
+          ? `${light ? 'bg-surface-2/85 shadow-[0_1px_0_rgba(24,59,34,0.08)]' : 'bg-deep/85'} py-3 backdrop-blur-md`
+          : 'bg-transparent py-5'
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8" aria-label="Main">
@@ -60,7 +67,7 @@ function Nav() {
                 to={n.to}
                 className={({ isActive }) =>
                   `group relative rounded-full px-4 py-2 font-display text-sm font-semibold transition ${
-                    isActive ? 'text-dahon' : light ? 'text-gubat/80 hover:text-gubat' : 'text-puti/80 hover:text-puti'
+                    isActive ? 'text-dahon' : light ? 'text-heading/80 hover:text-heading' : 'text-puti/80 hover:text-puti'
                   }`
                 }
               >
@@ -71,38 +78,44 @@ function Nav() {
               </NavLink>
             </li>
           ))}
-          <li className="ml-3">
+          <li className={`ml-2 ${light ? 'text-heading' : 'text-puti'}`}>
+            <HeadlightsToggle />
+          </li>
+          <li className="ml-2">
             <Link to="/community#join" className="btn-primary !py-2.5">
               Join the crew
             </Link>
           </li>
         </ul>
-        <button
-          type="button"
-          className={`relative h-10 w-10 md:hidden ${light ? 'text-gubat' : 'text-puti'}`}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 rotate-45' : 'top-3.5'}`} />
-          <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 -rotate-45' : 'top-6'}`} />
-        </button>
+        <div className={`flex items-center gap-2 md:hidden ${light ? 'text-heading' : 'text-puti'}`}>
+          <HeadlightsToggle />
+          <button
+            type="button"
+            className="relative h-10 w-10"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 rotate-45' : 'top-3.5'}`} />
+            <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 -rotate-45' : 'top-6'}`} />
+          </button>
+        </div>
       </nav>
 
       <div
         id="mobile-menu"
-        className={`fixed inset-x-0 top-[64px] bottom-0 bg-itim px-5 pt-8 transition duration-500 ease-(--ease-trail) md:hidden ${
+        className={`fixed inset-x-0 top-[64px] bottom-0 bg-surface-2 px-5 pt-8 transition duration-500 ease-(--ease-trail) md:hidden ${
           open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-4 opacity-0'
         }`}
       >
         <ul className="space-y-2">
           {[{ to: '/', label: 'Home', icon: 'home', tl: 'Tahanan' }, ...navItems].map((n) => (
             <li key={n.to}>
-              <NavLink to={n.to} className="flex items-center gap-4 border-b border-puti/10 py-4">
+              <NavLink to={n.to} className="flex items-center gap-4 border-b border-line/10 py-4">
                 <img src={`/icons/${n.icon}.png`} alt="" className="h-11 w-11" />
-                <span className="font-display text-2xl font-bold text-puti">{n.label}</span>
-                <span className="ml-auto text-sm text-abo italic">{n.tl}</span>
+                <span className="font-display text-2xl font-bold text-heading">{n.label}</span>
+                <span className="ml-auto text-sm text-ink-muted italic">{n.tl}</span>
               </NavLink>
             </li>
           ))}
@@ -117,7 +130,7 @@ function Nav() {
 
 function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-itim text-puti">
+    <footer className="relative overflow-hidden bg-deep text-puti">
       <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.025]" />
       <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-12 md:px-8">
         <div className="md:col-span-5">
@@ -179,6 +192,7 @@ export function InstagramIcon({ className = '' }: { className?: string }) {
 
 export function Layout() {
   const { pathname, hash } = useLocation();
+  const pageKey = pathname.startsWith('/trails') ? '/trails' : pathname;
   useEffect(() => {
     if (hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
@@ -193,7 +207,13 @@ export function Layout() {
         Skip to content
       </a>
       <Nav />
-      <main id="main">
+      {/* Re-key per page (trail detail swaps in place, so all /trails share a key). */}
+      <div
+        key={`line-${pageKey}`}
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[3px] bg-gradient-to-r from-dahon via-araw to-araw animate-[route-line_0.9s_var(--ease-trail)_forwards] motion-reduce:hidden"
+      />
+      <main id="main" key={pageKey} className="animate-[page-in_0.7s_var(--ease-trail)_backwards]">
         <Outlet />
       </main>
       <Footer />
@@ -236,11 +256,11 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className={`${HEADER_BOX} bg-itim text-puti`}>
+    <section className={`${HEADER_BOX} bg-deep text-puti`}>
       <HeaderBackdrop scene={scene} />
       <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="flex items-center gap-4 animate-rise">
-          <img src={`/icons/${icon}.png`} alt="" className="h-10 w-10" />
+          <img src={`/icons/${icon}.png`} alt="" className="h-10 w-10 rounded-full ring-1 ring-puti/25" />
           <p className="eyebrow text-dahon">
             {eyebrow} <span className="ml-2 normal-case tracking-normal text-abo italic">· {tagalog}</span>
           </p>

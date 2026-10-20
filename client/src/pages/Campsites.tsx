@@ -145,7 +145,7 @@ export default function Campsites() {
         coming back to.
       </PageHero>
 
-      <section className="bg-puti py-20 md:py-28">
+      <section className="bg-surface py-20 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-2 md:px-8 lg:grid-cols-3 lg:gap-5">
           {(data ?? []).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 3) * 100}>
@@ -156,11 +156,11 @@ export default function Campsites() {
                     <Tag>{c.access} · {accessNote[c.access]}</Tag>
                     <Tag>{c.fee}</Tag>
                   </div>
-                  <h2 className="mt-4 text-2xl font-bold text-gubat lg:mt-3 lg:text-xl">{c.name}</h2>
-                  <p className="mt-1 text-sm text-abo-ink">
+                  <h2 className="mt-4 text-2xl font-bold text-heading lg:mt-3 lg:text-xl">{c.name}</h2>
+                  <p className="mt-1 text-sm text-ink-muted">
                     {c.sites} · {c.season}
                   </p>
-                  <p className="mt-4 text-uling/85">{c.summary}</p>
+                  <p className="mt-4 text-ink/85">{c.summary}</p>
                   <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 text-sm">
                     {c.amenities.map((a) => (
                       <li key={a} className="flex items-center gap-1.5">
@@ -169,7 +169,7 @@ export default function Campsites() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-auto flex flex-wrap items-center gap-4 pt-6 font-display text-sm font-semibold text-gubat">
+                  <div className="mt-auto flex flex-wrap items-center gap-4 pt-6 font-display text-sm font-semibold text-heading">
                     <a href={directionsUrl(c.coords)} target="_blank" rel="noreferrer" className="hover:underline">
                       Directions
                     </a>
@@ -178,7 +178,7 @@ export default function Campsites() {
                         Nearby trail →
                       </Link>
                     )}
-                    <span className="ml-auto text-xs font-normal text-abo-ink tabular-nums">{fmt.coords(c.coords)}</span>
+                    <span className="ml-auto text-xs font-normal text-ink-muted tabular-nums">{fmt.coords(c.coords)}</span>
                   </div>
                 </div>
               </article>
@@ -187,7 +187,7 @@ export default function Campsites() {
         </div>
       </section>
 
-      <section className="bg-papel py-20 md:py-28">
+      <section className="bg-surface-2 py-20 md:py-28">
         <div className="mx-auto max-w-7xl space-y-12 px-5 md:px-8">
           <SectionHead eyebrow="Before you go" tagalog="Handa ka na ba?" title="The pack list we actually use.">
             Check things off as you load the rig. Your progress is saved on this device, so you can start on Thursday and finish Friday night.

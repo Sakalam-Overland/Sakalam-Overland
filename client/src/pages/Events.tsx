@@ -16,7 +16,7 @@ export function Chip({ active, onClick, children }: { active: boolean; onClick: 
       aria-pressed={active}
       onClick={onClick}
       className={`shrink-0 rounded-full px-4 py-2 font-display text-sm font-semibold transition ${
-        active ? 'bg-gubat text-puti' : 'bg-papel text-uling hover:bg-dahon-100'
+        active ? 'bg-gubat text-puti' : 'bg-surface-2 text-ink hover:bg-tint'
       }`}
     >
       {children}
@@ -48,7 +48,7 @@ export default function Events() {
         convoy stays tight and every first-timer gets a lead rig.
       </PageHero>
 
-      <section className="sticky top-[64px] z-30 border-b border-uling/10 bg-puti/90 backdrop-blur-md">
+      <section className="sticky top-[64px] z-30 border-b border-line/10 bg-puti/90 backdrop-blur-md">
         <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-4 md:px-8">
           <Chip active={kind === 'all'} onClick={() => setKind('all')}>All</Chip>
           {kinds.map((k) => (
@@ -56,26 +56,26 @@ export default function Events() {
               {kindLabels[k]}
             </Chip>
           ))}
-          <span className="mx-2 h-6 w-px shrink-0 bg-uling/15" />
-          <label className="flex shrink-0 cursor-pointer items-center gap-2 font-display text-sm font-semibold text-uling">
+          <span className="mx-2 h-6 w-px shrink-0 bg-line/15" />
+          <label className="flex shrink-0 cursor-pointer items-center gap-2 font-display text-sm font-semibold text-ink">
             <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)} className="h-4 w-4 accent-gubat" />
             Spots open
           </label>
         </div>
       </section>
 
-      <section className="bg-puti py-16 md:py-24">
+      <section className="bg-surface py-16 md:py-24">
         <div className="mx-auto max-w-7xl space-y-20 px-5 md:px-8">
-          {loading && <div className="h-96 animate-pulse rounded-3xl bg-papel" />}
+          {loading && <div className="h-96 animate-pulse rounded-3xl bg-surface-2" />}
           {!loading && groups.length === 0 && (
-            <p className="lead py-20 text-center text-abo-ink">Nothing matches those filters yet. Try another category, or follow us on IG for pop-up rides.</p>
+            <p className="lead py-20 text-center text-ink-muted">Nothing matches those filters yet. Try another category, or follow us on IG for pop-up rides.</p>
           )}
           {groups.map(([key, list]) => (
             <div key={key} className="grid gap-8 lg:grid-cols-12">
               <Reveal className="lg:col-span-3">
-                <h2 className="sticky top-40 text-3xl font-bold text-gubat">
+                <h2 className="sticky top-40 text-3xl font-bold text-heading">
                   {monthLabel(key).split(' ')[0]}
-                  <span className="block text-base font-semibold text-abo-ink">{key.slice(0, 4)}</span>
+                  <span className="block text-base font-semibold text-ink-muted">{key.slice(0, 4)}</span>
                 </h2>
               </Reveal>
               <div className="grid gap-5 md:grid-cols-2 lg:col-span-9">

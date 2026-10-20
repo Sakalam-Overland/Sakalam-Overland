@@ -1,6 +1,7 @@
 import type { JoinInput } from '@shared/types';
 import { useState } from 'react';
 import { IG_URL, InstagramIcon, PageHero } from '../components/Layout';
+import { BoodleFight } from '../components/Food';
 import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
@@ -64,7 +65,7 @@ function JoinForm() {
 
   if (state === 'done' || state === 'back') {
     return (
-      <div className="rounded-3xl bg-itim p-8 text-puti md:p-12" role="status">
+      <div className="rounded-3xl bg-deep p-8 text-puti md:p-12" role="status">
         <p className="eyebrow text-dahon">{state === 'done' ? 'Welcome sa barkada' : 'Welcome back'}</p>
         <h3 className="mt-3 text-4xl font-bold">{state === 'done' ? `Salamat, ${v.name.split(' ')[0]}!` : "You're already on the list."}</h3>
         <p className="lead mt-4 text-puti/75">
@@ -79,7 +80,7 @@ function JoinForm() {
 
   const input = (k: 'name' | 'email' | 'instagram' | 'rig', label: string, props: React.InputHTMLAttributes<HTMLInputElement> = {}) => (
     <label className="block">
-      <span className="eyebrow text-gubat">{label}</span>
+      <span className="eyebrow text-heading">{label}</span>
       <input
         className="field mt-2"
         value={v[k] ?? ''}
@@ -89,7 +90,7 @@ function JoinForm() {
         {...props}
       />
       {err[k] && (
-        <p id={`join-${k}-err`} className="mt-1.5 text-sm font-normal text-[#b3261e]">
+        <p id={`join-${k}-err`} className="mt-1.5 text-sm font-normal text-[#b3261e] dark:text-[#f2b8b5]">
           {err[k]}
         </p>
       )}
@@ -97,7 +98,7 @@ function JoinForm() {
   );
 
   return (
-    <form onSubmit={submit} noValidate className="space-y-5 rounded-3xl bg-puti p-6 ring-1 ring-uling/10 md:p-10">
+    <form onSubmit={submit} noValidate className="space-y-5 rounded-3xl bg-surface p-6 ring-1 ring-line/10 md:p-10">
       <div className="grid gap-5 sm:grid-cols-2">
         {input('name', 'Name', { autoComplete: 'name' })}
         {input('email', 'Email', { type: 'email', autoComplete: 'email' })}
@@ -105,7 +106,7 @@ function JoinForm() {
         {input('rig', 'Rig', { placeholder: 'What do you drive?' })}
       </div>
       <fieldset>
-        <legend className="eyebrow text-gubat">I'm into</legend>
+        <legend className="eyebrow text-heading">I'm into</legend>
         <div className="mt-3 flex flex-wrap gap-2">
           {interestOptions.map((o) => {
             const on = v.interests.includes(o.value);
@@ -113,7 +114,7 @@ function JoinForm() {
               <label
                 key={o.value}
                 className={`cursor-pointer rounded-full border px-4 py-2 font-display text-sm font-semibold transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-araw ${
-                  on ? 'border-gubat bg-gubat text-puti' : 'border-uling/15 hover:border-gubat'
+                  on ? 'border-heading bg-gubat text-puti' : 'border-line/15 hover:border-heading'
                 }`}
               >
                 <input
@@ -131,14 +132,14 @@ function JoinForm() {
         </div>
       </fieldset>
       {err.form && (
-        <p role="alert" className="rounded-xl bg-[#b3261e]/10 px-4 py-3 text-sm text-[#8c1d18]">
+        <p role="alert" className="rounded-xl bg-[#b3261e]/10 px-4 py-3 text-sm text-[#8c1d18] dark:text-[#f2b8b5]">
           {err.form}
         </p>
       )}
       <button type="submit" disabled={state === 'sending'} className="btn-dark w-full justify-center py-4">
         {state === 'sending' ? 'Joining…' : 'Count me in'}
       </button>
-      <p className="text-center text-xs text-abo-ink">Free. No spam, just ride invites, about twice a month.</p>
+      <p className="text-center text-xs text-ink-muted">Free. No spam, just ride invites, about twice a month.</p>
     </form>
   );
 }
@@ -154,11 +155,11 @@ export default function Community() {
       </PageHero>
 
       {/* Story */}
-      <section className="bg-puti py-24 md:py-32">
+      <section className="bg-surface py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
           <Reveal className="grid grid-cols-2 gap-4">
             <Photo name="crew-group" alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[16/9] rounded-3xl" />
-            <Photo name="crew-food" alt="Boodle fight spread on banana leaves" tone="dawn" className="aspect-square rounded-3xl" />
+            <Photo name="crew-food" alt="Boodle fight spread on banana leaves" className="aspect-square rounded-3xl" fallback={<BoodleFight slice />} />
             <Photo name="crew-fire" alt="Members around a campfire" tone="night" className="aspect-square rounded-3xl" />
           </Reveal>
           <div>
@@ -177,7 +178,7 @@ export default function Community() {
       </section>
 
       {/* Rigs */}
-      <section id="rigs" className="scroll-mt-20 bg-itim py-24 text-puti md:py-32">
+      <section id="rigs" className="scroll-mt-20 bg-deep py-24 text-puti md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Rig showcase" tagalog="Mga sasakyan" title="Every rig gets a name.">
             Most of them are named after food or family. Tag us on Instagram to get yours featured.
@@ -185,7 +186,7 @@ export default function Community() {
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {(rigs ?? []).map((r, i) => (
               <Reveal key={r.nickname} delay={(i % 3) * 80}>
-                <article className="group overflow-hidden rounded-3xl bg-uling">
+                <article className="group overflow-hidden rounded-3xl bg-puti/5 ring-1 ring-puti/10">
                   <Photo name={r.photo} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[4/3]" />
                   <div className="p-6">
                     <p className="font-display text-3xl font-extrabold tracking-tight text-dahon">"{r.nickname}"</p>
@@ -207,22 +208,22 @@ export default function Community() {
       </section>
 
       {/* Glossary */}
-      <section className="relative overflow-hidden bg-gubat py-24 text-puti md:py-32">
+      <section className="relative overflow-hidden bg-gubat py-24 text-puti md:py-32 dark:bg-[#0f2717]">
         <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.04]" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Trail Tagalog" tagalog="Matuto tayo" title="Words you'll hear on the radio.">
             No fluency required. By your third ride you'll be saying "tara na" too.
           </SectionHead>
-          <dl className="mt-14 grid gap-px overflow-hidden rounded-3xl bg-puti/10 sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {glossary.map(([word, say, meaning], i) => (
-              <Reveal key={word} delay={(i % 4) * 60} className="bg-gubat p-6">
+              <Reveal key={word} delay={(i % 4) * 60} className="card-raised p-6">
                 <dt>
                   <span lang="tl" className="block font-display text-2xl font-bold">
                     {word}
                   </span>
-                  <span className="text-sm text-dahon italic">{say}</span>
+                  <span className="text-sm text-dahon-300 italic">{say}</span>
                 </dt>
-                <dd className="mt-3 text-puti/75">{meaning}</dd>
+                <dd className="mt-3 text-puti/85">{meaning}</dd>
               </Reveal>
             ))}
           </dl>
@@ -230,7 +231,7 @@ export default function Community() {
       </section>
 
       {/* Merch */}
-      <section id="merch" className="scroll-mt-20 bg-papel py-24 md:py-32">
+      <section id="merch" className="scroll-mt-20 bg-surface-2 py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionHead eyebrow="Merch" tagalog="Pang-porma" title="Wear the sun.">
@@ -254,8 +255,8 @@ export default function Community() {
                       className="absolute inset-0 m-auto w-1/3 rounded-full opacity-90 mix-blend-screen invert transition duration-700 group-hover:scale-110"
                     />
                   </div>
-                  <p className="mt-4 font-display text-lg font-bold text-gubat">{m.name}</p>
-                  <p className="text-sm text-abo-ink">{m.note}</p>
+                  <p className="mt-4 font-display text-lg font-bold text-heading">{m.name}</p>
+                  <p className="text-sm text-ink-muted">{m.note}</p>
                 </div>
               </Reveal>
             ))}
@@ -264,7 +265,7 @@ export default function Community() {
       </section>
 
       {/* Join + FAQ */}
-      <section id="join" className="scroll-mt-20 bg-puti py-24 md:py-32">
+      <section id="join" className="scroll-mt-20 bg-surface py-24 md:py-32">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list.">
@@ -272,14 +273,14 @@ export default function Community() {
             </SectionHead>
             <Reveal delay={100} className="mt-12 space-y-3">
               {faq.map(([q, a]) => (
-                <details key={q} className="group rounded-2xl bg-papel px-5 py-4 open:bg-dahon-100">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-gubat">
+                <details key={q} className="group rounded-2xl bg-surface-2 px-5 py-4 open:bg-tint">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-heading">
                     {q}
                     <span className="text-xl transition group-open:rotate-45" aria-hidden>
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-uling/85">{a}</p>
+                  <p className="mt-3 text-ink/85">{a}</p>
                 </details>
               ))}
             </Reveal>
