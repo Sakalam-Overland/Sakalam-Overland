@@ -1,1 +1,1 @@
-export { default } from '../client/api/auth';
+export { default } from '../client/api/auth.js';

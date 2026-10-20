@@ -1,1 +1,1 @@
-export { default } from '../client/api/callback';
+export { default } from '../client/api/callback.js';

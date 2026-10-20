@@ -10,11 +10,16 @@ This guide is for the crew members who keep the website up to date. You don't ne
 
 ## 1. Log in
 
-Go to **sakalam-overland.vercel.app/admin** and press **Login with GitHub**. A small window opens: sign in to GitHub (first time only, press **Authorize**) and it closes by itself.
+Go to **sakalam-overland.vercel.app/admin** and press **Login with GitHub**. A small window opens with two choices:
+
+- **Continue with Google:** sign in with the Google account the site manager added.
+- **Continue with GitHub:** sign in with your GitHub account (first time only, press **Authorize**).
+
+The window closes by itself and you're in.
 
 ![Login screen with the Sakalam logo and a Login button](images/01-login.png)
 
-> First time? You need a free GitHub account, and the site manager has to add you to the project (you'll get an email from GitHub: press **Accept invitation**). Your GitHub email and password are your login for the editor.
+> First time? Tell the site manager which login you'll use. For Google, they add your Gmail address to the editor list. For GitHub, they add you to the project and you accept the email invitation. Your usual Google or GitHub password is your login.
 
 ---
 
@@ -132,7 +137,7 @@ The bar turns green ("CHANGES SAVED"). Give it **1–2 minutes**, then refresh t
 
 | Problem | What to do |
 |---|---|
-| "Login" does nothing / I can't log in | Allow pop-ups for the site, then try again. Make sure you accepted the GitHub invitation email. Forgot your password? Reset it at github.com. |
+| "Login" does nothing / I can't log in | Allow pop-ups for the site, then try again. If it says your account "isn't on the list of editors", ask the site manager to add that exact email. Forgot your password? Reset it with Google or GitHub. |
 | I published but the site didn't change | Wait 2 minutes, then refresh. On a phone, close the tab and reopen it. |
 | I made a mistake and published it | Fix it and publish again. Every version is saved, so the site manager can also restore an older one if needed. |
 | A red message says a box is required or invalid | Read the hint under that box (e.g. Web address must be lowercase with dashes). The form won't publish until it's fixed. |
@@ -156,7 +161,24 @@ The site is on Vercel, and owners sign in with GitHub. You only do this once.
 3. **Redeploy:** Vercel → **Deployments** → the latest one → **⋯ → Redeploy** (new variables only apply to new deployments).
 4. **Add each owner:** GitHub → the `Sakalam-Overland` repo → **Settings → Collaborators → Add people** → their GitHub username or email. They get an email and press **Accept invitation**. Anyone you add can edit the site; remove them here to take access away.
 
-If the site moves to a new address, update the callback URL in the GitHub OAuth app and `base_url`, `site_url` and `display_url` in `client/public/admin/config.yml`.
+### Google sign-in (optional, lets owners log in without a GitHub account)
+
+5. **Create a limited GitHub key** the editor uses on Google users' behalf: GitHub → **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
+   - Repository access: **Only select repositories** → `Sakalam-Overland`
+   - Permissions → Repository: **Contents: Read and write** (Metadata: read-only is added automatically)
+   - Pick an expiration (e.g. 1 year) and put a reminder in your calendar to renew it.
+6. **Create Google login keys:** go to console.cloud.google.com → create a project (e.g. "Sakalam CMS") → **APIs & Services → OAuth consent screen**: choose **External**, fill in the app name and your email, and press **Publish app**. Then **Credentials → Create credentials → OAuth client ID**:
+   - Application type: **Web application**
+   - Authorized redirect URI: `https://sakalam-overland.vercel.app/api/google-callback`
+7. **Add to Vercel's environment variables:**
+   - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` from step 6
+   - `GITHUB_CMS_TOKEN` = the token from step 5
+   - `CMS_ALLOWED_EMAILS` = everyone allowed to edit, separated by commas, e.g. `tita@gmail.com, migs@gmail.com`
+8. **Redeploy** (as in step 3). To add or remove a Google editor later, edit `CMS_ALLOWED_EMAILS` and redeploy.
+
+Good to know: edits made through Google sign-in show up in GitHub's history under the owner of the key from step 5, not the person who made them. Only put people you trust on the list, since anyone on it can change the whole site.
+
+If the site moves to a new address, update the callback URLs in the GitHub OAuth app and Google credentials and `base_url`, `site_url` and `display_url` in `client/public/admin/config.yml`.
 
 **Editing on your own computer (no login needed):** run `npm run dev` and, in a second terminal, `npm run cms`, then open http://localhost:5173/admin. Changes save straight into the `content/` folder; commit them like any other change.
 
