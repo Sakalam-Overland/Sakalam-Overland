@@ -87,7 +87,7 @@ function Nav() {
               <HeadlightsToggle />
             </li>
             <li className="ml-2">
-              <Link to="/community#join" className="btn-primary !py-2.5">
+              <Link to="/community#join" className="btn-primary h-11 !py-0">
                 Join the crew
               </Link>
             </li>
@@ -96,15 +96,15 @@ function Nav() {
             <HeadlightsToggle />
             <button
               type="button"
-              className="relative h-10 w-10"
+              className="relative h-11 w-11"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((o) => !o)}
             >
-              <span className={`absolute left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[19px] rotate-45' : 'top-3'}`} />
-              <span className={`absolute top-[19px] left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'scale-x-0 opacity-0' : ''}`} />
-              <span className={`absolute left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[19px] -rotate-45' : 'top-[26px]'}`} />
+              <span className={`absolute left-2.5 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[21px] rotate-45' : 'top-[14px]'}`} />
+              <span className={`absolute top-[21px] left-2.5 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'scale-x-0 opacity-0' : ''}`} />
+              <span className={`absolute left-2.5 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[21px] -rotate-45' : 'top-[28px]'}`} />
             </button>
           </div>
         </nav>
@@ -212,11 +212,25 @@ export function Layout() {
   const mainRef = useRef<HTMLElement>(null);
   useAutoReveal(mainRef, pageKey);
   useEffect(() => {
-    if (hash) {
-      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
-    } else {
+    if (!hash) {
       window.scrollTo(0, 0);
+      return;
     }
+    // Pages load lazily and fill in async data, so wait for the target and let layout settle.
+    let tries = 0;
+    let timer = 0;
+    const seek = () => {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView({ behavior: tries ? 'auto' : 'smooth' });
+        if (tries < 3) timer = window.setTimeout(seek, 350);
+      } else if (tries < 40) {
+        timer = window.setTimeout(seek, 50);
+      }
+      tries++;
+    };
+    seek();
+    return () => window.clearTimeout(timer);
   }, [pathname, hash]);
 
   return (

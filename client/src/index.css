@@ -123,6 +123,12 @@
   to { transform: none; }
 }
 
+/* A small sideways nudge for "swipe" cues. */
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
 /* Bunting swaying in a light breeze. */
 @keyframes sway {
   0%, 100% { transform: rotate(-3deg); }

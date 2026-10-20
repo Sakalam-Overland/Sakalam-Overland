@@ -248,7 +248,7 @@ export default function Community() {
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
                   <div className="relative aspect-square overflow-hidden rounded-2xl md:rounded-3xl">
-                    <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} alt={m.name} tone={m.tone} className="absolute inset-0" />
+                    <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} alt={m.name} tone={m.tone} className="h-full" />
                     <img
                       src="/brand/mark-bw.png"
                       alt=""
@@ -266,7 +266,7 @@ export default function Community() {
 
       {/* Join + FAQ */}
       <section id="join" className="scroll-mt-20 bg-surface py-14 md:py-28">
-        <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-5">
             <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list.">
               Ride invites, trail updates and first dibs on merch. Takes 30 seconds.

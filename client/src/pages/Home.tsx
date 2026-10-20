@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useRef } from 'react';
+import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { DifficultyBadge, StatusBadge } from '../components/Badges';
 import { EventCard } from '../components/EventCard';
@@ -152,14 +152,14 @@ function HeroStats() {
 
 function Hero() {
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:pt-32">
+    <section className="relative isolate flex h-[100svh] min-h-[540px] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:h-auto md:min-h-[100svh] md:pt-32">
       {/* Soft light: warm sun top right, green bottom left */}
       <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-araw/20 blur-3xl dark:bg-[#ff8a3c]/10" />
       <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-dahon/20 blur-3xl dark:bg-dahon/10" />
       <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-heading opacity-[0.08]" />
 
-      <div className="relative mx-auto grid w-full max-w-7xl flex-1 content-center items-center gap-[3svh] px-5 pt-[2svh] pb-[clamp(64px,11svh,200px)] md:gap-14 md:px-8 md:pt-6 lg:grid-cols-12 lg:gap-20">
-        <div className="lg:col-span-7">
+      <div className="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-[max(16px,2.5svh)] px-5 pt-[2svh] pb-[clamp(56px,10svh,200px)] md:grid md:content-center md:items-center md:gap-14 md:px-8 md:pt-6 lg:grid-cols-12 lg:gap-20">
+        <div className="shrink-0 lg:col-span-7">
           <p className="eyebrow flex animate-rise items-center gap-3 text-heading short:hidden">
             <span className="h-px w-8 bg-heading" />
             Filipino-founded · New York · Overland + Hike
@@ -190,8 +190,9 @@ function Hero() {
           <HeroStats />
         </div>
 
-        <div className="mt-[3svh] animate-rise [animation-delay:250ms] short:mt-1 sm:mt-0 lg:col-span-5">
-          <div className="relative mx-auto w-[min(70vw,36svh)] short:w-[min(60vw,30svh)] sm:w-full sm:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
+        {/* Phones: the media fills whatever height the text leaves and sizes itself from that, so it never rides up into the text. */}
+        <div className="flex min-h-0 flex-1 animate-rise items-center justify-center pt-6 [container-type:size] [animation-delay:250ms] md:block md:flex-none md:pt-0 md:[container-type:normal] lg:col-span-5">
+          <div className="relative mx-auto w-[min(72vw,calc(100cqh-1.75rem))] md:w-full md:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
             {/* Snapshot tucked behind the tire */}
             <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
               <Photo name="hero-snapshot" alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
@@ -300,6 +301,26 @@ function Pillars() {
 
 function UpcomingEvents() {
   const { data } = useAsync(() => api.events(), []);
+  const list = (data ?? []).slice(0, 3);
+  const rail = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const [atEnd, setAtEnd] = useState(false);
+
+  // Track which card is in view so the dots (phones only) show position in the row.
+  const onScroll = () => {
+    const el = rail.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 12 : el.clientWidth;
+    setActive(Math.min(list.length - 1, Math.round(el.scrollLeft / step)));
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+  };
+  const go = (i: number) => {
+    const el = rail.current;
+    const card = el?.children[i] as HTMLElement | undefined;
+    if (el && card) el.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
+  };
+
   return (
     <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
@@ -311,16 +332,55 @@ function UpcomingEvents() {
             </Link>
           </Reveal>
         </div>
-        <div className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
-          {(data ?? []).slice(0, 3).map((e, i) => (
-            <Reveal key={e.slug} delay={i * 100} className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
-              <EventCard event={e} featured={i === 0} />
-            </Reveal>
-          ))}
-          {!data && [0, 1, 2].map((i) => <div key={i} className="h-56 w-[74%] shrink-0 animate-pulse rounded-2xl bg-surface-2 md:w-auto" />)}
-          {/* Trailing room so the last card can snap clear of the edge */}
-          <div aria-hidden className="w-2 shrink-0 md:hidden" />
+        <div className="relative">
+          <div
+            ref={rail}
+            onScroll={onScroll}
+            role="region"
+            aria-label="Upcoming events, swipe for more"
+            className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0"
+          >
+            {list.map((e, i) => (
+              <Reveal key={e.slug} delay={i * 100} className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
+                <EventCard event={e} featured={i === 0} />
+              </Reveal>
+            ))}
+            {!data && [0, 1, 2].map((i) => <div key={i} className="h-56 w-[74%] shrink-0 animate-pulse rounded-2xl bg-surface-2 md:w-auto" />)}
+            {/* Trailing room so the last card can snap clear of the edge */}
+            <div aria-hidden className="w-2 shrink-0 md:hidden" />
+          </div>
+          {/* Fade on the right edge says "there's more this way" until the end is reached */}
+          <div
+            aria-hidden
+            className={`pointer-events-none absolute inset-y-0 -right-5 w-14 bg-gradient-to-l from-surface to-transparent transition-opacity duration-300 md:hidden ${atEnd ? 'opacity-0' : 'opacity-100'}`}
+          />
         </div>
+        {list.length > 1 && (
+          <div className="mt-3 flex items-center justify-between md:hidden">
+            <div className="flex items-center gap-1" role="tablist" aria-label="Choose an event">
+              {list.map((e, i) => (
+                <button
+                  key={e.slug}
+                  type="button"
+                  role="tab"
+                  aria-selected={active === i}
+                  aria-label={`Show ${e.title}`}
+                  onClick={() => go(i)}
+                  className="grid h-8 min-w-8 place-items-center"
+                >
+                  <span className={`block h-2 rounded-full transition-all duration-300 ${active === i ? 'w-6 bg-heading' : 'w-2 bg-line/25'}`} />
+                </button>
+              ))}
+            </div>
+            <p
+              aria-hidden
+              className={`flex items-center gap-1.5 font-display text-xs font-semibold text-ink-muted transition-opacity duration-300 ${atEnd ? 'opacity-0' : 'opacity-100'}`}
+            >
+              Swipe for more
+              <span className="inline-block animate-[nudge_1.6s_ease-in-out_infinite] motion-reduce:animate-none">→</span>
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -49,7 +49,7 @@ export default function Events() {
       </PageHero>
 
       <section className="sticky top-[64px] z-30 border-b border-line/10 bg-puti/90 backdrop-blur-md">
-        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-4 md:px-8">
+        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-4 [mask-image:linear-gradient(to_right,black_82%,transparent)] md:px-8 md:[mask-image:none]">
           <Chip active={kind === 'all'} onClick={() => setKind('all')}>All</Chip>
           {kinds.map((k) => (
             <Chip key={k} active={kind === k} onClick={() => setKind(k)}>
