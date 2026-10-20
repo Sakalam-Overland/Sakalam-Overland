@@ -28,14 +28,16 @@ A website for **Sakalam Overland** ([@nysakalamoverland](https://www.instagram.c
 - **Client:** React 19, TypeScript, Vite, Tailwind CSS 4, React Router, Three.js (custom GLSL), hand-built SVG illustration and charts
 - **API:** Node.js, Express 5, MongoDB/Mongoose, Zod validation, Helmet, rate limiting
 - **Tests:** `node:test` with Supertest
+- **Content:** Decap CMS (Git-based, Netlify Identity)
 - **Ops:** Docker and docker-compose (web + api + mongo), Netlify config for a static deploy
 
 The API uses MongoDB when `MONGODB_URI` is set. Otherwise it falls back to an in-memory store. The client calls the API, and if none is reachable (for example on Netlify) it uses the bundled data from `shared/data.ts`, and forms run in demo mode. The site works anywhere.
 
 ```
+content/  Editable site content (JSON), managed by the CMS
 client/   React app (src/pages, src/components, src/three, src/lib)
 server/   Express API (store.ts = Memory + Mongo stores, app.ts = routes)
-shared/   Types and seed content used by both
+shared/   Types, plus the loader that reads content/ for both client and API
 ```
 
 ## Run it
@@ -53,17 +55,15 @@ With Docker, which runs MongoDB too:
 docker compose up --build    # http://localhost:8080
 ```
 
-## Adding Instagram photos
+## Editing content (CMS)
 
-Every image slot is a `<Photo name="…">` component. It loads `client/public/photos/{name}.jpg` and draws a brand illustration until that file exists. Drop in JPGs with these names:
+Events, trails, campsites, rigs, merch, vocab, FAQ, home photos and a few settings are edited in **Decap CMS** at `/admin`. Edits are saved as JSON in `content/` and photos in `client/public/photos/`, committed to the repo through Netlify Identity + Git Gateway, and the site rebuilds automatically.
 
-| File | Where it shows |
-|---|---|
-| `trail-convoy.jpg`, `beach-camp.jpg`, `night-camp.jpg`, `rock-crawl.jpg` | Home gallery |
-| `crew-group.jpg`, `crew-food.jpg`, `crew-fire.jpg` | Community story |
-| `rig-kalabaw.jpg`, `rig-jeepney.jpg`, `rig-tita-taco.jpg`, `rig-bayani.jpg`, `rig-lumpia.jpg`, `rig-adobo.jpg` | Rig showcase |
-| `camp-moose-river-roadside.jpg`, `camp-godfrey-bridge.jpg`, `camp-rausch-creek-camp.jpg`, `camp-woodland-valley.jpg`, `camp-smith-point-outer.jpg` | Campsites |
-| `merch-trucker-hat.jpg`, `merch-crew-hoodie.jpg`, `merch-trail-tee.jpg`, `merch-custom-hoodie.jpg` | Merch |
+- Owner guide with screenshots: [docs/CMS-GUIDE.md](docs/CMS-GUIDE.md)
+- Local editing: `npm run dev` plus `npm run cms`, then open http://localhost:5173/admin
+- Fields, labels and hints: `client/public/admin/config.yml`
+
+Any photo slot left empty shows a drawn brand illustration, so the site never has broken images.
 
 ## Content note
 

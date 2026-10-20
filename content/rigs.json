@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "owner": "Migs R.",
+      "vehicle": "2019 Toyota 4Runner TRD Off-Road",
+      "nickname": "Kalabaw",
+      "mods": [
+        "3\" lift",
+        "33\" KO2s",
+        "Roof-top tent"
+      ],
+      "image": ""
+    },
+    {
+      "owner": "Bea & Jun",
+      "vehicle": "2021 Jeep Wrangler Rubicon",
+      "nickname": "Jeepney",
+      "mods": [
+        "Winch",
+        "Rock sliders",
+        "Hand-painted hood stripe"
+      ],
+      "image": ""
+    },
+    {
+      "owner": "Paolo D.",
+      "vehicle": "2016 Toyota Tacoma",
+      "nickname": "Tita Taco",
+      "mods": [
+        "Bed rack",
+        "Fridge",
+        "Awning"
+      ],
+      "image": ""
+    },
+    {
+      "owner": "Kat S.",
+      "vehicle": "2008 Toyota FJ Cruiser",
+      "nickname": "Bayani",
+      "mods": [
+        "Long-travel suspension",
+        "Lockers",
+        "Ditch lights"
+      ],
+      "image": ""
+    },
+    {
+      "owner": "Rico M.",
+      "vehicle": "2022 Ford Bronco Badlands",
+      "nickname": "Lumpia",
+      "mods": [
+        "35s",
+        "Steel bumper",
+        "Cargo drawers"
+      ],
+      "image": ""
+    },
+    {
+      "owner": "Ana T.",
+      "vehicle": "2014 Lexus GX460",
+      "nickname": "Adobo",
+      "mods": [
+        "Air suspension delete",
+        "Skid plates",
+        "Ladder"
+      ],
+      "image": ""
+    }
+  ]
+}

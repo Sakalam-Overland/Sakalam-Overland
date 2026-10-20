@@ -6,6 +6,7 @@ COPY client/package.json client/
 COPY server/package.json server/
 RUN npm ci -w server
 COPY shared shared
+COPY content content
 COPY server server
 ENV NODE_ENV=production PORT=4000
 EXPOSE 4000

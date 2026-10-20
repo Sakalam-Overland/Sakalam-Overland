@@ -8,6 +8,7 @@ import { SpareTire } from '../components/LicensePlate';
 import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { LogoMark, starPath } from '../components/SunMark';
+import { gallery, settings } from '@shared/data';
 import { useAsync } from '../hooks/useAsync';
 import { usePauseOffscreen } from '../hooks/usePauseOffscreen';
 import { api } from '../lib/api';
@@ -134,9 +135,9 @@ function NextRide({ className = '' }: { className?: string }) {
 function HeroStats() {
   const { data } = useAsync(() => api.events(), []);
   const stats = [
-    ['2K+', 'on Instagram'],
+    [settings.instagramFollowers, 'on Instagram'],
     [data ? String(data.length) : '·', 'rides this season'],
-    ['3', 'states we ride'],
+    [settings.statesRidden, 'states we ride'],
   ];
   return (
     <dl className="mt-12 hidden animate-rise gap-x-5 [animation-delay:400ms] sm:flex sm:gap-x-8">
@@ -197,9 +198,9 @@ function Hero() {
           <div className="relative mx-auto w-[min(72vw,calc(100cqh-1.75rem))] md:w-full md:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
             {/* Snapshot tucked behind the tire */}
             <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
-              <Photo name="hero-snapshot" alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
+              <Photo name="hero-snapshot" src={settings.heroPhoto} alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
               <p className="absolute right-0 bottom-1.5 left-0 text-center font-display text-[0.6rem] font-semibold tracking-[0.2em] text-ink-muted uppercase">
-                Rausch Creek, PA
+                {settings.heroPhotoCaption}
               </p>
             </div>
             {/* Night mode: warm backlight and a rim highlight so the dark tire separates from the dark page */}
@@ -459,13 +460,6 @@ function Beliefs() {
   );
 }
 
-const shots = [
-  { name: 'trail-convoy', alt: 'Convoy of rigs on a forest road', tone: 'forest' as const, cls: 'col-span-2 md:row-span-2', cap: 'Pine Barrens' },
-  { name: 'beach-camp', alt: 'Beach campsite with a deck chair at dusk', tone: 'dawn' as const, cls: '', cap: 'Smith Point' },
-  { name: 'night-camp', alt: 'Campfire under the stars', tone: 'night' as const, cls: '', cap: 'Moose River' },
-  { name: 'rock-crawl', alt: 'Jeep climbing a rock ledge', tone: 'dusk' as const, cls: 'col-span-2', cap: 'Rausch Creek' },
-];
-
 function SaluSalo() {
   // Sized to fit one screen on a laptop: copy beside the spread, dishes in one compact band.
   return (
@@ -508,6 +502,9 @@ function SaluSalo() {
 }
 
 function Gallery() {
+  // First photo is the big one; the grid holds four.
+  const layout = ['col-span-2 md:row-span-2', '', '', 'col-span-2'];
+  const tones = ['forest', 'dawn', 'night', 'dusk'] as const;
   return (
     <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
@@ -520,9 +517,9 @@ function Gallery() {
           </Reveal>
         </div>
         <div className="mt-6 grid auto-rows-[min(19svh,150px)] short:auto-rows-[16svh] grid-cols-2 gap-3 md:mt-12 md:auto-rows-[240px] md:grid-cols-4 md:gap-4">
-          {shots.map((s, i) => (
-            <Reveal key={s.name} delay={i * 80} className={`group ${s.cls}`}>
-              <Photo name={s.name} alt={s.alt} tone={s.tone} caption={s.cap} className="h-full rounded-3xl" />
+          {gallery.slice(0, 4).map((s, i) => (
+            <Reveal key={`${s.caption}-${i}`} delay={i * 80} className={`group ${layout[i % layout.length]}`}>
+              <Photo name={`gallery-${i}`} src={s.image} alt={s.alt} tone={tones[i % tones.length]} caption={s.caption} className="h-full rounded-3xl" />
             </Reveal>
           ))}
         </div>

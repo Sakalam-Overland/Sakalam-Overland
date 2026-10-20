@@ -1,0 +1,468 @@
+{
+  "items": [
+    {
+      "slug": "rausch-creek",
+      "name": "Rausch Creek Off-Road Park",
+      "region": "Pine Grove",
+      "state": "PA",
+      "type": "offroad",
+      "difficulty": "difficult",
+      "status": "open",
+      "statusNote": "All color-coded trails open. Red and black trails are wet in the lower hollows.",
+      "lengthMi": 9.4,
+      "gainFt": 1120,
+      "driveFromNYC": "2h 45m",
+      "permit": "Day pass at the gate. Waiver required for each driver.",
+      "season": "Year-round",
+      "coords": [
+        40.6012,
+        -76.4405
+      ],
+      "summary": "Old anthracite mining land turned into a 3,000-acre park. Rock gardens, ledges and mud holes, graded green to black. Our go-to for leveling up a build.",
+      "gear": [
+        "Full-size spare",
+        "Rated recovery points",
+        "Kinetic rope",
+        "CB or GMRS radio",
+        "Skid plates recommended"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 720
+        },
+        {
+          "mile": 0.8,
+          "ft": 810
+        },
+        {
+          "mile": 1.6,
+          "ft": 940
+        },
+        {
+          "mile": 2.4,
+          "ft": 1020
+        },
+        {
+          "mile": 3.1,
+          "ft": 1160
+        },
+        {
+          "mile": 3.9,
+          "ft": 1240
+        },
+        {
+          "mile": 4.7,
+          "ft": 1180
+        },
+        {
+          "mile": 5.5,
+          "ft": 1060
+        },
+        {
+          "mile": 6.2,
+          "ft": 1130
+        },
+        {
+          "mile": 7,
+          "ft": 1290
+        },
+        {
+          "mile": 7.8,
+          "ft": 1110
+        },
+        {
+          "mile": 8.6,
+          "ft": 900
+        },
+        {
+          "mile": 9.4,
+          "ft": 740
+        }
+      ],
+      "lastVerified": "2026-10-11"
+    },
+    {
+      "slug": "wharton-sand-roads",
+      "name": "Wharton State Forest Sand Roads",
+      "region": "Pine Barrens",
+      "state": "NJ",
+      "type": "offroad",
+      "difficulty": "easy",
+      "status": "caution",
+      "statusNote": "Deep sugar sand after the dry spell. Air down to about 18 psi. Some spurs are closed for restoration.",
+      "lengthMi": 22.6,
+      "gainFt": 210,
+      "driveFromNYC": "2h 10m",
+      "permit": "Street-legal, registered vehicles only. Stay on marked, numbered roads.",
+      "season": "Year-round",
+      "coords": [
+        39.6829,
+        -74.6624
+      ],
+      "summary": "Long, flat sand roads through pitch pine and cedar water. A good first overland run: low risk, lots of miles, ends at the Batsto village ruins.",
+      "gear": [
+        "Tire deflator and compressor",
+        "Traction boards",
+        "Shovel",
+        "Offline maps"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 62
+        },
+        {
+          "mile": 2,
+          "ft": 74
+        },
+        {
+          "mile": 4,
+          "ft": 88
+        },
+        {
+          "mile": 6,
+          "ft": 101
+        },
+        {
+          "mile": 8,
+          "ft": 96
+        },
+        {
+          "mile": 10,
+          "ft": 120
+        },
+        {
+          "mile": 12,
+          "ft": 134
+        },
+        {
+          "mile": 14,
+          "ft": 118
+        },
+        {
+          "mile": 16,
+          "ft": 102
+        },
+        {
+          "mile": 18,
+          "ft": 86
+        },
+        {
+          "mile": 20,
+          "ft": 70
+        },
+        {
+          "mile": 22.6,
+          "ft": 58
+        }
+      ],
+      "lastVerified": "2026-10-04"
+    },
+    {
+      "slug": "moose-river-plains",
+      "name": "Moose River Plains Road",
+      "region": "Adirondacks",
+      "state": "NY",
+      "type": "offroad",
+      "difficulty": "easy",
+      "status": "seasonal",
+      "statusNote": "Gates close for the winter around late November. Opens again after mud season.",
+      "lengthMi": 23,
+      "gainFt": 980,
+      "driveFromNYC": "5h 15m",
+      "permit": "No permit. Camp only at designated roadside sites.",
+      "season": "Late May to November",
+      "coords": [
+        43.6873,
+        -74.8193
+      ],
+      "summary": "A gravel road through the largest roadside camping area in the Adirondacks. More overland than off-road: ponds, moose country and dark skies.",
+      "gear": [
+        "Bear canister",
+        "Water filter",
+        "Spare fuel",
+        "Warm layers (it drops below freezing)"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 1790
+        },
+        {
+          "mile": 2,
+          "ft": 1880
+        },
+        {
+          "mile": 4,
+          "ft": 2010
+        },
+        {
+          "mile": 6,
+          "ft": 2140
+        },
+        {
+          "mile": 8,
+          "ft": 2080
+        },
+        {
+          "mile": 10,
+          "ft": 1960
+        },
+        {
+          "mile": 12,
+          "ft": 1910
+        },
+        {
+          "mile": 14,
+          "ft": 2050
+        },
+        {
+          "mile": 16,
+          "ft": 2210
+        },
+        {
+          "mile": 18,
+          "ft": 2330
+        },
+        {
+          "mile": 20,
+          "ft": 2190
+        },
+        {
+          "mile": 23,
+          "ft": 2040
+        }
+      ],
+      "lastVerified": "2026-10-14"
+    },
+    {
+      "slug": "smith-point-outer-beach",
+      "name": "Smith Point Outer Beach",
+      "region": "Long Island",
+      "state": "NY",
+      "type": "beach",
+      "difficulty": "moderate",
+      "status": "open",
+      "statusNote": "Open to permitted vehicles. Expect closures from spring to summer for nesting shorebirds.",
+      "lengthMi": 6.8,
+      "gainFt": 30,
+      "driveFromNYC": "1h 30m",
+      "permit": "Suffolk County Outer Beach 4x4 permit required. The required gear is checked at the entrance.",
+      "season": "Fall to early spring (seasonal closures apply)",
+      "coords": [
+        40.7339,
+        -72.8622
+      ],
+      "summary": "Beach driving on the Fire Island barrier, with ocean on one side and dunes on the other. Close to home and great for sunrise.",
+      "gear": [
+        "Tire gauge and deflator",
+        "Shovel",
+        "Tow strap",
+        "Jack board",
+        "Spare tire"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 6
+        },
+        {
+          "mile": 0.6,
+          "ft": 9
+        },
+        {
+          "mile": 1.2,
+          "ft": 12
+        },
+        {
+          "mile": 1.8,
+          "ft": 8
+        },
+        {
+          "mile": 2.4,
+          "ft": 11
+        },
+        {
+          "mile": 3,
+          "ft": 14
+        },
+        {
+          "mile": 3.6,
+          "ft": 10
+        },
+        {
+          "mile": 4.2,
+          "ft": 7
+        },
+        {
+          "mile": 4.8,
+          "ft": 12
+        },
+        {
+          "mile": 5.4,
+          "ft": 9
+        },
+        {
+          "mile": 6,
+          "ft": 6
+        },
+        {
+          "mile": 6.8,
+          "ft": 5
+        }
+      ],
+      "lastVerified": "2026-10-09"
+    },
+    {
+      "slug": "slide-mountain",
+      "name": "Slide Mountain via Phoenicia–East Branch",
+      "region": "Catskills",
+      "state": "NY",
+      "type": "hike",
+      "difficulty": "moderate",
+      "status": "open",
+      "statusNote": "Trail clear. Expect ice above 3,500 ft from November on, so bring microspikes.",
+      "lengthMi": 6.8,
+      "gainFt": 1780,
+      "driveFromNYC": "2h 30m",
+      "permit": "None. Sign the trail register.",
+      "season": "Year-round",
+      "coords": [
+        42.0082,
+        -74.4254
+      ],
+      "summary": "The highest peak in the Catskills (4,180 ft). A steady climb through the balsam fir zone to ledges looking out over the Ashokan.",
+      "gear": [
+        "Microspikes (Nov–Apr)",
+        "Headlamp",
+        "2L water",
+        "Insulated layer"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 2410
+        },
+        {
+          "mile": 0.5,
+          "ft": 2620
+        },
+        {
+          "mile": 1,
+          "ft": 2880
+        },
+        {
+          "mile": 1.5,
+          "ft": 3120
+        },
+        {
+          "mile": 2,
+          "ft": 3390
+        },
+        {
+          "mile": 2.7,
+          "ft": 3780
+        },
+        {
+          "mile": 3.4,
+          "ft": 4180
+        },
+        {
+          "mile": 4.1,
+          "ft": 3800
+        },
+        {
+          "mile": 4.8,
+          "ft": 3360
+        },
+        {
+          "mile": 5.5,
+          "ft": 2980
+        },
+        {
+          "mile": 6.1,
+          "ft": 2640
+        },
+        {
+          "mile": 6.8,
+          "ft": 2410
+        }
+      ],
+      "lastVerified": "2026-10-12"
+    },
+    {
+      "slug": "breakneck-ridge",
+      "name": "Breakneck Ridge",
+      "region": "Hudson Highlands",
+      "state": "NY",
+      "type": "hike",
+      "difficulty": "difficult",
+      "status": "caution",
+      "statusNote": "Trail and trailhead are being rebuilt. Check NY State Parks for reroutes before you go.",
+      "lengthMi": 3.7,
+      "gainFt": 1250,
+      "driveFromNYC": "1h 20m (or Metro-North)",
+      "permit": "None",
+      "season": "Spring to fall. Avoid when wet or icy.",
+      "coords": [
+        41.4434,
+        -73.9781
+      ],
+      "summary": "A hand-over-hand rock scramble straight up from the Hudson. Short, steep and with the best river view this close to the city.",
+      "gear": [
+        "Grippy shoes",
+        "Gloves",
+        "1.5L water",
+        "Small pack (you need both hands)"
+      ],
+      "profile": [
+        {
+          "mile": 0,
+          "ft": 30
+        },
+        {
+          "mile": 0.3,
+          "ft": 310
+        },
+        {
+          "mile": 0.6,
+          "ft": 620
+        },
+        {
+          "mile": 0.9,
+          "ft": 860
+        },
+        {
+          "mile": 1.2,
+          "ft": 1040
+        },
+        {
+          "mile": 1.5,
+          "ft": 1180
+        },
+        {
+          "mile": 1.9,
+          "ft": 1260
+        },
+        {
+          "mile": 2.3,
+          "ft": 1090
+        },
+        {
+          "mile": 2.7,
+          "ft": 820
+        },
+        {
+          "mile": 3.1,
+          "ft": 480
+        },
+        {
+          "mile": 3.7,
+          "ft": 40
+        }
+      ],
+      "lastVerified": "2026-10-15"
+    }
+  ]
+}

@@ -16,7 +16,7 @@ export function Chip({ active, onClick, children }: { active: boolean; onClick: 
       aria-pressed={active}
       onClick={onClick}
       className={`shrink-0 rounded-full px-4 py-2 font-display text-sm font-semibold transition ${
-        active ? 'bg-gubat text-puti' : 'bg-surface-2 text-ink hover:bg-tint'
+        active ? 'bg-gubat text-puti dark:bg-dahon dark:text-itim' : 'bg-surface-2 text-ink ring-1 ring-line/10 hover:bg-tint'
       }`}
     >
       {children}
@@ -48,7 +48,7 @@ export default function Events() {
         convoy stays tight and every first-timer gets a lead rig.
       </PageHero>
 
-      <section className="sticky top-[64px] z-30 border-b border-line/10 bg-puti/90 backdrop-blur-md">
+      <section className="sticky top-[64px] z-30 border-b border-line/10 bg-surface/95 backdrop-blur-md">
         <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-2 overflow-x-auto px-5 py-4 [mask-image:linear-gradient(to_right,black_82%,transparent)] md:px-8 md:[mask-image:none]">
           <Chip active={kind === 'all'} onClick={() => setKind('all')}>All</Chip>
           {kinds.map((k) => (
@@ -58,7 +58,7 @@ export default function Events() {
           ))}
           <span className="mx-2 h-6 w-px shrink-0 bg-line/15" />
           <label className="flex shrink-0 cursor-pointer items-center gap-2 font-display text-sm font-semibold text-ink">
-            <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)} className="h-4 w-4 accent-gubat" />
+            <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)} className="h-4 w-4 accent-gubat dark:accent-dahon" />
             Spots open
           </label>
         </div>

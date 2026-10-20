@@ -10,9 +10,11 @@
     "dev": "concurrently -n api,web -c green,yellow \"npm run dev -w server\" \"npm run dev -w client\"",
     "build": "npm run build -w client && npm run typecheck -w server",
     "seed": "npm run seed -w server",
-    "test": "npm run test -w server"
+    "test": "npm run test -w server",
+    "cms": "decap-server"
   },
   "devDependencies": {
-    "concurrently": "^9.2.5"
+    "concurrently": "^9.2.5",
+    "decap-server": "^3.11.5"
   }
 }

@@ -80,7 +80,7 @@ const CampsiteModel = mongoose.model('Campsite', new Schema<Campsite>({
 }, noId));
 
 const RigModel = mongoose.model('Rig', new Schema<Rig>({
-  owner: String, vehicle: String, nickname: String, mods: [String], photo: String,
+  owner: String, vehicle: String, nickname: String, mods: [String], image: String,
 }, noId));
 
 const RsvpModel = mongoose.model('Rsvp', new Schema({

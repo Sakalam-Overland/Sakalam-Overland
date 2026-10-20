@@ -12,7 +12,8 @@
     "noEmit": true,
     "allowImportingTsExtensions": true,
     "types": ["vite/client"],
+    "resolveJsonModule": true,
     "paths": { "@shared/*": ["../shared/*"] }
   },
-  "include": ["src", "../shared", "vite.config.ts"]
+  "include": ["src", "../shared", "../content", "vite.config.ts"]
 }

@@ -1,0 +1,119 @@
+{
+  "items": [
+    {
+      "slug": "moose-river-roadside",
+      "name": "Moose River Plains Roadside Sites",
+      "region": "Adirondacks",
+      "state": "NY",
+      "access": "AWD",
+      "sites": "110+ primitive sites",
+      "fee": "Free",
+      "season": "Late May to November",
+      "coords": [
+        43.6873,
+        -74.8193
+      ],
+      "amenities": [
+        "Fire ring",
+        "Pit privy (some)",
+        "Pond access",
+        "No cell service"
+      ],
+      "summary": "First come, first served, spread along the road. Get there Friday to grab a pondside spot.",
+      "nearbyTrail": "moose-river-plains",
+      "image": ""
+    },
+    {
+      "slug": "godfrey-bridge",
+      "name": "Godfrey Bridge Campground",
+      "region": "Pine Barrens",
+      "state": "NJ",
+      "access": "AWD",
+      "sites": "34 tent and vehicle sites",
+      "fee": "Fee per site, reserve online",
+      "season": "Year-round",
+      "coords": [
+        39.7712,
+        -74.6127
+      ],
+      "amenities": [
+        "Fire ring",
+        "Picnic table",
+        "Water (seasonal)",
+        "Canoe launch"
+      ],
+      "summary": "Shady sites on the Wading River, a short drive from the sand roads.",
+      "nearbyTrail": "wharton-sand-roads",
+      "image": ""
+    },
+    {
+      "slug": "rausch-creek-camp",
+      "name": "Rausch Creek Campground",
+      "region": "Pine Grove",
+      "state": "PA",
+      "access": "2WD",
+      "sites": "Open field and wooded sites",
+      "fee": "Nightly fee, paid at the gate",
+      "season": "Year-round",
+      "coords": [
+        40.6012,
+        -76.4405
+      ],
+      "amenities": [
+        "Fire ring",
+        "Restrooms",
+        "Trailer parking",
+        "Trail access from camp"
+      ],
+      "summary": "Sleep at the trailhead and you get first light on the rocks. Very easy logistics.",
+      "nearbyTrail": "rausch-creek",
+      "image": ""
+    },
+    {
+      "slug": "woodland-valley",
+      "name": "Woodland Valley Campground",
+      "region": "Catskills",
+      "state": "NY",
+      "access": "2WD",
+      "sites": "65 tent and trailer sites",
+      "fee": "Fee per site, reserve online",
+      "season": "May to October",
+      "coords": [
+        42.0371,
+        -74.3637
+      ],
+      "amenities": [
+        "Hot showers",
+        "Flush toilets",
+        "Trailhead to Slide Mtn",
+        "Stream sites"
+      ],
+      "summary": "A DEC campground in a creek-cut valley. Walk from your tent to the Slide Mountain trailhead.",
+      "nearbyTrail": "slide-mountain",
+      "image": ""
+    },
+    {
+      "slug": "smith-point-outer",
+      "name": "Smith Point Outer Beach Camping",
+      "region": "Long Island",
+      "state": "NY",
+      "access": "4x4",
+      "sites": "Self-contained vehicle sites",
+      "fee": "Requires an outer beach permit",
+      "season": "Seasonal",
+      "coords": [
+        40.7339,
+        -72.8622
+      ],
+      "amenities": [
+        "Ocean front",
+        "No facilities",
+        "Stargazing",
+        "Sunrise views"
+      ],
+      "summary": "Camp on the sand between the dunes and the surf. Check the county rules on self-contained vehicles first.",
+      "nearbyTrail": "smith-point-outer-beach",
+      "image": ""
+    }
+  ]
+}

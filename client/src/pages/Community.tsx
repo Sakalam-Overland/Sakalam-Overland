@@ -1,36 +1,12 @@
 import type { JoinInput } from '@shared/types';
 import { useState } from 'react';
 import { IG_URL, InstagramIcon, PageHero } from '../components/Layout';
+import { faq, glossary, merch, settings } from '@shared/data';
 import { BoodleFight } from '../components/Food';
 import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { ApiError, api } from '../lib/api';
-
-const glossary = [
-  ['Tara na', 'tah-RAH nah', "Let's go. What we yell over the radio when the convoy rolls out."],
-  ['Barkada', 'bar-KAH-dah', 'Your crew. The friends you would call to pull you out of a ditch at 2 AM.'],
-  ['Bayanihan', 'bah-yah-NEE-hahn', 'The village carrying a house together. On the trail, it means group recovery.'],
-  ['Kamayan', 'kah-MAH-yahn', 'Eating with your hands, family style. Utensils are optional at camp.'],
-  ['Boodle fight', 'BOO-dul fight', 'A feast laid out on banana leaves. Everyone dives in at once.'],
-  ['Kita-kits', 'kee-tah-KEETS', 'See you there. You get this text after you RSVP.'],
-  ['Salu-salo', 'sah-LOO sah-LOH', 'A gathering over food. The real reason anyone shows up.'],
-  ['Ingat', 'EE-ngat', "Take care. Said at the end of every trip, and we mean it."],
-] as const;
-
-const merch = [
-  { name: 'Trucker Hat', note: 'Sun-and-stars patch, mesh back', tone: 'dusk' as const },
-  { name: 'Crew Hoodie', note: 'Heavyweight, forest green', tone: 'forest' as const },
-  { name: 'Trail Tee', note: 'Logo front, Baybayin on the back', tone: 'night' as const },
-  { name: 'Custom Hoodie', note: 'Your rig name embroidered', tone: 'dawn' as const },
-];
-
-const faq = [
-  ['Do I need a lifted truck?', "No. Half our events work for a stock AWD. Each event lists what kind of rig it suits, and the Rig Matcher on the Trails page sorts it out for you."],
-  ['Do I have to be Filipino?', "Not at all. We're Filipino-founded and proud of it, but kapwa means everyone's family. Just come hungry."],
-  ['What does it cost?', 'Joining is free. You cover your own gas, park fees and permits. Merch sales and raffles pay for group recovery gear.'],
-  ['What if I get stuck?', "You will, and that's fine. Every run has a lead rig and a sweep rig with recovery gear, and we teach you as we go."],
-];
 
 const interestOptions: { value: JoinInput['interests'][number]; label: string }[] = [
   { value: 'overlanding', label: 'Overlanding' },
@@ -158,9 +134,9 @@ export default function Community() {
       <section className="bg-surface py-14 md:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
           <Reveal className="grid grid-cols-2 gap-4">
-            <Photo name="crew-group" alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[16/9] rounded-3xl" />
-            <Photo name="crew-food" alt="Boodle fight spread on banana leaves" className="aspect-square rounded-3xl" fallback={<BoodleFight slice />} />
-            <Photo name="crew-fire" alt="Members around a campfire" tone="night" className="aspect-square rounded-3xl" />
+            <Photo name="crew-group" src={settings.crewPhoto} alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[16/9] rounded-3xl" />
+            <Photo name="crew-food" src={settings.foodPhoto} alt="Boodle fight spread on banana leaves" className="aspect-square rounded-3xl" fallback={<BoodleFight slice />} />
+            <Photo name="crew-fire" src={settings.campfirePhoto} alt="Members around a campfire" tone="night" className="aspect-square rounded-3xl" />
           </Reveal>
           <div>
             <SectionHead eyebrow="Our story" tagalog="Kwento namin" title="From a group chat to a convoy.">
@@ -187,7 +163,7 @@ export default function Community() {
             {(rigs ?? []).map((r, i) => (
               <Reveal key={r.nickname} delay={(i % 3) * 80}>
                 <article className="group overflow-hidden rounded-3xl bg-puti/5 ring-1 ring-puti/10">
-                  <Photo name={r.photo} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[3/2]" />
+                  <Photo name={`rig-${r.nickname.toLowerCase().replace(/\W+/g, '-')}`} src={r.image} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[3/2]" />
                   <div className="p-3.5 md:p-5">
                     <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-2xl">"{r.nickname}"</p>
                     <p className="mt-0.5 font-display text-xs font-semibold md:text-sm">{r.vehicle}</p>
@@ -215,7 +191,7 @@ export default function Community() {
             No fluency required. By your third ride you'll be saying "tara na" too.
           </SectionHead>
           <dl className="mt-6 grid grid-cols-2 gap-3 md:mt-12 md:gap-4 lg:grid-cols-4">
-            {glossary.map(([word, say, meaning], i) => (
+            {glossary.map(({ word, say, meaning }, i) => (
               <Reveal key={word} delay={(i % 4) * 60} className="card-raised p-4 md:p-5">
                 <dt>
                   <span lang="tl" className="block font-display text-lg font-bold md:text-xl">
@@ -248,12 +224,14 @@ export default function Community() {
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
                   <div className="relative aspect-square overflow-hidden rounded-2xl md:rounded-3xl">
-                    <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} alt={m.name} tone={m.tone} className="h-full" />
+                    <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} src={m.image} alt={m.name} tone={(['dusk', 'forest', 'night', 'dawn'] as const)[i % 4]} className="h-full" />
+                    {!m.image && (
                     <img
                       src="/brand/mark-bw.png"
                       alt=""
                       className="absolute inset-0 m-auto w-1/3 rounded-full opacity-90 mix-blend-screen invert transition duration-700 group-hover:scale-110"
                     />
+                    )}
                   </div>
                   <p className="mt-2.5 font-display font-bold text-heading">{m.name}</p>
                   <p className="text-xs text-ink-muted md:text-sm">{m.note}</p>
@@ -272,7 +250,7 @@ export default function Community() {
               Ride invites, trail updates and first dibs on merch. Takes 30 seconds.
             </SectionHead>
             <Reveal delay={100} className="mt-8 md:mt-12 space-y-3">
-              {faq.map(([q, a]) => (
+              {faq.map(({ question: q, answer: a }) => (
                 <details key={q} className="group rounded-2xl bg-surface-2 px-5 py-4 open:bg-tint">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-heading">
                     {q}

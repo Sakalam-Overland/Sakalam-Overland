@@ -1,12 +1,27 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 const shared = fileURLToPath(new URL('../shared', import.meta.url));
 
+/** In dev, send /admin to the CMS page instead of the React app (Netlify does this on its own). */
+const cmsAdmin = (): Plugin => ({
+  name: 'cms-admin',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url === '/admin') {
+        res.writeHead(301, { Location: '/admin/' }).end();
+        return;
+      }
+      if (req.url === '/admin/') req.url = '/admin/index.html';
+      next();
+    });
+  },
+});
+
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [cmsAdmin(), react(), tailwindcss()],
   resolve: { alias: { '@shared': shared } },
   server: {
     fs: { allow: ['..'] },

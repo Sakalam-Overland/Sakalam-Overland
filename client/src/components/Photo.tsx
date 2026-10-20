@@ -31,6 +31,7 @@ export function Photo({
   className = '',
   caption,
   fallback,
+  src,
 }: {
   name: string;
   alt: string;
@@ -39,8 +40,15 @@ export function Photo({
   caption?: string;
   /** Art to show until a real photo exists; defaults to a drawn ridge scene. */
   fallback?: React.ReactNode;
+  /** An uploaded image (set in the CMS). Without it, /photos/{name}.jpg is tried. */
+  src?: string;
 }) {
   const [failed, setFailed] = useState(false);
+  const [lastSrc, setLastSrc] = useState(src);
+  if (src !== lastSrc) {
+    setLastSrc(src);
+    setFailed(false);
+  }
   const seed = [...name].reduce((n, c) => n + c.charCodeAt(0), 0);
   const t = tones[tone];
 
@@ -48,7 +56,7 @@ export function Photo({
     <figure className={`relative overflow-hidden bg-gubat ${className}`}>
       {!failed ? (
         <img
-          src={`/photos/${name}.jpg`}
+          src={src || `/photos/${name}.jpg`}
           alt={alt}
           loading="lazy"
           onError={() => setFailed(true)}

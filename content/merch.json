@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "name": "Trucker Hat",
+      "note": "Sun-and-stars patch, mesh back",
+      "image": ""
+    },
+    {
+      "name": "Crew Hoodie",
+      "note": "Heavyweight, forest green",
+      "image": ""
+    },
+    {
+      "name": "Trail Tee",
+      "note": "Logo front, Baybayin on the back",
+      "image": ""
+    },
+    {
+      "name": "Custom Hoodie",
+      "note": "Your rig name embroidered",
+      "image": ""
+    }
+  ]
+}

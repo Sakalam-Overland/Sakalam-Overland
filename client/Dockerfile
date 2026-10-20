@@ -6,6 +6,7 @@ COPY client/package.json client/
 COPY server/package.json server/
 RUN npm ci -w client
 COPY shared shared
+COPY content content
 COPY client client
 RUN npm run build -w client
 

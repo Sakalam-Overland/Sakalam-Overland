@@ -1,0 +1,256 @@
+# Content editor for Sakalam Overland. Every save is committed to the repo
+# and the site republishes itself (about a minute on Netlify).
+backend:
+  name: git-gateway
+  branch: main
+
+# Lets you edit locally without logging in: run `npm run cms` next to `npm run dev`.
+local_backend: true
+
+site_url: https://sakalamoverland.netlify.app
+display_url: https://sakalamoverland.netlify.app
+logo_url: /brand/mark-forest.png
+
+media_folder: client/public/photos
+public_folder: /photos
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: content
+    label: Site content
+    editor:
+      preview: false
+    files:
+      # ---------------------------------------------------------------- Events
+      - name: events
+        label: Events
+        file: content/events.json
+        description: Rides, campouts, hikes and meetups. Past events hide themselves automatically.
+        fields:
+          - name: items
+            label: Events
+            label_singular: Event
+            widget: list
+            summary: '{{fields.start}} · {{fields.title}}'
+            fields:
+              - { name: title, label: Event name, widget: string }
+              - { name: slug, label: Web address, widget: string, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers and dashes only, e.g. winter-sand-run'], hint: 'Becomes sakalamoverland.com/events/<this>. Lowercase and dashes, no spaces.' }
+              - name: kind
+                label: Type
+                widget: select
+                options:
+                  - { label: Group ride, value: group-ride }
+                  - { label: Campout, value: campout }
+                  - { label: Hike, value: hike }
+                  - { label: Meetup, value: meetup }
+                  - { label: Salu-salo, value: salu-salo }
+              - { name: start, label: First day, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, picker_utc: true }
+              - { name: end, label: Last day, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, picker_utc: true, hint: Same as the first day for one-day events. }
+              - { name: meetTime, label: Meet time, widget: string, hint: 'e.g. 7:00 AM' }
+              - { name: location, label: Where to meet, widget: string }
+              - { name: region, label: Region, widget: string, hint: 'Short area name, e.g. Catskills or Long Island' }
+              - name: difficulty
+                label: Difficulty
+                widget: select
+                options:
+                  - { label: Easy (stock rigs welcome), value: easy }
+                  - { label: Moderate (AWD and good tires), value: moderate }
+                  - { label: Difficult (lift, armor, lockers help), value: difficult }
+                  - { label: Extreme (built rigs only), value: extreme }
+              - { name: capacity, label: Total spots, widget: number, value_type: int, min: 1 }
+              - { name: rsvps, label: Spots already taken, widget: number, value_type: int, min: 0, hint: The site adds online RSVPs to this. }
+              - { name: summary, label: Description, widget: text }
+              - { name: bring, label: What to bring, widget: list, allow_add: true, hint: One item per line. }
+              - name: trailSlug
+                label: Trail (optional)
+                widget: relation
+                collection: content
+                file: trails
+                search_fields: ['items.*.name']
+                display_fields: ['items.*.name']
+                value_field: 'items.*.slug'
+                required: false
+              - name: campsiteSlug
+                label: Campsite (optional)
+                widget: relation
+                collection: content
+                file: campsites
+                search_fields: ['items.*.name']
+                display_fields: ['items.*.name']
+                value_field: 'items.*.slug'
+                required: false
+
+      # ---------------------------------------------------------------- Trails
+      - name: trails
+        label: Trails
+        file: content/trails.json
+        description: Trail guide entries. Update the status and "last checked" date after each scouting run.
+        fields:
+          - name: items
+            label: Trails
+            label_singular: Trail
+            widget: list
+            summary: '{{fields.name}} · {{fields.status}}'
+            fields:
+              - { name: name, label: Trail name, widget: string }
+              - { name: slug, label: Web address, widget: string, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers and dashes only'] }
+              - name: status
+                label: Current status
+                widget: select
+                options: [{ label: Open, value: open }, { label: Caution, value: caution }, { label: Seasonal, value: seasonal }, { label: Closed, value: closed }]
+              - { name: statusNote, label: Conditions note, widget: text, hint: What a member saw on their last visit. }
+              - { name: lastVerified, label: Last checked, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false, picker_utc: true }
+              - { name: region, label: Region, widget: string }
+              - { name: state, label: State, widget: select, options: [NY, NJ, PA] }
+              - name: type
+                label: Type
+                widget: select
+                options: [{ label: Off-road, value: offroad }, { label: Hike, value: hike }, { label: Beach, value: beach }]
+              - name: difficulty
+                label: Difficulty
+                widget: select
+                options: [easy, moderate, difficult, extreme]
+              - { name: lengthMi, label: Length (miles), widget: number, value_type: float }
+              - { name: gainFt, label: Elevation gain (ft), widget: number, value_type: int }
+              - { name: driveFromNYC, label: Drive from NYC, widget: string, hint: 'e.g. 2h 30m' }
+              - { name: permit, label: Permit and access, widget: text }
+              - { name: season, label: Season, widget: string }
+              - { name: coords, label: 'Map pin (latitude, longitude)', widget: list, field: { name: n, label: Number, widget: number, value_type: float }, hint: 'Two numbers: latitude then longitude. Right-click a spot in Google Maps to copy them.' }
+              - { name: summary, label: Description, widget: text }
+              - { name: gear, label: Gear list, widget: list }
+              - name: profile
+                label: Elevation profile
+                widget: list
+                summary: 'Mile {{fields.mile}}: {{fields.ft}} ft'
+                hint: Points along the route, from the start (mile 0) to the end. Any GPS app export works.
+                fields:
+                  - { name: mile, label: Mile, widget: number, value_type: float }
+                  - { name: ft, label: Elevation (ft), widget: number, value_type: int }
+
+      # ---------------------------------------------------------------- Campsites
+      - name: campsites
+        label: Campsites
+        file: content/campsites.json
+        fields:
+          - name: items
+            label: Campsites
+            label_singular: Campsite
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: name, label: Campsite name, widget: string }
+              - { name: slug, label: Web address, widget: string, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers and dashes only'] }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: Wide landscape photos look best. }
+              - { name: region, label: Region, widget: string }
+              - { name: state, label: State, widget: select, options: [NY, NJ, PA] }
+              - { name: access, label: Access, widget: select, options: [2WD, AWD, 4x4, Hike-in] }
+              - { name: sites, label: Sites, widget: string, hint: 'e.g. 34 tent and vehicle sites' }
+              - { name: fee, label: Fee, widget: string }
+              - { name: season, label: Season, widget: string }
+              - { name: coords, label: 'Map pin (latitude, longitude)', widget: list, field: { name: n, label: Number, widget: number, value_type: float } }
+              - { name: amenities, label: Amenities, widget: list }
+              - { name: summary, label: Description, widget: text }
+              - name: nearbyTrail
+                label: Nearby trail (optional)
+                widget: relation
+                collection: content
+                file: trails
+                search_fields: ['items.*.name']
+                display_fields: ['items.*.name']
+                value_field: 'items.*.slug'
+                required: false
+
+      # ---------------------------------------------------------------- Rigs
+      - name: rigs
+        label: Rig showcase
+        file: content/rigs.json
+        description: The named rigs on the Community page.
+        fields:
+          - name: items
+            label: Rigs
+            label_singular: Rig
+            widget: list
+            summary: '"{{fields.nickname}}" · {{fields.owner}}'
+            fields:
+              - { name: nickname, label: Rig name, widget: string, hint: 'The fun name, e.g. Kalabaw' }
+              - { name: vehicle, label: Vehicle, widget: string, hint: 'Year, make and model' }
+              - { name: owner, label: Owner, widget: string, hint: First name and last initial. }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false }
+              - { name: mods, label: Mods, widget: list, hint: 'e.g. 3" lift, winch, roof-top tent' }
+
+      # ---------------------------------------------------------------- Merch
+      - name: merch
+        label: Merch
+        file: content/merch.json
+        fields:
+          - name: items
+            label: Products
+            label_singular: Product
+            widget: list
+            summary: '{{fields.name}}'
+            fields:
+              - { name: name, label: Product, widget: string }
+              - { name: note, label: Short description, widget: string }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: Square photos look best. }
+
+      # ---------------------------------------------------------------- Vocab
+      - name: glossary
+        label: Trail Tagalog (vocab)
+        file: content/glossary.json
+        fields:
+          - name: items
+            label: Words
+            label_singular: Word
+            widget: list
+            summary: '{{fields.word}}'
+            fields:
+              - { name: word, label: Word, widget: string }
+              - { name: say, label: How to say it, widget: string, hint: 'Capitalize the stressed part, e.g. tah-RAH nah' }
+              - { name: meaning, label: Meaning, widget: text }
+
+      # ---------------------------------------------------------------- Gallery
+      - name: gallery
+        label: Home page photos
+        file: content/gallery.json
+        description: The "From the trail" grid. The first photo shows largest. Four photos fit.
+        fields:
+          - name: items
+            label: Photos
+            label_singular: Photo
+            widget: list
+            max: 4
+            summary: '{{fields.caption}}'
+            fields:
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false }
+              - { name: caption, label: Place, widget: string, hint: Shown on the photo, e.g. Pine Barrens }
+              - { name: alt, label: Describe the photo, widget: string, hint: For people using screen readers, e.g. Three trucks crossing a sandy road. }
+
+      # ---------------------------------------------------------------- FAQ
+      - name: faq
+        label: FAQ
+        file: content/faq.json
+        fields:
+          - name: items
+            label: Questions
+            label_singular: Question
+            widget: list
+            summary: '{{fields.question}}'
+            fields:
+              - { name: question, label: Question, widget: string }
+              - { name: answer, label: Answer, widget: text }
+
+      # ---------------------------------------------------------------- Settings
+      - name: settings
+        label: Site settings
+        file: content/settings.json
+        fields:
+          - { name: instagramFollowers, label: Instagram followers (home page), widget: string, hint: 'Rounded, e.g. 2K+' }
+          - { name: statesRidden, label: States we ride (home page), widget: string }
+          - { name: heroPhoto, label: Home page snapshot photo, widget: image, required: false, choose_url: false, hint: The tilted photo behind the tire. Square works best. }
+          - { name: heroPhotoCaption, label: Snapshot caption, widget: string }
+          - { name: crewPhoto, label: Community page · group photo, widget: image, required: false, choose_url: false }
+          - { name: foodPhoto, label: Community page · food photo, widget: image, required: false, choose_url: false }
+          - { name: campfirePhoto, label: Community page · campfire photo, widget: image, required: false, choose_url: false }

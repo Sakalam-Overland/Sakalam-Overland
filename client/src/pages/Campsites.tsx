@@ -150,7 +150,7 @@ export default function Campsites() {
           {(data ?? []).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 3) * 100}>
               <article className="group card flex h-full flex-col overflow-hidden">
-                <Photo name={`camp-${c.slug}`} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[2/1] lg:aspect-[5/2]" caption={`${c.region}, ${c.state}`} />
+                <Photo name={`camp-${c.slug}`} src={c.image} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[2/1] lg:aspect-[5/2]" caption={`${c.region}, ${c.state}`} />
                 <div className="flex flex-1 flex-col p-4 md:p-5">
                   <div className="flex flex-wrap items-center gap-2">
                     <Tag>{c.access} · {accessNote[c.access]}</Tag>

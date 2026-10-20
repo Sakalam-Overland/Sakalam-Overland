@@ -59,6 +59,8 @@ export interface Campsite {
   amenities: string[];
   summary: string;
   nearbyTrail?: string;
+  /** Uploaded photo path, e.g. /photos/godfrey.jpg. Empty shows the drawn placeholder. */
+  image?: string;
 }
 
 export interface Rig {
@@ -66,7 +68,40 @@ export interface Rig {
   vehicle: string;
   nickname: string;
   mods: string[];
-  photo: string;
+  image?: string;
+}
+
+export interface MerchItem {
+  name: string;
+  note: string;
+  image?: string;
+}
+
+export interface GlossaryItem {
+  word: string;
+  say: string;
+  meaning: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface GalleryItem {
+  caption: string;
+  alt: string;
+  image?: string;
+}
+
+export interface SiteSettings {
+  instagramFollowers: string;
+  statesRidden: string;
+  heroPhoto: string;
+  heroPhotoCaption: string;
+  crewPhoto: string;
+  foodPhoto: string;
+  campfirePhoto: string;
 }
 
 export interface RsvpInput {

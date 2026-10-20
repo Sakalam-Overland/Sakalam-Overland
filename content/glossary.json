@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "word": "Tara na",
+      "say": "tah-RAH nah",
+      "meaning": "Let's go. What we yell over the radio when the convoy rolls out."
+    },
+    {
+      "word": "Barkada",
+      "say": "bar-KAH-dah",
+      "meaning": "Your crew. The friends you would call to pull you out of a ditch at 2 AM."
+    },
+    {
+      "word": "Bayanihan",
+      "say": "bah-yah-NEE-hahn",
+      "meaning": "The village carrying a house together. On the trail, it means group recovery."
+    },
+    {
+      "word": "Kamayan",
+      "say": "kah-MAH-yahn",
+      "meaning": "Eating with your hands, family style. Utensils are optional at camp."
+    },
+    {
+      "word": "Boodle fight",
+      "say": "BOO-dul fight",
+      "meaning": "A feast laid out on banana leaves. Everyone dives in at once."
+    },
+    {
+      "word": "Kita-kits",
+      "say": "kee-tah-KEETS",
+      "meaning": "See you there. You get this text after you RSVP."
+    },
+    {
+      "word": "Salu-salo",
+      "say": "sah-LOO sah-LOH",
+      "meaning": "A gathering over food. The real reason anyone shows up."
+    },
+    {
+      "word": "Ingat",
+      "say": "EE-ngat",
+      "meaning": "Take care. Said at the end of every trip, and we mean it."
+    }
+  ]
+}
