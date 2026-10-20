@@ -49,7 +49,7 @@ function Nav() {
   // Gabi: everything under the bar is dark, so it stays dark.
   const light = theme === 'light' && (solid || pathname === '/');
   // While the menu is open the bar matches the panel, fully opaque.
-  const barBg = open ? 'bg-surface-2' : light ? 'bg-surface-2/85 shadow-[0_1px_0_rgba(24,59,34,0.08)]' : 'bg-deep/85';
+  const barBg = open ? 'bg-surface-2' : light ? 'bg-surface-2/95 shadow-[0_1px_0_rgba(24,59,34,0.1)]' : 'bg-deep/90';
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
   }, [open]);
@@ -72,12 +72,16 @@ function Nav() {
                   to={n.to}
                   className={({ isActive }) =>
                     `group relative rounded-full px-4 py-2 font-display text-sm font-semibold transition ${
-                      isActive ? 'text-dahon' : light ? 'text-heading/80 hover:text-heading' : 'text-puti/80 hover:text-puti'
+                      isActive
+                        ? `after:absolute after:inset-x-4 after:bottom-0.5 after:h-0.5 after:rounded-full after:bg-dahon ${light ? 'text-heading' : 'text-dahon'}`
+                        : light
+                          ? 'text-heading/85 hover:text-heading'
+                          : 'text-puti/85 hover:text-puti'
                     }`
                   }
                 >
                   {n.label}
-                  <span className="pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 text-[0.65rem] font-normal tracking-wide whitespace-nowrap text-abo italic opacity-0 transition group-hover:opacity-100">
+                  <span className={`pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 text-[0.65rem] font-normal tracking-wide whitespace-nowrap italic opacity-0 transition group-hover:opacity-100 ${light ? 'text-ink-muted' : 'text-abo'}`}>
                     {n.tl}
                   </span>
                 </NavLink>
