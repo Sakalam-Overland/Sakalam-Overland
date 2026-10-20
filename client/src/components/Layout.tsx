@@ -10,11 +10,12 @@ const HeaderScene = lazy(() => import('../three/HeaderScene'));
 
 export const IG_URL = 'https://www.instagram.com/nysakalamoverland/';
 
+// `bay` is the Tagalog word written in Baybayin (modern virama spelling).
 export const navItems = [
-  { to: '/events', label: 'Events', icon: 'events', tl: 'Lakad' },
-  { to: '/trails', label: 'Trails', icon: 'trails', tl: 'Daan' },
-  { to: '/campsites', label: 'Campsites', icon: 'campsites', tl: 'Kampo' },
-  { to: '/community', label: 'Community', icon: 'community', tl: 'Barkada' },
+  { to: '/events', label: 'Events', icon: 'events', tl: 'Lakad', bay: 'ᜎᜃᜇ᜔' },
+  { to: '/trails', label: 'Trails', icon: 'trails', tl: 'Daan', bay: 'ᜇᜀᜈ᜔' },
+  { to: '/campsites', label: 'Campsites', icon: 'campsites', tl: 'Kampo', bay: 'ᜃᜋ᜔ᜉᜓ' },
+  { to: '/community', label: 'Community', icon: 'community', tl: 'Barkada', bay: 'ᜊᜇ᜔ᜃᜇ' },
 ];
 
 function Wordmark({ light = false }: { light?: boolean }) {
@@ -101,8 +102,9 @@ function Nav() {
               aria-label={open ? 'Close menu' : 'Open menu'}
               onClick={() => setOpen((o) => !o)}
             >
-              <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 rotate-45' : 'top-3.5'}`} />
-              <span className={`absolute left-2 h-0.5 w-6 bg-current transition ${open ? 'top-5 -rotate-45' : 'top-6'}`} />
+              <span className={`absolute left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[19px] rotate-45' : 'top-3'}`} />
+              <span className={`absolute top-[19px] left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'scale-x-0 opacity-0' : ''}`} />
+              <span className={`absolute left-2 h-0.5 w-6 rounded-full bg-current transition duration-300 ${open ? 'top-[19px] -rotate-45' : 'top-[26px]'}`} />
             </button>
           </div>
         </nav>
@@ -116,12 +118,17 @@ function Nav() {
         }`}
       >
         <ul className="space-y-2">
-          {[{ to: '/', label: 'Home', icon: 'home', tl: 'Tahanan' }, ...navItems].map((n) => (
+          {[{ to: '/', label: 'Home', icon: 'home', tl: 'Tahanan', bay: 'ᜆᜑᜈᜈ᜔' }, ...navItems].map((n) => (
             <li key={n.to}>
-              <NavLink to={n.to} className="flex items-center gap-4 border-b border-line/10 py-4">
+              <NavLink to={n.to} className="flex items-center gap-4 border-b border-line/10 py-3.5">
                 <img src={`/icons/${n.icon}.png`} alt="" className="h-11 w-11" />
                 <span className="font-display text-2xl font-bold text-heading">{n.label}</span>
-                <span className="ml-auto text-sm text-ink-muted italic">{n.tl}</span>
+                <span className="ml-auto text-right leading-tight">
+                  <span lang="tl" className="block font-baybayin text-xl text-dahon" aria-hidden>
+                    {n.bay}
+                  </span>
+                  <span className="block text-xs text-ink-muted italic">{n.tl}</span>
+                </span>
               </NavLink>
             </li>
           ))}
@@ -243,7 +250,7 @@ export function HeaderBackdrop({ scene }: { scene: SceneVariant }) {
       <Suspense fallback={null}>
         <HeaderScene
           variant={scene}
-          className="pointer-events-none absolute -right-[35%] -bottom-[12%] h-[60%] w-[115%] opacity-20 md:top-0 md:right-0 md:bottom-0 md:h-auto md:w-[58%] md:opacity-100 md:[mask-image:linear-gradient(to_right,transparent,black_30%)]"
+          className="pointer-events-none absolute top-10 -right-[22%] h-[46%] w-[78%] opacity-30 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] md:top-[7%] md:-right-[4%] md:bottom-0 md:h-auto md:w-[52%] md:opacity-90 md:[mask-image:linear-gradient(to_right,transparent,black_28%)]"
         />
       </Suspense>
     </>

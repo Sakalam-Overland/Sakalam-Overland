@@ -152,7 +152,7 @@ function HeroStats() {
 
 function Hero() {
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-16 md:pt-32">
+    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:pt-32">
       {/* Soft light: warm sun top right, green bottom left */}
       <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 -z-10 h-[42rem] w-[42rem] rounded-full bg-araw/20 blur-3xl dark:bg-[#ff8a3c]/10" />
       <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-40 -z-10 h-[36rem] w-[36rem] rounded-full bg-dahon/20 blur-3xl dark:bg-dahon/10" />
@@ -190,7 +190,7 @@ function Hero() {
           <HeroStats />
         </div>
 
-        <div className="animate-rise [animation-delay:250ms] lg:col-span-5">
+        <div className="mt-[3svh] animate-rise [animation-delay:250ms] short:mt-1 sm:mt-0 lg:col-span-5">
           <div className="relative mx-auto w-[min(70vw,36svh)] short:w-[min(60vw,30svh)] sm:w-full sm:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
             {/* Snapshot tucked behind the tire */}
             <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
@@ -204,7 +204,7 @@ function Hero() {
             <SpareTire className="relative rounded-full dark:shadow-[0_0_0_2px_rgba(241,239,230,0.55),0_0_40px_6px_rgba(246,184,26,0.18)]" />
             {/* Ground shadow */}
             <div aria-hidden className="mx-auto -mt-2 h-5 w-3/4 rounded-[100%] bg-itim/25 blur-md" />
-            <RouteStamp className="absolute -top-3 -left-6 h-[38%] w-[38%] sm:-top-4 sm:-left-3 sm:h-28 sm:w-28" />
+            <RouteStamp className="absolute -top-3 -left-6 aspect-square w-[38%] sm:-top-4 sm:-left-3 sm:w-28" />
             <NextRide className="absolute -bottom-6 -left-10 hidden w-[78%] animate-[float_7s_ease-in-out_infinite] motion-reduce:animate-none sm:flex" />
           </div>
         </div>
@@ -311,13 +311,15 @@ function UpcomingEvents() {
             </Link>
           </Reveal>
         </div>
-        <div className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
+        <div className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
           {(data ?? []).slice(0, 3).map((e, i) => (
-            <Reveal key={e.slug} delay={i * 100} className="flex w-[82%] shrink-0 snap-start md:w-auto">
+            <Reveal key={e.slug} delay={i * 100} className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
               <EventCard event={e} featured={i === 0} />
             </Reveal>
           ))}
-          {!data && [0, 1, 2].map((i) => <div key={i} className="h-80 w-[82%] shrink-0 animate-pulse rounded-3xl bg-surface-2 md:w-auto" />)}
+          {!data && [0, 1, 2].map((i) => <div key={i} className="h-56 w-[74%] shrink-0 animate-pulse rounded-2xl bg-surface-2 md:w-auto" />)}
+          {/* Trailing room so the last card can snap clear of the edge */}
+          <div aria-hidden className="w-2 shrink-0 md:hidden" />
         </div>
       </div>
     </section>

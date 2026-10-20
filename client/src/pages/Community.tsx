@@ -65,7 +65,7 @@ function JoinForm() {
 
   if (state === 'done' || state === 'back') {
     return (
-      <div className="rounded-3xl bg-deep p-8 text-puti md:p-12" role="status">
+      <div className="rounded-3xl bg-deep p-6 text-puti md:p-8" role="status">
         <p className="eyebrow text-dahon">{state === 'done' ? 'Welcome sa barkada' : 'Welcome back'}</p>
         <h3 className="mt-3 text-4xl font-bold">{state === 'done' ? `Salamat, ${v.name.split(' ')[0]}!` : "You're already on the list."}</h3>
         <p className="lead mt-4 text-puti/75">
@@ -98,7 +98,7 @@ function JoinForm() {
   );
 
   return (
-    <form onSubmit={submit} noValidate className="space-y-5 rounded-3xl bg-surface p-6 ring-1 ring-line/10 md:p-10">
+    <form onSubmit={submit} noValidate className="space-y-5 rounded-3xl bg-surface p-5 ring-1 ring-line/10 md:p-8">
       <div className="grid gap-5 sm:grid-cols-2">
         {input('name', 'Name', { autoComplete: 'name' })}
         {input('email', 'Email', { type: 'email', autoComplete: 'email' })}
@@ -183,18 +183,18 @@ export default function Community() {
           <SectionHead dark eyebrow="Rig showcase" tagalog="Mga sasakyan" title="Every rig gets a name.">
             Most of them are named after food or family. Tag us on Instagram to get yours featured.
           </SectionHead>
-          <div className="mt-8 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 md:mt-12 md:gap-4 lg:grid-cols-3">
             {(rigs ?? []).map((r, i) => (
               <Reveal key={r.nickname} delay={(i % 3) * 80}>
                 <article className="group overflow-hidden rounded-3xl bg-puti/5 ring-1 ring-puti/10">
-                  <Photo name={r.photo} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[4/3]" />
-                  <div className="p-6">
-                    <p className="font-display text-3xl font-extrabold tracking-tight text-dahon">"{r.nickname}"</p>
-                    <p className="mt-1 font-display font-semibold">{r.vehicle}</p>
-                    <p className="text-sm text-abo">{r.owner}</p>
-                    <ul className="mt-4 flex flex-wrap gap-1.5">
+                  <Photo name={r.photo} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[3/2]" />
+                  <div className="p-3.5 md:p-5">
+                    <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-2xl">"{r.nickname}"</p>
+                    <p className="mt-0.5 font-display text-xs font-semibold md:text-sm">{r.vehicle}</p>
+                    <p className="text-xs text-abo">{r.owner}</p>
+                    <ul className="mt-2.5 flex flex-wrap gap-1">
                       {r.mods.map((m) => (
-                        <li key={m} className="rounded-full bg-puti/10 px-2.5 py-1 font-display text-[0.7rem] font-semibold">
+                        <li key={m} className="rounded-full bg-puti/10 px-2 py-0.5 font-display text-[0.65rem] font-semibold">
                           {m}
                         </li>
                       ))}
@@ -243,11 +243,11 @@ export default function Community() {
               </a>
             </Reveal>
           </div>
-          <div className="mt-8 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 md:mt-14 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
             {merch.map((m, i) => (
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
+                  <div className="relative aspect-square overflow-hidden rounded-2xl md:rounded-3xl">
                     <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} alt={m.name} tone={m.tone} className="absolute inset-0" />
                     <img
                       src="/brand/mark-bw.png"
@@ -255,8 +255,8 @@ export default function Community() {
                       className="absolute inset-0 m-auto w-1/3 rounded-full opacity-90 mix-blend-screen invert transition duration-700 group-hover:scale-110"
                     />
                   </div>
-                  <p className="mt-4 font-display text-lg font-bold text-heading">{m.name}</p>
-                  <p className="text-sm text-ink-muted">{m.note}</p>
+                  <p className="mt-2.5 font-display font-bold text-heading">{m.name}</p>
+                  <p className="text-xs text-ink-muted md:text-sm">{m.note}</p>
                 </div>
               </Reveal>
             ))}

@@ -27,8 +27,8 @@ export default function Brand() {
             {palette.map((c, i) => (
               <Reveal key={c.token} delay={(i % 3) * 60}>
                 <div className="overflow-hidden rounded-3xl ring-1 ring-line/10">
-                  <div className="h-40" style={{ background: c.hex }} />
-                  <div className="p-5">
+                  <div className="h-24" style={{ background: c.hex }} />
+                  <div className="p-4">
                     <p className="font-display text-lg font-bold text-heading">{c.hex}</p>
                     <p className="text-sm text-ink-muted">RGB {c.rgb}</p>
                     <p className="mt-3 font-display text-sm font-semibold">{c.name}</p>
@@ -93,7 +93,7 @@ export default function Brand() {
           </SectionHead>
           <div className="mt-8 md:mt-12 grid grid-cols-2 gap-4 sm:grid-cols-5">
             {icons.map((ic) => (
-              <div key={ic} className="flex flex-col items-center gap-4 rounded-3xl bg-surface-2 p-6">
+              <div key={ic} className="flex flex-col items-center gap-4 rounded-3xl bg-surface-2 p-4">
                 <div className="flex gap-3">
                   <img src={`/icons/${ic}.png`} alt="" className="h-14 w-14" />
                   <img src={`/icons/${ic}-bw.png`} alt="" className="h-14 w-14" />

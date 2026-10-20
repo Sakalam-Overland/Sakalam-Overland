@@ -55,7 +55,7 @@ export default function EventDetail() {
 
       <section className="bg-surface py-10 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
-          <Reveal className="space-y-14 lg:col-span-7">
+          <Reveal className="space-y-10 lg:col-span-7">
             <div>
               <p className="eyebrow text-heading">The plan</p>
               <p className="lead mt-4 text-ink/85">{event.summary}</p>
@@ -64,7 +64,7 @@ export default function EventDetail() {
               <p className="eyebrow text-heading">Bring</p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {event.bring.map((b) => (
-                  <li key={b} className="flex items-start gap-3 rounded-2xl bg-surface-2 px-4 py-3">
+                  <li key={b} className="flex items-start gap-3 rounded-xl bg-surface-2 px-3.5 py-2.5 text-sm">
                     <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dahon" aria-hidden />
                     <span className="font-normal">{b}</span>
                   </li>
@@ -72,7 +72,7 @@ export default function EventDetail() {
               </ul>
             </div>
             {trail && (
-              <div className="card p-6 md:p-8">
+              <div className="card p-5 md:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <p className="eyebrow text-heading">The trail</p>
@@ -92,7 +92,7 @@ export default function EventDetail() {
               </div>
             )}
             {camp && (
-              <div className="flex flex-col gap-4 rounded-3xl bg-gubat p-6 text-puti md:flex-row md:items-center md:p-8">
+              <div className="flex flex-col gap-4 rounded-3xl bg-gubat p-5 text-puti md:flex-row md:items-center md:p-6">
                 <img src="/icons/campsites.png" alt="" className="h-14 w-14" />
                 <div className="flex-1">
                   <p className="eyebrow text-dahon">Where we sleep</p>
@@ -109,7 +109,7 @@ export default function EventDetail() {
           </Reveal>
 
           <Reveal as="aside" delay={120} className="lg:col-span-5">
-            <div className="sticky top-28 space-y-6 rounded-3xl bg-surface-2 p-6 md:p-8">
+            <div className="sticky top-28 space-y-6 rounded-3xl bg-surface-2 p-5 md:p-6">
               <div>
                 <p className="eyebrow text-heading">RSVP</p>
                 <h2 className="mt-2 text-3xl font-bold text-heading">Save a spot</h2>

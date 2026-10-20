@@ -65,7 +65,7 @@ export default function Events() {
       </section>
 
       <section className="bg-surface py-10 md:py-24">
-        <div className="mx-auto max-w-7xl space-y-20 px-5 md:px-8">
+        <div className="mx-auto max-w-7xl space-y-12 px-5 md:space-y-16 md:px-8">
           {loading && <div className="h-96 animate-pulse rounded-3xl bg-surface-2" />}
           {!loading && groups.length === 0 && (
             <p className="lead py-20 text-center text-ink-muted">Nothing matches those filters yet. Try another category, or follow us on IG for pop-up rides.</p>
@@ -78,7 +78,7 @@ export default function Events() {
                   <span className="block text-base font-semibold text-ink-muted">{key.slice(0, 4)}</span>
                 </h2>
               </Reveal>
-              <div className="grid gap-5 md:grid-cols-2 lg:col-span-9">
+              <div className="grid gap-3 sm:grid-cols-2 md:gap-4 lg:col-span-9 xl:grid-cols-3">
                 {list.map((e, i) => (
                   <Reveal key={e.slug} delay={i * 80} className="flex">
                     <EventCard event={e} />

@@ -248,12 +248,12 @@ export default function HeaderScene({ variant, className = '' }: { variant: Scen
         dot.position.set(0, 6.4, 2.1);
         pin.add(head, tip, dot);
         const stem = new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, -2, z), new THREE.Vector3(x, 16, z)]),
+          new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, -2, z), new THREE.Vector3(x, 11, z)]),
           new THREE.LineBasicMaterial({ color: 0xf6b81a, transparent: true, opacity: 0.35 }),
         );
         tile.add(pin, stem);
         animated.push((t) => {
-          pin.position.set(x, 17 + Math.sin(t * 0.8 + i * 1.7) * 1.2, z);
+          pin.position.set(x, 12 + Math.sin(t * 0.8 + i * 1.7) * 1, z);
           pin.rotation.y = -tile.rotation.y; // keep the white dot facing the camera
         });
       });

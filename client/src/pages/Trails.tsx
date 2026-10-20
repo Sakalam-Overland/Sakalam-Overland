@@ -38,18 +38,18 @@ const typeLabel: Record<Trail['type'], string> = { offroad: 'Off-road', hike: 'H
 function TrailDetail({ trail }: { trail: Trail }) {
   return (
     <article className="card overflow-hidden" aria-labelledby="trail-title">
-      <div className="bg-gubat p-6 text-puti md:p-8">
+      <div className="bg-gubat p-5 text-puti md:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <Tag dark>{typeLabel[trail.type]}</Tag>
           <StatusBadge value={trail.status} dark />
         </div>
-        <h2 id="trail-title" className="mt-4 text-3xl font-bold md:text-4xl">
+        <h2 id="trail-title" className="mt-3 text-2xl font-bold md:text-3xl">
           {trail.name}
         </h2>
         <p className="mt-1 text-puti/70">
           {trail.region}, {trail.state} · {fmt.coords(trail.coords)}
         </p>
-        <dl className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-4">
+        <dl className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
           {[
             ['Length', `${trail.lengthMi} mi`],
             ['Gain', `${trail.gainFt.toLocaleString()} ft`],
@@ -63,14 +63,14 @@ function TrailDetail({ trail }: { trail: Trail }) {
           ))}
         </dl>
       </div>
-      <div className="space-y-8 p-6 md:p-8">
+      <div className="space-y-6 p-5 md:p-6">
         <div
           className={`rounded-2xl px-5 py-4 ${trail.status === 'caution' ? 'bg-araw/15' : trail.status === 'closed' ? 'bg-[#b3261e]/10' : 'bg-tint'}`}
         >
           <p className="eyebrow text-ink">Current conditions · checked {fmt.long(trail.lastVerified)}</p>
           <p className="mt-2 font-normal">{trail.statusNote}</p>
         </div>
-        <p className="lead text-ink/85">{trail.summary}</p>
+        <p className="text-base leading-relaxed text-ink/85">{trail.summary}</p>
         <div className="text-ink">
           <p className="eyebrow mb-4 text-heading">Elevation profile</p>
           <ElevationChart profile={trail.profile} name={trail.name} />
@@ -136,7 +136,7 @@ export default function Trails() {
 
       <section className="bg-surface-2 py-10">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="rounded-3xl bg-surface p-6 ring-1 ring-line/5 md:p-8">
+          <div className="rounded-3xl bg-surface p-4 ring-1 ring-line/5 md:p-6">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
               <div className="lg:w-56">
                 <p className="eyebrow text-heading">Rig matcher</p>
@@ -173,7 +173,7 @@ export default function Trails() {
                 </Chip>
               ))}
             </div>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {sorted.map((t, i) => {
                 const fit = rig === null ? null : fitFor(t, rig, exp);
                 const active = selected?.slug === t.slug;
@@ -186,7 +186,7 @@ export default function Trails() {
                         if (window.innerWidth < 1024) document.getElementById('trail-detail')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                       aria-current={active}
-                      className={`w-full rounded-2xl p-5 text-left transition ${active ? 'bg-gubat text-puti' : 'bg-surface hover:bg-tint'} ${
+                      className={`w-full rounded-2xl px-4 py-3.5 text-left transition ${active ? 'bg-gubat text-puti' : 'bg-surface hover:bg-tint'} ${
                         fit === 'no' ? 'opacity-60' : ''
                       }`}
                     >
