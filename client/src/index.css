@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Brand palette */
+  --color-puti: #ffffff;
+  --color-dahon: #61ab73; /* leaf */
+  --color-gubat: #183b22; /* forest */
+  --color-uling: #272928; /* charcoal */
+  --color-itim: #000000;
+  /* Accent pulled from the sun in the color logo. Use sparingly, like the flag does. */
+  --color-araw: #f6b81a;
+
+  /* Supporting tints, derived from the palette */
+  --color-gubat-900: #0e2615;
+  --color-gubat-700: #224d2e;
+  --color-dahon-100: #e6f2e9;
+  --color-uling-600: #3a3d3b;
+  --color-abo: #8b918d; /* muted ink on dark */
+  --color-abo-ink: #5c625e; /* muted ink on light */
+  --color-papel: #f4f5f1; /* off-white surface */
+
+  --font-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-baybayin: 'Noto Sans Tagalog', serif;
+
+  --ease-trail: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-rise: rise 0.9s var(--ease-trail) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-puti font-body text-uling;
+    font-weight: 300;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-balance;
+  }
+  ::selection {
+    @apply bg-dahon text-itim;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-araw);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+/* Small uppercase label, like a trail marker. */
+/* A slow hover, for cards that sit on top of the hero art. */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@utility eyebrow {
+  @apply font-display text-[0.7rem] font-semibold tracking-[0.28em] uppercase;
+}
+/* Body copy follows the type spec: Outfit Extra Light, at sizes that keep it readable. */
+@utility lead {
+  @apply text-lg leading-relaxed md:text-xl;
+  font-weight: 200;
+}
+@utility btn {
+  @apply inline-flex items-center gap-2 rounded-full px-6 py-3 font-display text-sm font-semibold tracking-wide transition duration-300 ease-(--ease-trail) disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-dahon text-itim hover:bg-puti;
+}
+@utility btn-ghost {
+  @apply btn border border-current/30 hover:border-current hover:bg-current/5;
+}
+@utility btn-dark {
+  @apply btn bg-gubat text-puti hover:bg-itim;
+}
+@utility field {
+  @apply w-full rounded-xl border border-uling/15 bg-puti px-4 py-3 font-body font-normal text-uling placeholder:text-abo-ink/70 transition focus:border-gubat focus:outline-none focus:ring-2 focus:ring-dahon/40;
+}
+@utility card {
+  @apply rounded-3xl bg-puti ring-1 ring-uling/10;
+}
+
+/* Banig: the woven palm mat. Diagonal strips at low contrast. */
+@utility banig {
+  background-image:
+    repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px),
+    repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 14px);
+}
+/* Outlined display type. Set --stroke to change the outline color. */
+@utility text-stroke {
+  -webkit-text-stroke: 1.5px var(--stroke, var(--color-puti));
+  color: transparent;
+}
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}

@@ -1,0 +1,5 @@
+# Static deploy. With no API behind it, the site uses the bundled data
+# and RSVPs/sign-ups run in demo mode.
+[build]
+  command = "npm run build -w client"
+  publish = "client/dist"

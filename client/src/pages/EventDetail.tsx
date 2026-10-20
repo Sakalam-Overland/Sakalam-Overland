@@ -1,0 +1,136 @@
+import { campsites, kindLabels, trails } from '@shared/data';
+import { Link, useParams } from 'react-router';
+import { DifficultyBadge, StatusBadge, Tag } from '../components/Badges';
+import { ElevationChart } from '../components/ElevationChart';
+import { SpotsMeter } from '../components/EventCard';
+import { RsvpForm } from '../components/RsvpForm';
+import { HEADER_BOX, HeaderBackdrop } from '../components/Layout';
+import { useAsync } from '../hooks/useAsync';
+import { api } from '../lib/api';
+import { difficultyMeta, directionsUrl, fmt, icsFor } from '../lib/format';
+import NotFound from './NotFound';
+
+export default function EventDetail() {
+  const { slug = '' } = useParams();
+  const { data: event, error, loading, setData } = useAsync(() => api.event(slug), [slug]);
+
+  if (error) return <NotFound what="event" />;
+  if (loading || !event) return <div className="min-h-screen bg-itim" />;
+
+  const trail = trails.find((t) => t.slug === event.trailSlug);
+  const camp = campsites.find((c) => c.slug === event.campsiteSlug);
+
+  return (
+    <>
+      <section className={`${HEADER_BOX} bg-itim text-puti`}>
+        <HeaderBackdrop scene="event" />
+        <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
+          <Link to="/events" className="font-display text-sm font-semibold text-abo transition hover:text-puti">
+            ← All events
+          </Link>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <Tag dark>{kindLabels[event.kind]}</Tag>
+            <DifficultyBadge value={event.difficulty} dark />
+          </div>
+          <h1 className="mt-4 max-w-3xl text-4xl leading-[1.02] font-extrabold tracking-tight md:text-6xl">{event.title}</h1>
+          <p className="mt-5 border-t border-puti/10 pt-4 text-sm leading-relaxed text-puti/80 md:hidden">
+            {fmt.range(event)} · Meet {event.meetTime} · {event.location}
+          </p>
+          <dl className="mt-6 hidden max-w-4xl grid-cols-4 gap-x-6 border-t border-puti/10 pt-5 md:grid">
+            {[
+              ['When', fmt.range(event)],
+              ['Meet', event.meetTime],
+              ['Where', event.location],
+              ['Rig', difficultyMeta[event.difficulty].note],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="eyebrow text-dahon">{k}</dt>
+                <dd className="mt-1 font-display text-sm font-semibold md:text-base">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="bg-puti py-16 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-14 px-5 md:px-8 lg:grid-cols-12">
+          <div className="space-y-14 lg:col-span-7">
+            <div>
+              <p className="eyebrow text-gubat">The plan</p>
+              <p className="lead mt-4 text-uling/85">{event.summary}</p>
+            </div>
+            <div>
+              <p className="eyebrow text-gubat">Bring</p>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {event.bring.map((b) => (
+                  <li key={b} className="flex items-start gap-3 rounded-2xl bg-papel px-4 py-3">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dahon" aria-hidden />
+                    <span className="font-normal">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {trail && (
+              <div className="card p-6 md:p-8">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <p className="eyebrow text-gubat">The trail</p>
+                    <h2 className="mt-2 text-2xl font-bold text-gubat">{trail.name}</h2>
+                    <p className="mt-1 text-sm text-abo-ink">
+                      {trail.lengthMi} mi · {trail.gainFt.toLocaleString()} ft gain · {trail.permit}
+                    </p>
+                  </div>
+                  <StatusBadge value={trail.status} />
+                </div>
+                <div className="mt-6 text-uling">
+                  <ElevationChart profile={trail.profile} name={trail.name} />
+                </div>
+                <Link to={`/trails/${trail.slug}`} className="mt-4 inline-block font-display text-sm font-semibold text-gubat hover:underline">
+                  Full trail intel →
+                </Link>
+              </div>
+            )}
+            {camp && (
+              <div className="flex flex-col gap-4 rounded-3xl bg-gubat p-6 text-puti md:flex-row md:items-center md:p-8">
+                <img src="/icons/campsites.png" alt="" className="h-14 w-14" />
+                <div className="flex-1">
+                  <p className="eyebrow text-dahon">Where we sleep</p>
+                  <p className="mt-1 font-display text-xl font-bold">{camp.name}</p>
+                  <p className="text-sm text-puti/70">
+                    {camp.sites} · {camp.fee} · {camp.access} access
+                  </p>
+                </div>
+                <Link to="/campsites" className="btn-ghost text-puti">
+                  Campsite info
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <aside className="lg:col-span-5">
+            <div className="sticky top-28 space-y-6 rounded-3xl bg-papel p-6 md:p-8">
+              <div>
+                <p className="eyebrow text-gubat">RSVP</p>
+                <h2 className="mt-2 text-3xl font-bold text-gubat">Save a spot</h2>
+                <div className="mt-5">
+                  <SpotsMeter event={event} />
+                </div>
+              </div>
+              <RsvpForm event={event} onDone={setData} />
+              <div className="flex flex-wrap gap-4 border-t border-uling/10 pt-5 font-display text-sm font-semibold text-gubat">
+                <a href={icsFor(event)} download={`${event.slug}.ics`} className="hover:underline">
+                  + Calendar
+                </a>
+                {trail && (
+                  <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="hover:underline">
+                    Directions
+                  </a>
+                )}
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  );
+}

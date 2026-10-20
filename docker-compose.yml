@@ -1,0 +1,20 @@
+services:
+  mongo:
+    image: mongo:7
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: { context: ., dockerfile: server/Dockerfile }
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/sakalam
+    depends_on: [mongo]
+
+  web:
+    build: { context: ., dockerfile: client/Dockerfile }
+    ports:
+      - "8080:80"
+    depends_on: [api]
+
+volumes:
+  mongo-data:
