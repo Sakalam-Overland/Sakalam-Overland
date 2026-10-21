@@ -64,7 +64,7 @@ export default function Events() {
         </div>
       </section>
 
-      <section className="bg-surface py-10 md:py-24">
+      <section className="bg-surface py-10 md:py-16">
         <div className="mx-auto max-w-7xl space-y-12 px-5 md:space-y-16 md:px-8">
           {loading && <div className="h-96 animate-pulse rounded-3xl bg-surface-2" />}
           {!loading && groups.length === 0 && (

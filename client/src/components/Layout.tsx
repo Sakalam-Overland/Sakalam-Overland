@@ -264,7 +264,7 @@ export function Layout() {
 }
 
 /** Every inner page header shares this box so they all sit at the same height. */
-export const HEADER_BOX = 'relative flex min-h-[420px] flex-col justify-end overflow-hidden pt-28 pb-10 md:h-[440px] md:min-h-0 md:pb-12';
+export const HEADER_BOX = 'relative flex min-h-[420px] flex-col justify-end overflow-hidden pt-28 pb-10 md:h-[360px] md:min-h-0 md:pb-10';
 
 /** Banig texture plus the page's 3D relief tile, faded out behind the headline. */
 export function HeaderBackdrop({ scene }: { scene: SceneVariant }) {
@@ -307,7 +307,7 @@ export function PageHero({
             {eyebrow} <span className="ml-2 normal-case tracking-normal text-abo italic">· {tagalog}</span>
           </p>
         </div>
-        <h1 className="mt-5 max-w-3xl text-4xl leading-[1.02] font-extrabold tracking-tight animate-rise [animation-delay:120ms] md:text-6xl">
+        <h1 className="mt-5 max-w-3xl text-4xl leading-[1.02] font-extrabold tracking-tight animate-rise [animation-delay:120ms] md:text-5xl">
           {title}
         </h1>
         {children && <div className="mt-4 max-w-xl text-base leading-relaxed font-light text-puti/70 animate-rise [animation-delay:240ms] md:text-lg">{children}</div>}

@@ -20,10 +20,10 @@ export default function Brand() {
         The palette, type, marks and icons that run the site, written as Tailwind theme tokens so the design and the code stay in sync.
       </PageHero>
 
-      <section className="bg-surface py-12 md:py-24">
+      <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead eyebrow="Color" title="Forest first, sun as accent." />
-          <div className="mt-8 md:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 md:mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {palette.map((c, i) => (
               <Reveal key={c.token} delay={(i % 3) * 60}>
                 <div className="overflow-hidden rounded-3xl ring-1 ring-line/10">
@@ -46,7 +46,7 @@ export default function Brand() {
         </div>
       </section>
 
-      <section className="bg-surface-2 py-12 md:py-24">
+      <section className="bg-surface-2 py-12 md:py-16">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2">
           <div>
             <SectionHead eyebrow="Type" title="Montserrat + Outfit." />
@@ -86,12 +86,12 @@ export default function Brand() {
         </div>
       </section>
 
-      <section className="bg-surface py-12 md:py-24">
+      <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead eyebrow="Icons" title="One icon per section of the site.">
             Each section has a filled icon for dark surfaces and a black-and-white one for print and light surfaces.
           </SectionHead>
-          <div className="mt-8 md:mt-12 grid grid-cols-2 gap-4 sm:grid-cols-5">
+          <div className="mt-8 md:mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
             {icons.map((ic) => (
               <div key={ic} className="flex flex-col items-center gap-4 rounded-3xl bg-surface-2 p-4">
                 <div className="flex gap-3">
@@ -105,7 +105,7 @@ export default function Brand() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-deep py-20 text-puti md:py-28">
+      <section className="relative overflow-hidden bg-deep py-20 text-puti md:py-20">
         <div className="banig absolute inset-0 text-dahon opacity-[0.08]" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Pattern" title="Banig weave.">

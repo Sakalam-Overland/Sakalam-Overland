@@ -42,8 +42,8 @@ export function SectionHead({
         {eyebrow}
         {tagalog && <span className={`normal-case tracking-normal italic ${dark ? 'text-abo' : 'text-ink-muted'}`}>· {tagalog}</span>}
       </p>
-      <h2 className={`mt-3 text-[1.85rem] leading-[1.05] font-bold tracking-tight sm:text-4xl md:mt-4 md:text-6xl ${dark ? 'text-puti' : 'text-heading'}`}>{title}</h2>
-      {children && <div className={`lead mt-3 md:mt-5 ${dark ? 'text-puti/75' : 'text-ink/80'}`}>{children}</div>}
+      <h2 className={`mt-3 text-[1.85rem] leading-[1.05] font-bold tracking-tight sm:text-4xl md:mt-3 md:text-5xl ${dark ? 'text-puti' : 'text-heading'}`}>{title}</h2>
+      {children && <div className={`mt-3 text-base leading-relaxed font-light md:mt-4 md:text-lg ${dark ? 'text-puti/75' : 'text-ink/80'}`}>{children}</div>}
     </Reveal>
   );
 }

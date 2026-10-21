@@ -221,7 +221,7 @@ function Hero() {
 function Meaning() {
   const word = 'MALAKAS'.split('');
   return (
-    <section className="relative flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-36">
+    <section className="relative flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-20">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-6 px-5 md:grid-cols-12 md:gap-16 md:px-8">
         <div className="md:col-span-7">
           <Reveal>
@@ -279,18 +279,22 @@ const pillarCopy: Record<string, string> = {
 
 function Pillars() {
   return (
-    <section className="flex min-h-[100svh] items-center bg-surface-2 py-12 md:block md:min-h-0 md:py-28">
+    <section className="flex min-h-[100svh] items-center bg-surface-2 py-12 md:block md:min-h-0 md:py-20">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <SectionHead eyebrow="Start here" tagalog="Saan tayo?" title="Everything you need to get out there." />
-        <div className="mt-6 grid grid-cols-2 gap-3 md:mt-12 md:gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-4">
           {navItems.map((n, i) => (
             <Reveal key={n.to} delay={i * 80}>
-              <Link to={n.to} className="group flex h-full flex-col rounded-3xl bg-surface p-4 ring-1 md:p-6 ring-line/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:bg-gubat">
-                <img src={`/icons/${n.icon}.png`} alt="" className="h-10 w-10 transition group-hover:scale-110 md:h-12 md:w-12" />
-                <p className="mt-3 text-xs md:mt-5 md:text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
-                <h3 className="mt-0.5 text-lg font-bold text-heading transition group-hover:text-puti md:text-xl">{n.label}</h3>
-                <p className="mt-1.5 text-xs leading-snug text-ink/75 short:hidden md:mt-2 md:text-sm transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
-                <span className="mt-auto pt-3 font-display text-xs font-semibold text-heading md:pt-5 md:text-sm transition group-hover:text-dahon">
+              <Link to={n.to} className="group flex h-full flex-col rounded-3xl bg-surface p-4 ring-1 md:p-5 ring-line/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:bg-gubat">
+                <div className="flex items-center gap-3">
+                  <img src={`/icons/${n.icon}.png`} alt="" className="h-10 w-10 shrink-0 transition group-hover:scale-110 md:h-11 md:w-11" />
+                  <div>
+                    <p className="text-xs md:text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
+                    <h3 className="text-lg font-bold text-heading transition group-hover:text-puti md:text-xl">{n.label}</h3>
+                  </div>
+                </div>
+                <p className="mt-2.5 text-xs leading-snug text-ink/75 short:hidden md:mt-3 md:text-sm transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
+                <span className="mt-auto pt-3 font-display text-xs font-semibold text-heading md:pt-4 md:text-sm transition group-hover:text-dahon">
                   Explore <span className="inline-block transition group-hover:translate-x-1">→</span>
                 </span>
               </Link>
@@ -325,7 +329,7 @@ function UpcomingEvents() {
   };
 
   return (
-    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-28">
+    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-20">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <SectionHead eyebrow="Upcoming events" tagalog="Mga lakad" title="Next on the calendar." />
@@ -341,7 +345,7 @@ function UpcomingEvents() {
             onScroll={onScroll}
             role="region"
             aria-label="Upcoming events, swipe for more"
-            className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pt-2 pb-3 md:mx-0 md:mt-12 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0"
+            className="no-scrollbar -mx-5 mt-6 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pt-2 pb-3 md:mx-0 md:mt-8 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0"
           >
             {list.map((e, i) => (
               <div key={e.slug} data-no-reveal className="flex w-[74%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
@@ -392,7 +396,7 @@ function UpcomingEvents() {
 function TrailBoard() {
   const { data } = useAsync(() => api.trails(), []);
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-deep py-12 text-puti md:block md:min-h-0 md:py-28">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-deep py-12 text-puti md:block md:min-h-0 md:py-20">
       <div className="mx-auto grid w-full max-w-7xl gap-6 px-5 md:gap-14 md:px-8 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <SectionHead dark eyebrow="Trail intel" tagalog="Balita sa daan" title="Conditions, from people who were just there." className="[&_.lead]:short:hidden">
@@ -441,15 +445,15 @@ const beliefs = [
 
 function Beliefs() {
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-gubat py-12 text-puti md:block md:min-h-0 md:py-28 dark:bg-[#0f2717]">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-gubat py-12 text-puti md:block md:min-h-0 md:py-20 dark:bg-[#0f2717]">
       <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.04]" />
       <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
         <SectionHead dark eyebrow="#ourcorebelief" tagalog="Ang paniniwala namin" title="Four words we ride by." />
-        <div className="mt-6 grid grid-cols-2 gap-3 md:mt-12 md:gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-4">
           {beliefs.map((b, i) => (
-            <Reveal key={b.tl} delay={i * 80} className="card-raised p-4 md:p-6">
+            <Reveal key={b.tl} delay={i * 80} className="card-raised p-4 md:p-5">
               <span className="font-display text-xs font-semibold text-araw tabular-nums">0{i + 1}</span>
-              <h3 className="mt-1 text-xl font-extrabold tracking-tight md:text-3xl">{b.tl}</h3>
+              <h3 className="mt-1 text-xl font-extrabold tracking-tight md:text-2xl">{b.tl}</h3>
               <p className="mt-1.5 font-display text-xs font-semibold text-dahon-300 md:mt-2 md:text-base">{b.en}</p>
               <p className="mt-1.5 text-xs leading-snug text-puti/80 md:mt-2 md:text-sm md:leading-relaxed">{b.body}</p>
             </Reveal>
@@ -506,7 +510,7 @@ function Gallery() {
   const layout = ['col-span-2 md:row-span-2', '', '', 'col-span-2'];
   const tones = ['forest', 'dawn', 'night', 'dusk'] as const;
   return (
-    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-28">
+    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-20">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <SectionHead eyebrow="From the trail" tagalog="Mula sa daan" title="Mud, sand, sunrise. Repeat." />
@@ -516,7 +520,7 @@ function Gallery() {
             </a>
           </Reveal>
         </div>
-        <div className="mt-6 grid auto-rows-[min(19svh,150px)] short:auto-rows-[16svh] grid-cols-2 gap-3 md:mt-12 md:auto-rows-[240px] md:grid-cols-4 md:gap-4">
+        <div className="mt-6 grid auto-rows-[min(19svh,150px)] short:auto-rows-[16svh] grid-cols-2 gap-3 md:mt-8 md:auto-rows-[190px] md:grid-cols-4 md:gap-4">
           {gallery.slice(0, 4).map((s, i) => (
             <Reveal key={`${s.caption}-${i}`} delay={i * 80} className={`group ${layout[i % layout.length]}`}>
               <Photo name={`gallery-${i}`} src={s.image} alt={s.alt} tone={tones[i % tones.length]} caption={s.caption} className="h-full rounded-3xl" />
@@ -595,10 +599,17 @@ function RouteSign() {
   );
 }
 
+const firstRide = [
+  { title: 'Sign up', body: 'Join the list or RSVP to a ride. Free, takes 30 seconds, and you get the group chat invite.' },
+  { title: 'Get paired', body: 'First-timers ride behind a lead rig. We check your tires, recovery points and radio at the meetup.' },
+  { title: 'Hit the trail', body: 'We air down together and take it slow. Getting stuck is part of it, and somebody always has a strap.' },
+  { title: 'Kain tayo', body: 'Every run ends with food. Bring a dish if you can; there is always enough rice.' },
+];
+
 export function JoinBand() {
   const bandRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] items-center overflow-hidden pt-20 pb-12 text-puti md:block md:min-h-0 md:pt-32 md:pb-28">
+    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-20 pb-12 text-puti md:pt-28 md:pb-16">
       {/* The flag's sun rising behind the band */}
       <svg viewBox="-100 -100 200 200" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 h-[38rem] w-[38rem] text-araw opacity-[0.12] md:-right-20" aria-hidden>
         {Array.from({ length: 8 }, (_, i) => (
@@ -636,6 +647,22 @@ export function JoinBand() {
         <Reveal delay={150} className="flex justify-center lg:col-span-5 lg:justify-end">
           <RouteSign />
         </Reveal>
+      </div>
+
+      {/* What a first ride looks like, so "join" feels concrete */}
+      <div className="mx-auto mt-8 w-full max-w-7xl px-5 short:hidden md:mt-14 md:px-8">
+        <p className="eyebrow text-araw">Unang sakay · your first ride</p>
+        <ol className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 md:mt-4 lg:grid-cols-4">
+          {firstRide.map((step, i) => (
+            <Reveal as="li" key={step.title} delay={i * 80} className="rounded-2xl bg-gubat-900/45 p-3 ring-1 ring-puti/15 backdrop-blur-[2px] sm:p-4 md:p-5">
+              <div className="flex items-center gap-3">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-araw font-display text-xs font-bold text-itim sm:h-8 sm:w-8 sm:text-sm">{i + 1}</span>
+                <h3 className="font-display text-sm font-bold sm:text-base md:text-lg">{step.title}</h3>
+              </div>
+              <p className="mt-2 hidden text-sm leading-relaxed text-puti/80 sm:block">{step.body}</p>
+            </Reveal>
+          ))}
+        </ol>
       </div>
     </section>
   );

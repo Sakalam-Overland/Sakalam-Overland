@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, useRef } from 'react';
 import { useTheme } from '../lib/theme';
 
 /**
@@ -8,6 +8,12 @@ import { useTheme } from '../lib/theme';
 export function HeadlightsToggle({ className = '' }: { className?: string }) {
   const { theme, toggle, hint, dismissHint } = useTheme();
   const hintId = useId();
+  const btn = useRef<HTMLButtonElement>(null);
+  // Start the reveal from the headlights, even when the hint's button is used.
+  const flip = () => {
+    const r = btn.current?.getBoundingClientRect();
+    toggle(r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : undefined);
+  };
   const on = theme === 'dark';
   const label = on ? 'Headlights on: night mode' : 'Headlights off: day mode';
 
@@ -15,7 +21,8 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
     <div className={`relative ${className}`}>
       <button
         type="button"
-        onClick={toggle}
+        ref={btn}
+        onClick={flip}
         aria-pressed={on}
         aria-label={`${label}. Switch to ${on ? 'day' : 'night'} mode`}
         aria-describedby={hint ? hintId : undefined}
@@ -96,7 +103,7 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
             {on ? 'Switch off the headlights for day mode.' : 'Flip on the headlights for night mode.'} Tap them anytime to switch back.
           </p>
           <div className="mt-3 flex items-center gap-3">
-            <button type="button" onClick={toggle} className="rounded-full bg-araw px-3.5 py-1.5 font-display text-xs font-semibold text-itim transition hover:brightness-110">
+            <button type="button" onClick={flip} className="rounded-full bg-araw px-3.5 py-1.5 font-display text-xs font-semibold text-itim transition hover:brightness-110">
               {on ? 'Lights off' : 'Lights on'}
             </button>
             <button type="button" onClick={dismissHint} className="font-display text-xs font-semibold underline-offset-2 opacity-75 hover:underline hover:opacity-100">

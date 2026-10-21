@@ -33,7 +33,7 @@ export default function EventDetail() {
             <Tag dark>{kindLabels[event.kind]}</Tag>
             <DifficultyBadge value={event.difficulty} dark />
           </div>
-          <h1 className="mt-4 max-w-3xl animate-rise text-4xl leading-[1.02] font-extrabold tracking-tight [animation-delay:160ms] md:text-6xl">{event.title}</h1>
+          <h1 className="mt-4 max-w-3xl animate-rise text-4xl leading-[1.02] font-extrabold tracking-tight [animation-delay:160ms] md:text-5xl">{event.title}</h1>
           <p className="mt-5 animate-rise border-t border-puti/10 pt-4 text-sm leading-relaxed text-puti/80 [animation-delay:240ms] md:hidden">
             {fmt.range(event)} · Meet {event.meetTime} · {event.location}
           </p>
@@ -53,7 +53,7 @@ export default function EventDetail() {
         </div>
       </section>
 
-      <section className="bg-surface py-10 md:py-24">
+      <section className="bg-surface py-10 md:py-16">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12 [&>*]:min-w-0">
           <Reveal className="space-y-10 lg:col-span-7">
             <div>

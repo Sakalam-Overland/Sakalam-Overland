@@ -145,7 +145,7 @@ export default function Campsites() {
         coming back to.
       </PageHero>
 
-      <section className="bg-surface py-12 md:py-24">
+      <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto grid max-w-7xl gap-4 px-5 md:grid-cols-2 md:px-8 lg:grid-cols-3">
           {(data ?? []).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 3) * 100}>
@@ -187,7 +187,7 @@ export default function Campsites() {
         </div>
       </section>
 
-      <section className="bg-surface-2 py-12 md:py-24">
+      <section className="bg-surface-2 py-12 md:py-16">
         <div className="mx-auto max-w-7xl space-y-12 px-5 md:px-8">
           <SectionHead eyebrow="Before you go" tagalog="Handa ka na ba?" title="The pack list we actually use.">
             Check things off as you load the rig. Your progress is saved on this device, so you can start on Thursday and finish Friday night.
