@@ -4,7 +4,7 @@ import { Tag } from '../components/Badges';
 import { PageHero } from '../components/Layout';
 import { LogoMark } from '../components/SunMark';
 import { Photo } from '../components/Photo';
-import { Reveal, SectionHead } from '../components/Reveal';
+import { Reveal } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { directionsUrl, fmt } from '../lib/format';
@@ -40,13 +40,13 @@ function Checklist() {
   // Shaped like a backpack: haul loop, lid with a sewn patch, straps and buckles,
   // a zippered main compartment, side pockets and a front pocket.
   return (
-    <div className="relative pt-12">
+    <div className="relative pt-10">
       <div aria-hidden className="absolute top-0 left-1/2 h-16 w-32 -translate-x-1/2 rounded-t-full border-[12px] border-b-0 border-gubat-900" />
       {(['left', 'right'] as const).map((side) => (
         <div
           key={side}
           aria-hidden
-          className={`absolute top-48 bottom-24 hidden w-14 bg-gubat-700 md:block ${side === 'left' ? 'left-0 rounded-l-[2rem]' : 'right-0 rounded-r-[2rem]'}`}
+          className={`absolute top-36 bottom-20 hidden w-14 bg-gubat-700 md:block ${side === 'left' ? 'left-0 rounded-l-[2rem]' : 'right-0 rounded-r-[2rem]'}`}
         >
           <div className={`absolute inset-2 border border-dashed border-puti/15 ${side === 'left' ? 'rounded-l-[1.6rem] border-r-0' : 'rounded-r-[1.6rem] border-l-0'}`} />
           <div className="absolute inset-x-0 top-1/3 h-3 bg-gubat-900" />
@@ -58,7 +58,7 @@ function Checklist() {
         <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.03]" />
 
         {/* Lid */}
-        <div className="relative rounded-b-[2.5rem] bg-gubat-900 px-6 pt-10 pb-10 md:px-14">
+        <div className="relative rounded-b-[2.5rem] bg-gubat-900 px-6 pt-7 pb-6 md:px-14">
           <div aria-hidden className="pointer-events-none absolute inset-3 rounded-t-[3.4rem] rounded-b-[2.1rem] border border-dashed border-puti/20" />
           <div className="relative flex flex-wrap items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -88,7 +88,7 @@ function Checklist() {
         </div>
 
         {/* Zipper */}
-        <div aria-hidden className="relative mx-6 mt-16 md:mx-14">
+        <div aria-hidden className="relative mx-6 mt-12 md:mx-14">
           <div className="border-t-2 border-dashed border-puti/25" />
           <div className="absolute -top-[13px] left-1/2 flex -translate-x-1/2 flex-col items-center">
             <div className="h-3 w-3 rounded-full border-2 border-abo" />
@@ -97,11 +97,11 @@ function Checklist() {
         </div>
 
         {/* Main compartment */}
-        <div className="relative grid gap-8 px-6 pt-8 pb-10 sm:grid-cols-2 md:px-14 lg:grid-cols-4">
+        <div className="relative grid gap-6 px-6 pt-6 pb-6 sm:grid-cols-2 md:px-14 lg:grid-cols-4">
           {Object.entries(checklist).map(([group, items]) => (
             <fieldset key={group}>
               <legend className="eyebrow text-dahon">{group}</legend>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-2.5 space-y-1.5">
                 {items.map((item) => (
                   <li key={item}>
                     <label className="flex cursor-pointer items-start gap-3">
@@ -116,7 +116,7 @@ function Checklist() {
         </div>
 
         {/* Front pocket */}
-        <div className="relative mx-4 mb-4 rounded-[2.25rem] bg-gubat-700 px-6 py-6 md:mx-8 md:px-10">
+        <div className="relative mx-4 mb-4 rounded-[2.25rem] bg-gubat-700 px-6 py-3.5 md:mx-8 md:px-10">
           <div aria-hidden className="pointer-events-none absolute inset-2.5 rounded-[1.8rem] border border-dashed border-puti/15" />
           <div className="relative flex flex-wrap items-center justify-between gap-4">
             <p className="text-puti/75">
@@ -187,11 +187,21 @@ export default function Campsites() {
         </div>
       </section>
 
-      <section className="bg-surface-2 py-12 md:py-16">
-        <div className="mx-auto max-w-7xl space-y-12 px-5 md:px-8">
-          <SectionHead eyebrow="Before you go" tagalog="Handa ka na ba?" title="The pack list we actually use.">
-            Check things off as you load the rig. Your progress is saved on this device, so you can start on Thursday and finish Friday night.
-          </SectionHead>
+      <section className="bg-surface-2 py-10 md:py-8">
+        <div className="mx-auto max-w-7xl space-y-5 px-5 md:px-8">
+          {/* Compact header so the heading and the whole backpack fit one screen */}
+          <Reveal className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between md:gap-10">
+            <div>
+              <p className="eyebrow flex items-center gap-3 text-heading">
+                <span className="h-px w-8 bg-heading" />
+                Before you go <span className="normal-case tracking-normal text-ink-muted italic">· Handa ka na ba?</span>
+              </p>
+              <h2 className="mt-2 text-2xl leading-tight font-bold tracking-tight text-heading md:text-3xl">The pack list we actually use.</h2>
+            </div>
+            <p className="max-w-md text-sm leading-relaxed text-ink/80 md:text-right">
+              Check things off as you load the rig. Progress saves on this device, so you can start Thursday and finish Friday night.
+            </p>
+          </Reveal>
           <Reveal>
             <Checklist />
           </Reveal>
