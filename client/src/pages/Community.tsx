@@ -76,8 +76,8 @@ function JoinForm() {
   return (
     <form onSubmit={submit} noValidate className="space-y-3.5 rounded-3xl bg-surface px-4 py-4 ring-1 ring-line/10 md:space-y-4 md:px-8 md:py-6">
       <div className="grid grid-cols-2 gap-3 md:gap-5">
-        {input('name', 'Name', { autoComplete: 'name' })}
-        {input('email', 'Email', { type: 'email', autoComplete: 'email' })}
+        {input('name', 'Name', { autoComplete: 'name', placeholder: 'Your name' })}
+        {input('email', 'Email', { type: 'email', autoComplete: 'email', placeholder: 'name@example.com' })}
         {input('instagram', 'Instagram', { placeholder: '@yourhandle' })}
         {input('rig', 'Rig', { placeholder: 'What do you drive?' })}
       </div>

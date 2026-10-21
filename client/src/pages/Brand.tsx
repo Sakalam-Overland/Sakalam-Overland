@@ -1,6 +1,5 @@
 import { PageHero } from '../components/Layout';
 import { Reveal, SectionHead } from '../components/Reveal';
-import { LogoMark } from '../components/SunMark';
 
 const palette = [
   { token: 'puti', name: 'Puti · White', hex: '#FFFFFF', rgb: '255, 255, 255', use: 'Surfaces, type on dark' },
@@ -17,7 +16,7 @@ export default function Brand() {
   return (
     <>
       <PageHero scene="brand" eyebrow="Brand guide" tagalog="Gabay" icon="home" title={<>The system behind the sun.</>}>
-        The palette, type, marks and icons that run the site, written as Tailwind theme tokens so the design and the code stay in sync.
+        The palette, pattern, type and icons that run the site, written as Tailwind theme tokens so the design and the code stay in sync.
       </PageHero>
 
       <section className="bg-surface py-12 md:py-16">
@@ -47,53 +46,57 @@ export default function Brand() {
       </section>
 
       <section className="bg-surface-2 py-12 md:py-16">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2">
-          <div>
-            <SectionHead eyebrow="Type" title="Montserrat + Outfit." />
-            <div className="mt-10 space-y-8">
-              <div>
-                <p className="eyebrow text-ink-muted">Heading · Montserrat Bold</p>
-                <p className="mt-2 font-display text-5xl font-bold text-heading">Sakalam Overland</p>
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHead eyebrow="Pattern" title="Banig weave.">
+            A low-contrast diagonal weave based on the woven palm mats found in Filipino homes. It's pure CSS gradients and sits behind dark and
+            forest sections at 4 to 8 percent opacity.
+          </SectionHead>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              { label: 'On forest, 4%', bg: 'bg-gubat', tone: 'text-puti', opacity: 'opacity-[0.06]' },
+              { label: 'On night, 8%', bg: 'bg-itim', tone: 'text-dahon', opacity: 'opacity-[0.12]' },
+            ].map((t) => (
+              <div key={t.label} className={`relative h-36 overflow-hidden rounded-3xl ${t.bg}`}>
+                <div className={`banig absolute inset-0 ${t.tone} ${t.opacity}`} />
+                <p className="eyebrow absolute bottom-4 left-5 text-puti/80">{t.label}</p>
               </div>
-              <div>
-                <p className="eyebrow text-ink-muted">Sub-heading · Montserrat SemiBold</p>
-                <p className="mt-2 font-display text-3xl font-semibold text-dahon">Upcoming Events</p>
-              </div>
-              <div>
-                <p className="eyebrow text-ink-muted">Body · Outfit Extra Light</p>
-                <p className="lead mt-2">Join a community of off-road enthusiasts! Find new trails.</p>
-              </div>
-              <div>
-                <p className="eyebrow text-ink-muted">Accent · Noto Sans Tagalog (Baybayin)</p>
-                <p lang="tl" className="mt-2 font-baybayin text-5xl text-heading">ᜐᜃᜎᜋ᜔</p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <SectionHead eyebrow="Marks" title="Three ways to sign it." />
-            <div className="mt-10 grid grid-cols-2 gap-4">
-              <div className="col-span-2 grid place-items-center rounded-3xl bg-itim p-6">
-                <img src="/brand/logo-color.png" alt="Full color logo" className="w-64" />
-              </div>
-              <div className="grid place-items-center rounded-3xl bg-white p-6">
-                <img src="/brand/logo-bw.png" alt="Black and white logo" className="w-40" />
-              </div>
-              <div className="grid place-items-center rounded-3xl bg-gubat p-6">
-                <LogoMark className="w-32" />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <SectionHead eyebrow="Type" title="Montserrat + Outfit." />
+          <div className="mt-8 grid gap-8 md:grid-cols-2">
+            <div>
+              <p className="eyebrow text-ink-muted">Heading · Montserrat Bold</p>
+              <p className="mt-2 font-display text-5xl font-bold text-heading">Sakalam Overland</p>
+            </div>
+            <div>
+              <p className="eyebrow text-ink-muted">Sub-heading · Montserrat SemiBold</p>
+              <p className="mt-2 font-display text-3xl font-semibold text-dahon">Upcoming Events</p>
+            </div>
+            <div>
+              <p className="eyebrow text-ink-muted">Body · Outfit Extra Light</p>
+              <p className="lead mt-2">Join a community of off-road enthusiasts! Find new trails.</p>
+            </div>
+            <div>
+              <p className="eyebrow text-ink-muted">Accent · Noto Sans Tagalog (Baybayin)</p>
+              <p lang="tl" className="mt-2 font-baybayin text-5xl text-heading">ᜐᜃᜎᜋ᜔</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface-2 py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead eyebrow="Icons" title="One icon per section of the site.">
             Each section has a filled icon for dark surfaces and a black-and-white one for print and light surfaces.
           </SectionHead>
           <div className="mt-8 md:mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
             {icons.map((ic) => (
-              <div key={ic} className="flex flex-col items-center gap-4 rounded-3xl bg-surface-2 p-4">
+              <div key={ic} className="flex flex-col items-center gap-4 rounded-3xl bg-surface p-4">
                 <div className="flex gap-3">
                   <img src={`/icons/${ic}.png`} alt="" className="h-14 w-14" />
                   <img src={`/icons/${ic}-bw.png`} alt="" className="h-14 w-14" />
@@ -105,15 +108,6 @@ export default function Brand() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-deep py-20 text-puti md:py-20">
-        <div className="banig absolute inset-0 text-dahon opacity-[0.08]" />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-          <SectionHead dark eyebrow="Pattern" title="Banig weave.">
-            A low-contrast diagonal weave based on the woven palm mats found in Filipino homes. It's pure CSS gradients and sits behind dark and
-            forest sections at 4 to 8 percent opacity.
-          </SectionHead>
-        </div>
-      </section>
     </>
   );
 }
