@@ -55,10 +55,10 @@ function JoinForm() {
   }
 
   const input = (k: 'name' | 'email' | 'instagram' | 'rig', label: string, props: React.InputHTMLAttributes<HTMLInputElement> = {}) => (
-    <label className="block">
+    <label className={`block ${k === 'name' || k === 'email' ? 'col-span-2 sm:col-span-1' : ''}`}>
       <span className="eyebrow text-heading">{label}</span>
       <input
-        className="field mt-2"
+        className="field mt-1.5 py-2.5 md:mt-2 md:py-3"
         value={v[k] ?? ''}
         onChange={(e) => setV((s) => ({ ...s, [k]: e.target.value }))}
         aria-invalid={!!err[k]}
@@ -74,8 +74,8 @@ function JoinForm() {
   );
 
   return (
-    <form onSubmit={submit} noValidate className="space-y-4 rounded-3xl bg-surface px-5 py-4 ring-1 ring-line/10 md:px-8 md:py-6">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={submit} noValidate className="space-y-3.5 rounded-3xl bg-surface px-4 py-4 ring-1 ring-line/10 md:space-y-4 md:px-8 md:py-6">
+      <div className="grid grid-cols-2 gap-3 md:gap-5">
         {input('name', 'Name', { autoComplete: 'name' })}
         {input('email', 'Email', { type: 'email', autoComplete: 'email' })}
         {input('instagram', 'Instagram', { placeholder: '@yourhandle' })}
@@ -83,13 +83,13 @@ function JoinForm() {
       </div>
       <fieldset>
         <legend className="eyebrow text-heading">I'm into</legend>
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-2 flex flex-wrap gap-1.5 md:mt-3 md:gap-2">
           {interestOptions.map((o) => {
             const on = v.interests.includes(o.value);
             return (
               <label
                 key={o.value}
-                className={`cursor-pointer rounded-full border px-4 py-2 font-display text-sm font-semibold transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-araw ${
+                className={`cursor-pointer rounded-full border px-3 py-1.5 font-display text-xs font-semibold transition md:px-4 md:py-2 md:text-sm has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-araw ${
                   on ? 'border-heading bg-gubat text-puti' : 'border-line/15 hover:border-heading'
                 }`}
               >
@@ -112,7 +112,7 @@ function JoinForm() {
           {err.form}
         </p>
       )}
-      <button type="submit" disabled={state === 'sending'} className="btn-dark w-full justify-center py-4">
+      <button type="submit" disabled={state === 'sending'} className="btn-dark w-full justify-center py-3 md:py-4">
         {state === 'sending' ? 'Joining…' : 'Count me in'}
       </button>
       <p className="text-center text-xs text-ink-muted">Free. No spam, just ride invites, about twice a month.</p>
@@ -243,13 +243,20 @@ export default function Community() {
       </section>
 
       {/* Join + FAQ */}
-      <section id="join" className="scroll-mt-20 bg-surface py-14 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 md:gap-14 md:px-8 lg:grid-cols-12 lg:items-end">
+      <section id="join" className="scroll-mt-16 bg-surface py-8 md:py-20">
+        {/* Phones: heading, form, then FAQ. Desktop: heading and FAQ on the left, form bottom-aligned on the right. */}
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 md:gap-x-14 md:gap-y-8 md:px-8 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list.">
+            <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list." className="[&>div]:short:hidden">
               Ride invites, trail updates and first dibs on merch. Takes 30 seconds.
             </SectionHead>
-            <Reveal delay={100} className="mt-8 md:mt-8 space-y-3">
+          </div>
+          <Reveal delay={150} className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-end">
+            <JoinForm />
+          </Reveal>
+          <div className="lg:col-span-5 lg:row-start-2">
+            <p className="eyebrow mb-3 text-heading lg:hidden">Questions</p>
+            <Reveal delay={100} className="space-y-3">
               {faq.map(({ question: q, answer: a }) => (
                 <details key={q} className="group rounded-2xl bg-surface-2 px-5 py-4 open:bg-tint">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-heading">
@@ -263,9 +270,6 @@ export default function Community() {
               ))}
             </Reveal>
           </div>
-          <Reveal delay={150} className="lg:col-span-7">
-            <JoinForm />
-          </Reveal>
         </div>
       </section>
     </>

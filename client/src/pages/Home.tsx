@@ -282,19 +282,33 @@ function Pillars() {
     <section className="flex min-h-[100svh] items-center bg-surface-2 py-12 md:block md:min-h-0 md:py-20">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <SectionHead eyebrow="Start here" tagalog="Saan tayo?" title="Everything you need to get out there." />
-        <div className="mt-6 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-4">
+        <div className="mt-5 grid grid-cols-1 gap-2.5 md:mt-8 md:grid-cols-2 md:gap-4 lg:grid-cols-4 [&>*]:min-w-0">
           {navItems.map((n, i) => (
             <Reveal key={n.to} delay={i * 80}>
-              <Link to={n.to} className="group flex h-full flex-col rounded-3xl bg-surface p-4 ring-1 md:p-5 ring-line/5 transition duration-500 ease-(--ease-trail) hover:-translate-y-1 hover:bg-gubat">
-                <div className="flex items-center gap-3">
+              <Link
+                to={n.to}
+                className="group flex h-full items-center gap-3.5 rounded-2xl bg-surface p-3.5 ring-1 ring-line/5 transition duration-500 ease-(--ease-trail) hover:bg-gubat md:flex-col md:items-start md:gap-0 md:rounded-3xl md:p-5 md:hover:-translate-y-1"
+              >
+                <div className="flex shrink-0 items-center gap-3 md:w-full">
                   <img src={`/icons/${n.icon}.png`} alt="" className="h-10 w-10 shrink-0 transition group-hover:scale-110 md:h-11 md:w-11" />
-                  <div>
-                    <p className="text-xs md:text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
-                    <h3 className="text-lg font-bold text-heading transition group-hover:text-puti md:text-xl">{n.label}</h3>
+                  <div className="hidden md:block">
+                    <p className="text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
+                    <h3 className="text-xl font-bold text-heading transition group-hover:text-puti">{n.label}</h3>
                   </div>
                 </div>
-                <p className="mt-2.5 text-xs leading-snug text-ink/75 short:hidden md:mt-3 md:text-sm transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
-                <span className="mt-auto pt-3 font-display text-xs font-semibold text-heading md:pt-4 md:text-sm transition group-hover:text-dahon">
+                {/* Phones: title and a one-line blurb beside the icon */}
+                <div className="min-w-0 flex-1 md:hidden">
+                  <p className="flex items-baseline gap-2">
+                    <span className="font-display text-base font-bold text-heading transition group-hover:text-puti">{n.label}</span>
+                    <span className="text-xs text-ink-muted italic transition group-hover:text-dahon">{n.tl}</span>
+                  </p>
+                  <p className="truncate text-xs text-ink/75 transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
+                </div>
+                <span className="shrink-0 text-heading transition group-hover:translate-x-1 group-hover:text-dahon md:hidden" aria-hidden>
+                  →
+                </span>
+                <p className="mt-3 hidden text-sm leading-snug text-ink/75 transition group-hover:text-puti/75 md:block">{pillarCopy[n.to]}</p>
+                <span className="mt-auto hidden pt-4 font-display text-sm font-semibold text-heading transition group-hover:text-dahon md:block">
                   Explore <span className="inline-block transition group-hover:translate-x-1">→</span>
                 </span>
               </Link>
