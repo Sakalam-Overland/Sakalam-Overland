@@ -150,18 +150,18 @@ export default function Campsites() {
           {(data ?? []).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 3) * 100}>
               <article className="group card flex h-full flex-col overflow-hidden">
-                <Photo name={`camp-${c.slug}`} src={c.image} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[2/1] lg:aspect-[5/2]" caption={`${c.region}, ${c.state}`} />
-                <div className="flex flex-1 flex-col p-4 md:p-5">
+                <Photo name={`camp-${c.slug}`} src={c.image} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[5/2] lg:aspect-[3/1]" caption={`${c.region}, ${c.state}`} />
+                <div className="flex flex-1 flex-col p-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <Tag>{c.access} · {accessNote[c.access]}</Tag>
                     <Tag>{c.fee}</Tag>
                   </div>
-                  <h2 className="mt-3 text-lg font-bold text-heading md:text-xl">{c.name}</h2>
+                  <h2 className="mt-2.5 text-lg leading-tight font-bold text-heading">{c.name}</h2>
                   <p className="mt-0.5 text-xs text-ink-muted md:text-sm">
                     {c.sites} · {c.season}
                   </p>
-                  <p className="mt-2 text-sm leading-snug text-ink/85">{c.summary}</p>
-                  <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs md:text-sm">
+                  <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-ink/85">{c.summary}</p>
+                  <ul className="mt-2.5 flex flex-wrap gap-x-3 gap-y-1 text-xs">
                     {c.amenities.map((a) => (
                       <li key={a} className="flex items-center gap-1.5">
                         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-dahon" aria-hidden />
@@ -169,7 +169,7 @@ export default function Campsites() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-auto flex flex-wrap items-center gap-4 pt-4 font-display text-sm font-semibold text-heading">
+                  <div className="mt-auto flex flex-wrap items-center gap-4 pt-3 font-display text-sm font-semibold text-heading">
                     <a href={directionsUrl(c.coords)} target="_blank" rel="noreferrer" className="hover:underline">
                       Directions
                     </a>
