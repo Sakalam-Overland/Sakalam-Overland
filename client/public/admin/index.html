@@ -11,5 +11,27 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@3.16.3/dist/decap-cms.js"></script>
+    <script>
+      // Decap's button says "Login with GitHub", but it opens our chooser with Google too.
+      // Relabel it so people without GitHub know they can sign in.
+      new MutationObserver(function () {
+        document.querySelectorAll('button').forEach(function (b) {
+          if (b.dataset.relabeled || b.textContent.trim() !== 'Login with GitHub') return;
+          b.dataset.relabeled = '1';
+          b.lastChild.textContent = 'Log in';
+          var icon = b.querySelector('svg');
+          if (icon) (icon.parentElement !== b ? icon.parentElement : icon).style.display = 'none';
+          // Keep the note right under the button instead of wherever Decap's layout spaces it.
+          var wrap = document.createElement('div');
+          wrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:10px';
+          b.parentNode.insertBefore(wrap, b);
+          wrap.appendChild(b);
+          var note = document.createElement('p');
+          note.textContent = 'Use your Google or GitHub account.';
+          note.style.cssText = 'margin:0;font:500 13px system-ui,sans-serif;color:#5c625e;text-align:center';
+          wrap.appendChild(note);
+        });
+      }).observe(document.body, { childList: true, subtree: true });
+    </script>
   </body>
 </html>

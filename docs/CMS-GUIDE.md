@@ -10,14 +10,14 @@ This guide is for the crew members who keep the website up to date. You don't ne
 
 ## 1. Log in
 
-Go to **sakalam-overland.vercel.app/admin** and press **Login with GitHub**. A small window opens with two choices:
+Go to **sakalam-overland.vercel.app/admin** and press **Log in**. A small window opens with two choices:
 
 - **Continue with Google:** sign in with the Google account the site manager added.
 - **Continue with GitHub:** sign in with your GitHub account (first time only, press **Authorize**).
 
 The window closes by itself and you're in.
 
-![Login screen with the Sakalam logo and a Login button](images/01-login.png)
+![Login screen with the Sakalam logo, a Log in button and the note "Use your Google or GitHub account"](images/01-login.png)
 
 > First time? Tell the site manager which login you'll use. For Google, they add your Gmail address to the editor list. For GitHub, they add you to the project and you accept the email invitation. Your usual Google or GitHub password is your login.
 
