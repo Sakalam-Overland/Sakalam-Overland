@@ -21,7 +21,7 @@
       ],
       "summary": "First come, first served, spread along the road. Get there Friday to grab a pondside spot.",
       "nearbyTrail": "moose-river-plains",
-      "image": ""
+      "image": "/photos/camp-moose-river-roadside.jpg"
     },
     {
       "slug": "godfrey-bridge",
@@ -44,7 +44,7 @@
       ],
       "summary": "Shady sites on the Wading River, a short drive from the sand roads.",
       "nearbyTrail": "wharton-sand-roads",
-      "image": ""
+      "image": "/photos/camp-godfrey-bridge.jpg"
     },
     {
       "slug": "rausch-creek-camp",
@@ -67,7 +67,7 @@
       ],
       "summary": "Sleep at the trailhead and you get first light on the rocks. Very easy logistics.",
       "nearbyTrail": "rausch-creek",
-      "image": ""
+      "image": "/photos/camp-rausch-creek-camp.jpg"
     },
     {
       "slug": "woodland-valley",
@@ -90,7 +90,7 @@
       ],
       "summary": "A DEC campground in a creek-cut valley. Walk from your tent to the Slide Mountain trailhead.",
       "nearbyTrail": "slide-mountain",
-      "image": ""
+      "image": "/photos/camp-woodland-valley.jpg"
     },
     {
       "slug": "smith-point-outer",
@@ -113,7 +113,7 @@
       ],
       "summary": "Camp on the sand between the dunes and the surf. Check the county rules on self-contained vehicles first.",
       "nearbyTrail": "smith-point-outer-beach",
-      "image": ""
+      "image": "/photos/camp-smith-point-outer.jpg"
     }
   ]
 }
