@@ -183,8 +183,8 @@ function Hero() {
             hikers out of New York<span className="hidden sm:inline"> with Filipino roots and room in the convoy for you</span>.
           </p>
           <div className="mt-[2.6svh] flex animate-rise flex-wrap gap-2.5 [animation-delay:300ms] md:mt-9 md:gap-3 [&>a]:max-sm:px-5 [&>a]:max-sm:py-2.5">
-            <Link to="/events" className="btn-dark">
-              Upcoming rides <span aria-hidden>→</span>
+            <Link to="/events" className="btn bg-araw text-gubat hover:bg-btn hover:text-btn-ink focus-visible:outline-heading">
+              Find a ride <span aria-hidden>→</span>
             </Link>
             <Link to="/community#join" className="btn-ghost text-heading">
               Join the crew
