@@ -120,6 +120,16 @@ function JoinForm() {
   );
 }
 
+/** Phones only: says the row above it scrolls sideways. */
+function SwipeHint({ dark = false }: { dark?: boolean }) {
+  return (
+    <p aria-hidden data-no-reveal className={`mt-2 flex items-center justify-end gap-1.5 font-display text-xs font-semibold md:hidden ${dark ? 'text-abo' : 'text-ink-muted'}`}>
+      Swipe for more
+      <span className="inline-block animate-[nudge_1.6s_ease-in-out_infinite] motion-reduce:animate-none">→</span>
+    </p>
+  );
+}
+
 export default function Community() {
   const { data: rigs } = useAsync(() => api.rigs(), []);
 
@@ -131,12 +141,13 @@ export default function Community() {
       </PageHero>
 
       {/* Story */}
-      <section className="bg-surface py-14 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 md:px-8 lg:grid-cols-2 lg:items-center">
-          <Reveal className="grid grid-cols-2 gap-4">
-            <Photo name="crew-group" src={settings.crewPhoto} alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[16/9] rounded-3xl lg:aspect-[2/1]" />
-            <Photo name="crew-food" src={settings.foodPhoto} alt="Boodle fight spread on banana leaves" className="aspect-square rounded-3xl" fallback={<BoodleFight slice />} />
-            <Photo name="crew-fire" src={settings.campfirePhoto} alt="Members around a campfire" tone="night" className="aspect-square rounded-3xl" />
+      {/* Laptops: the photos take whatever height is left under the 360px page header and this section's padding, within limits. */}
+      <section className="bg-surface py-8 md:py-12 lg:py-8">
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 md:grid-cols-2 md:items-center md:gap-8 md:px-8 lg:gap-12">
+          <Reveal className="grid grid-cols-2 gap-2 md:gap-3 lg:h-[clamp(390px,calc(100svh-424px),480px)] lg:grid-rows-[3fr_2fr]">
+            <Photo name="crew-group" src={settings.crewPhoto} alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[5/2] rounded-2xl md:aspect-[2/1] md:rounded-3xl lg:aspect-auto" />
+            <Photo name="crew-food" src={settings.foodPhoto} alt="Boodle fight spread on banana leaves" className="aspect-[2/1] rounded-2xl short:hidden md:aspect-[3/2] md:rounded-3xl lg:aspect-auto" fallback={<BoodleFight slice />} />
+            <Photo name="crew-fire" src={settings.campfirePhoto} alt="Members around a campfire" tone="night" className="aspect-[2/1] rounded-2xl short:hidden md:aspect-[3/2] md:rounded-3xl lg:aspect-auto" />
           </Reveal>
           <div>
             <SectionHead eyebrow="Our story" tagalog="Kwento namin" title="From a group chat to a convoy.">
@@ -154,18 +165,23 @@ export default function Community() {
       </section>
 
       {/* Rigs */}
-      <section id="rigs" className="scroll-mt-20 bg-deep py-24 text-puti md:py-20">
+      <section id="rigs" className="scroll-mt-16 bg-deep py-8 text-puti md:py-12">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Rig showcase" tagalog="Mga sasakyan" title="Every rig gets a name.">
             Most of them are named after food or family. Tag us on Instagram to get yours featured.
           </SectionHead>
-          <div className="mt-8 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-3">
+          {/* Phones: one swipeable row. Larger screens: a grid of cards with the photo beside the details. */}
+          <div
+            role="region"
+            aria-label="Member rigs, swipe for more"
+            className="no-scrollbar -mx-5 mt-4 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-6 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3"
+          >
             {(rigs ?? []).map((r, i) => (
-              <Reveal key={r.nickname} delay={(i % 3) * 80}>
-                <article className="group overflow-hidden rounded-3xl bg-puti/5 ring-1 ring-puti/10">
-                  <Photo name={`rig-${r.nickname.toLowerCase().replace(/\W+/g, '-')}`} src={r.image} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[3/2] lg:aspect-[5/2]" />
-                  <div className="p-3.5 md:p-4">
-                    <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-2xl">"{r.nickname}"</p>
+              <div key={r.nickname} data-no-reveal className="flex w-[62%] max-w-[280px] shrink-0 snap-start md:w-auto md:max-w-none">
+                <article className="group flex w-full flex-col overflow-hidden rounded-2xl bg-puti/5 ring-1 ring-puti/10 md:flex-row md:rounded-3xl">
+                  <Photo name={`rig-${r.nickname.toLowerCase().replace(/\W+/g, '-')}`} src={r.image} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[2/1] shrink-0 md:aspect-auto md:w-2/5" />
+                  <div className="min-w-0 p-3.5 md:p-4">
+                    <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-xl">"{r.nickname}"</p>
                     <p className="mt-0.5 font-display text-xs font-semibold md:text-sm">{r.vehicle}</p>
                     <p className="text-xs text-abo">{r.owner}</p>
                     <ul className="mt-2.5 flex flex-wrap gap-1">
@@ -177,22 +193,24 @@ export default function Community() {
                     </ul>
                   </div>
                 </article>
-              </Reveal>
+              </div>
             ))}
           </div>
+          <SwipeHint dark />
         </div>
       </section>
 
       {/* Glossary */}
-      <section className="relative overflow-hidden bg-gubat py-24 text-puti md:py-20 dark:bg-[#0f2717]">
+      <section className="relative overflow-hidden bg-gubat py-8 text-puti short:py-6 md:py-12 dark:bg-[#0f2717]">
         <div className="banig pointer-events-none absolute inset-0 text-puti opacity-[0.04]" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Trail Tagalog" tagalog="Matuto tayo" title="Words you'll hear on the radio.">
             No fluency required. By your third ride you'll be saying "tara na" too.
           </SectionHead>
-          <dl className="mt-6 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-4">
-            {glossary.map(({ word, say, meaning }, i) => (
-              <Reveal key={word} delay={(i % 4) * 60} className="card-raised p-4 md:p-5">
+          {/* Phones: two swipeable rows. Larger screens: a plain grid. */}
+          <dl className="no-scrollbar -mx-5 mt-4 grid auto-cols-[46%] grid-flow-col grid-rows-2 snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-6 md:auto-cols-auto md:grid-flow-row md:grid-cols-2 md:grid-rows-none md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
+            {glossary.map(({ word, say, meaning }) => (
+              <div key={word} data-no-reveal className="card-raised snap-start p-3.5 md:p-5">
                 <dt>
                   <span lang="tl" className="block font-display text-lg font-bold md:text-xl">
                     {word}
@@ -200,30 +218,31 @@ export default function Community() {
                   <span className="text-xs text-dahon-300 italic md:text-sm">{say}</span>
                 </dt>
                 <dd className="mt-2 text-xs leading-snug text-puti/85 md:text-sm md:leading-relaxed">{meaning}</dd>
-              </Reveal>
+              </div>
             ))}
           </dl>
+          <SwipeHint dark />
         </div>
       </section>
 
       {/* Merch */}
-      <section id="merch" className="scroll-mt-20 bg-surface-2 py-14 md:py-20">
+      <section id="merch" className="scroll-mt-16 bg-surface-2 py-8 md:py-12">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end md:gap-6">
             <SectionHead eyebrow="Merch" tagalog="Pang-porma" title="Wear the sun.">
               Small-batch drops. Every sale funds group recovery gear. DM us on Instagram to order.
             </SectionHead>
-            <Reveal>
+            <Reveal className="shrink-0">
               <a href={IG_URL} target="_blank" rel="noreferrer" className="btn-dark">
                 <InstagramIcon className="h-4 w-4" /> DM to order
               </a>
             </Reveal>
           </div>
-          <div className="mt-8 md:mt-8 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
+          <div className="mt-4 grid grid-cols-2 gap-3 md:mt-6 md:grid-cols-4 md:gap-4">
             {merch.map((m, i) => (
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
-                  <div className="relative aspect-square overflow-hidden rounded-2xl md:rounded-3xl lg:aspect-[4/3]">
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-2xl short:aspect-[5/2] md:aspect-square md:rounded-3xl lg:aspect-[4/3]">
                     <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} src={m.image} alt={m.name} tone={(['dusk', 'forest', 'night', 'dawn'] as const)[i % 4]} className="h-full" />
                     {!m.image && (
                     <img
@@ -243,23 +262,23 @@ export default function Community() {
       </section>
 
       {/* Join + FAQ */}
-      <section id="join" className="scroll-mt-16 bg-surface py-8 md:py-20">
-        {/* Phones: heading, form, then FAQ. Desktop: heading and FAQ on the left, form bottom-aligned on the right. */}
-        <div className="mx-auto grid max-w-7xl gap-5 px-5 md:gap-x-14 md:gap-y-8 md:px-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+      <section id="join" className="scroll-mt-16 bg-surface py-8 md:py-12">
+        {/* Phones: heading, form, then FAQ. Larger screens: heading and FAQ on the left, form bottom-aligned on the right. */}
+        <div className="mx-auto grid max-w-7xl gap-5 px-5 md:grid-cols-12 md:gap-x-6 md:gap-y-6 md:px-8 lg:gap-x-14">
+          <div className="md:col-span-5">
             <SectionHead eyebrow="Join the crew" tagalog="Sali ka na" title="Get on the list." className="[&>div]:short:hidden">
               Ride invites, trail updates and first dibs on merch. Takes 30 seconds.
             </SectionHead>
           </div>
-          <Reveal delay={150} className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-end">
+          <Reveal delay={150} className="md:col-span-7 md:col-start-6 md:row-span-2 md:row-start-1 md:self-end">
             <JoinForm />
           </Reveal>
-          <div className="lg:col-span-5 lg:row-start-2">
-            <p className="eyebrow mb-3 text-heading lg:hidden">Questions</p>
-            <Reveal delay={100} className="space-y-3">
+          <div className="md:col-span-5 md:row-start-2">
+            <p className="eyebrow mb-2 text-heading md:hidden">Questions</p>
+            <Reveal delay={100} className="space-y-2 md:space-y-3">
               {faq.map(({ question: q, answer: a }) => (
-                <details key={q} className="group rounded-2xl bg-surface-2 px-5 py-4 open:bg-tint">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold text-heading">
+                <details key={q} className="group rounded-2xl bg-surface-2 px-4 py-3 open:bg-tint md:px-5 md:py-4">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-sm font-semibold text-heading md:text-base">
                     {q}
                     <span className="text-xl transition group-open:rotate-45" aria-hidden>
                       +

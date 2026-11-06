@@ -140,7 +140,7 @@ function HeroStats() {
     [settings.statesRidden, 'states we ride'],
   ];
   return (
-    <dl className="mt-12 hidden animate-rise gap-x-5 [animation-delay:400ms] sm:flex sm:gap-x-8">
+    <dl className="mt-8 hidden animate-rise gap-x-5 [animation-delay:400ms] sm:flex sm:gap-x-8">
       {stats.map(([n, label], i) => (
         <div key={label} className={i ? 'border-l border-heading/15 pl-5 sm:pl-8' : ''}>
           <dt className="sr-only">{label}</dt>
@@ -155,13 +155,13 @@ function HeroStats() {
 function Hero() {
   const heroRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section ref={heroRef} data-no-reveal className="relative isolate flex h-[100svh] min-h-[540px] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:h-auto md:min-h-[100svh] md:pt-32">
+    <section ref={heroRef} data-no-reveal className="relative isolate flex h-[100svh] min-h-[540px] flex-col overflow-hidden bg-surface-2 pt-20 short:pt-[60px] md:h-auto md:min-h-[100svh] md:pt-24">
       {/* Soft light: warm sun top right, green bottom left */}
       {/* Radial gradients instead of blur filters: same glow, far cheaper to paint on phones */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(40rem_32rem_at_100%_0%,rgba(246,184,26,0.2),transparent_70%),radial-gradient(34rem_28rem_at_0%_100%,rgba(97,171,115,0.2),transparent_70%)] dark:bg-[radial-gradient(40rem_32rem_at_100%_0%,rgba(255,138,60,0.09),transparent_70%),radial-gradient(34rem_28rem_at_0%_100%,rgba(97,171,115,0.09),transparent_70%)]" />
       <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full text-heading opacity-[0.08]" />
 
-      <div className="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-[max(16px,2.5svh)] px-5 pt-[2svh] pb-[clamp(56px,10svh,200px)] md:grid md:content-center md:items-center md:gap-14 md:px-8 md:pt-6 lg:grid-cols-12 lg:gap-20">
+      <div className="relative mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-[max(16px,2.5svh)] px-5 pt-[2svh] pb-[clamp(56px,10svh,200px)] md:grid md:content-center md:items-center md:gap-8 md:px-8 md:pt-0 lg:grid-cols-12 lg:gap-20">
         <div className="shrink-0 lg:col-span-7">
           <p className="eyebrow flex animate-rise items-center gap-3 text-heading short:hidden">
             <span className="h-px w-8 bg-heading" />
@@ -198,7 +198,7 @@ function Hero() {
 
         {/* Phones: the media fills whatever height the text leaves and sizes itself from that, so it never rides up into the text. */}
         <div className="flex min-h-0 flex-1 animate-rise items-center justify-center pt-6 [container-type:size] [animation-delay:250ms] md:block md:flex-none md:pt-0 md:[container-type:normal] lg:col-span-5">
-          <div className="relative mx-auto w-[min(72vw,calc(100cqh-1.75rem))] md:w-full md:max-w-[400px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
+          <div className="relative mx-auto w-[min(72vw,calc(100cqh-1.75rem))] md:w-full md:max-w-[280px] lg:mr-0 lg:max-w-[440px] min-[1400px]:translate-x-10">
             {/* Snapshot tucked behind the tire */}
             <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
               <Photo name="hero-snapshot" src={settings.heroPhoto} alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
@@ -413,10 +413,10 @@ function UpcomingEvents() {
 function TrailBoard() {
   const { data } = useAsync(() => api.trails(), []);
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-deep py-12 text-puti md:block md:min-h-0 md:py-20">
-      <div className="mx-auto grid w-full max-w-7xl gap-6 px-5 md:gap-14 md:px-8 lg:grid-cols-12">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-deep py-12 text-puti short:py-6 md:block md:min-h-0 md:py-12">
+      <div className="mx-auto grid w-full max-w-7xl gap-6 px-5 md:gap-8 md:px-8 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-4">
-          <SectionHead dark eyebrow="Trail intel" tagalog="Balita sa daan" title="Conditions, from people who were just there." className="[&_.lead]:short:hidden">
+          <SectionHead dark eyebrow="Trail intel" tagalog="Balita sa daan" title="Conditions, from people who were just there." className="[&>div]:short:hidden">
             No guessing about access. Every trail has a status, a permit note and the date a member last checked it.
           </SectionHead>
           <Reveal delay={150}>
@@ -429,7 +429,7 @@ function TrailBoard() {
           <ul className="divide-y divide-puti/10 rounded-3xl bg-puti/5 ring-1 ring-puti/10">
             {(data ?? []).map((t) => (
               <li key={t.slug}>
-                <Link to={`/trails/${t.slug}`} className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 px-4 py-3 short:py-2 transition md:gap-x-6 md:gap-y-2 md:px-6 md:py-5 hover:bg-puti/5 md:grid-cols-[1.6fr_1fr_auto_auto]">
+                <Link to={`/trails/${t.slug}`} className="grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 px-4 py-3 short:py-2 transition md:gap-x-6 md:gap-y-2 md:px-6 md:py-4 hover:bg-puti/5 md:grid-cols-[1.6fr_1fr_auto_auto]">
                   <div className="col-start-1 row-start-1 min-w-0">
                     <p className="font-display text-sm font-semibold md:text-base">{t.name}</p>
                     <p className="text-xs text-abo md:text-sm">
@@ -527,7 +527,7 @@ function Gallery() {
   const layout = ['col-span-2 md:row-span-2', '', '', 'col-span-2'];
   const tones = ['forest', 'dawn', 'night', 'dusk'] as const;
   return (
-    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-20">
+    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-12">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <SectionHead eyebrow="From the trail" tagalog="Mula sa daan" title="Mud, sand, sunrise. Repeat." />
@@ -626,7 +626,7 @@ const firstRide = [
 export function JoinBand() {
   const bandRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-20 pb-12 text-puti md:pt-28 md:pb-16">
+    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-20 pb-12 text-puti short:pt-16 short:pb-6 md:pt-24 md:pb-10">
       {/* The flag's sun rising behind the band */}
       <svg viewBox="-100 -100 200 200" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 h-[38rem] w-[38rem] text-araw opacity-[0.12] md:-right-20" aria-hidden>
         {Array.from({ length: 8 }, (_, i) => (
@@ -640,19 +640,19 @@ export function JoinBand() {
       </svg>
       <Banderitas className="absolute inset-x-0 top-0 h-16 w-full md:h-20" />
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-5 md:gap-14 md:px-8 lg:grid-cols-12">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-5 short:gap-4 md:gap-6 md:px-8 lg:grid-cols-12 lg:gap-14">
         <Reveal className="lg:col-span-7">
           <p className="eyebrow text-araw">
             May puwesto pa <span className="ml-1 normal-case tracking-normal text-puti/60 italic">· there's room in the convoy</span>
           </p>
-          <h2 className="mt-5 font-display text-[clamp(4rem,12vw,9.5rem)] leading-[0.85] font-extrabold tracking-[-0.04em]">
+          <h2 className="mt-3 font-display text-[clamp(4rem,12vw,8rem)] leading-[0.85] font-extrabold tracking-[-0.04em] md:mt-4">
             Tara na<span className="text-araw">.</span>
           </h2>
-          <p className="lead mt-6 max-w-lg text-puti/75">
+          <p className="lead mt-3 max-w-lg text-puti/75 md:mt-4">
             That means <em className="font-normal text-puti not-italic">"let's go."</em> First ride? We'll pair you with a lead rig, teach you to
             air down, and save you a plate at the salu-salo.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
             <Link to="/community#join" className="btn bg-araw text-itim hover:bg-puti">
               Join the crew <span aria-hidden>→</span>
             </Link>
@@ -667,9 +667,9 @@ export function JoinBand() {
       </div>
 
       {/* What a first ride looks like, so "join" feels concrete */}
-      <div className="mx-auto mt-8 w-full max-w-7xl px-5 short:hidden md:mt-14 md:px-8">
+      <div className="mx-auto mt-8 w-full max-w-7xl px-5 short:hidden md:px-8">
         <p className="eyebrow text-araw">Unang sakay · your first ride</p>
-        <ol className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 md:mt-4 lg:grid-cols-4">
+        <ol className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
           {firstRide.map((step, i) => (
             <Reveal as="li" key={step.title} delay={i * 80} className="rounded-2xl bg-gubat-900/45 p-3 ring-1 ring-puti/15 backdrop-blur-[2px] sm:p-4 md:p-5">
               <div className="flex items-center gap-3">

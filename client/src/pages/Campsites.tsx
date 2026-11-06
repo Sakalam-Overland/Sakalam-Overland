@@ -145,12 +145,12 @@ export default function Campsites() {
         coming back to.
       </PageHero>
 
-      <section className="bg-surface py-12 md:py-16">
+      <section className="bg-surface py-8 md:py-10">
         <div className="mx-auto grid max-w-7xl gap-4 px-5 md:grid-cols-2 md:px-8 lg:grid-cols-3">
           {(data ?? []).map((c, i) => (
             <Reveal key={c.slug} delay={(i % 3) * 100}>
               <article className="group card flex h-full flex-col overflow-hidden">
-                <Photo name={`camp-${c.slug}`} src={c.image} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[5/2] lg:aspect-[3/1]" caption={`${c.region}, ${c.state}`} />
+                <Photo name={`camp-${c.slug}`} src={c.image} alt={`${c.name} campsite`} tone={tones[i % tones.length]} className="aspect-[5/2] lg:aspect-[7/2]" caption={`${c.region}, ${c.state}`} />
                 <div className="flex flex-1 flex-col p-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <Tag>{c.access} · {accessNote[c.access]}</Tag>
