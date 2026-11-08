@@ -68,6 +68,7 @@ collections:
               - { name: capacity, label: Total spots, widget: number, value_type: int, min: 1 }
               - { name: rsvps, label: Spots already taken, widget: number, value_type: int, min: 0, hint: The site adds online RSVPs to this. }
               - { name: summary, label: Description, widget: text }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: "Shown on the Events page. If empty, the campsite's photo or a drawn scene is used." }
               - { name: bring, label: What to bring, widget: list, allow_add: true, hint: One item per line. }
               - name: trailSlug
                 label: Trail (optional)
