@@ -20,6 +20,8 @@ export interface TripEvent {
   bring: string[];
   trailSlug?: string;
   campsiteSlug?: string;
+  /** Uploaded photo; without it the event borrows its campsite's photo. */
+  image?: string;
 }
 
 export type TrailStatus = 'open' | 'caution' | 'closed' | 'seasonal';

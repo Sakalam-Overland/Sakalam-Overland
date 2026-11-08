@@ -109,7 +109,7 @@ export default function EventDetail() {
           </Reveal>
 
           <Reveal as="aside" delay={120} className="lg:col-span-5">
-            <div className="sticky top-28 space-y-6 rounded-3xl bg-surface-2 p-5 md:p-6">
+            <div id="rsvp" className="sticky top-28 scroll-mt-24 space-y-6 rounded-3xl bg-surface-2 p-5 md:p-6">
               <div>
                 <p className="eyebrow text-heading">RSVP</p>
                 <h2 className="mt-2 text-3xl font-bold text-heading">Save a spot</h2>

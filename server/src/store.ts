@@ -63,7 +63,7 @@ const EventModel = mongoose.model('Event', new Schema<TripEvent>({
   title: String, kind: String, start: String, end: String, meetTime: String,
   location: String, region: String, difficulty: String,
   capacity: Number, rsvps: Number, summary: String, bring: [String],
-  trailSlug: String, campsiteSlug: String,
+  trailSlug: String, campsiteSlug: String, image: String,
 }, noId));
 
 const TrailModel = mongoose.model('Trail', new Schema<Trail>({
