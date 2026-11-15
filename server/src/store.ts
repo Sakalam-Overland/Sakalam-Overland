@@ -70,7 +70,7 @@ const TrailModel = mongoose.model('Trail', new Schema<Trail>({
   slug: { type: String, unique: true }, name: String, region: String, state: String, type: String,
   difficulty: String, status: String, statusNote: String, lengthMi: Number, gainFt: Number,
   driveFromNYC: String, permit: String, season: String, coords: [Number], summary: String,
-  gear: [String], profile: [[Number]], lastVerified: String,
+  gear: [String], profile: [[Number]], gpx: String, lastVerified: String,
 }, noId));
 
 const CampsiteModel = mongoose.model('Campsite', new Schema<Campsite>({

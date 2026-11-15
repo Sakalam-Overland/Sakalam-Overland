@@ -119,8 +119,16 @@ collections:
                 label: Difficulty
                 widget: select
                 options: [easy, moderate, difficult, extreme]
-              - { name: lengthMi, label: Length (miles), widget: number, value_type: float }
-              - { name: gainFt, label: Elevation gain (ft), widget: number, value_type: int }
+              - name: gpx
+                label: Route file (GPX)
+                widget: file
+                required: false
+                choose_url: false
+                media_folder: /client/public/routes
+                public_folder: /routes
+                hint: 'Easiest option. Export the route as a GPX file from Gaia GPS, AllTrails, onX or similar and upload it here. The site draws the elevation chart and works out length and gain from it, so you can leave those boxes empty.'
+              - { name: lengthMi, label: Length (miles), widget: number, value_type: float, required: false, hint: Leave empty if you uploaded a GPX file or don't know it. Empty boxes are hidden on the site. }
+              - { name: gainFt, label: Elevation gain (ft), widget: number, value_type: int, required: false, hint: Leave empty if you uploaded a GPX file or don't know it. }
               - { name: driveFromNYC, label: Drive from NYC, widget: string, hint: 'e.g. 2h 30m' }
               - { name: permit, label: Permit and access, widget: text }
               - { name: season, label: Season, widget: string }
@@ -128,10 +136,11 @@ collections:
               - { name: summary, label: Description, widget: text }
               - { name: gear, label: Gear list, widget: list }
               - name: profile
-                label: Elevation profile
+                label: Elevation profile (only without a GPX file)
                 widget: list
+                required: false
                 summary: 'Mile {{fields.mile}}: {{fields.ft}} ft'
-                hint: Points along the route, from the start (mile 0) to the end. Any GPS app export works.
+                hint: Optional. Only fill this in if you don't have a GPX file. Add at least two points from mile 0 to the end. If it's empty, the elevation chart is hidden.
                 fields:
                   - { name: mile, label: Mile, widget: number, value_type: float }
                   - { name: ft, label: Elevation (ft), widget: number, value_type: int }

@@ -10,13 +10,13 @@ import { api } from '../lib/api';
 import { localDate } from '../lib/format';
 import { JoinBand } from './Home';
 
-export function Chip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+export function Chip({ active, onClick, children, small = false }: { active: boolean; onClick: () => void; children: React.ReactNode; small?: boolean }) {
   return (
     <button
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`shrink-0 rounded-full px-4 py-2 font-display text-sm font-semibold transition ${
+      className={`shrink-0 rounded-full font-display font-semibold transition ${small ? 'px-3 py-1.5 text-xs md:text-[0.8rem]' : 'px-4 py-2 text-sm'} ${
         active ? 'bg-gubat text-puti dark:bg-dahon dark:text-itim' : 'bg-surface-2 text-ink ring-1 ring-line/10 hover:bg-tint'
       }`}
     >

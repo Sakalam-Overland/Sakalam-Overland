@@ -35,16 +35,19 @@ export interface Trail {
   difficulty: Difficulty;
   status: TrailStatus;
   statusNote: string;
-  lengthMi: number;
-  gainFt: number;
+  /** Optional: blank hides it, and an uploaded GPX file fills it in. */
+  lengthMi?: number;
+  gainFt?: number;
   driveFromNYC: string;
   permit: string;
   season: string;
   coords: [number, number];
   summary: string;
   gear: string[];
-  /** [mile, elevation in ft] pairs along the route */
-  profile: [number, number][];
+  /** [mile, elevation in ft] pairs along the route. Optional; an uploaded GPX file replaces it. */
+  profile?: [number, number][];
+  /** Uploaded route file (GPX). The site builds the profile, length and gain from it. */
+  gpx?: string;
   lastVerified: string;
 }
 

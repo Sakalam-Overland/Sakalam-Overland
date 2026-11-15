@@ -1,7 +1,6 @@
 import { campsites, kindLabels, trails } from '@shared/data';
 import { Link, useParams } from 'react-router';
 import { DifficultyBadge, StatusBadge, Tag } from '../components/Badges';
-import { ElevationChart } from '../components/ElevationChart';
 import { SpotsMeter } from '../components/EventCard';
 import { Reveal } from '../components/Reveal';
 import { RsvpForm } from '../components/RsvpForm';
@@ -9,7 +8,38 @@ import { HEADER_BOX, HeaderBackdrop } from '../components/Layout';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { difficultyMeta, directionsUrl, fmt, icsFor } from '../lib/format';
+import { useRouteShape } from '../lib/gpx';
 import NotFound from './NotFound';
+import { TrailElevation } from './Trails';
+import type { Trail } from '@shared/types';
+
+/** The trail an event runs on, with whatever length, gain and elevation we know. */
+function EventTrailCard({ trail }: { trail: Trail }) {
+  const { shape, loading } = useRouteShape(trail);
+  const facts = [
+    shape.lengthMi !== undefined && `${shape.lengthMi} mi`,
+    shape.gainFt !== undefined && `${shape.gainFt.toLocaleString()} ft gain`,
+    trail.permit,
+  ].filter(Boolean);
+  return (
+    <div className="card p-5 md:p-6">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="eyebrow text-heading">The trail</p>
+          <h2 className="mt-2 text-2xl font-bold text-heading">{trail.name}</h2>
+          {facts.length > 0 && <p className="mt-1 text-sm text-ink-muted">{facts.join(' · ')}</p>}
+        </div>
+        <StatusBadge value={trail.status} />
+      </div>
+      <div className="mt-6 empty:hidden">
+        <TrailElevation profile={shape.profile} name={trail.name} loading={loading} />
+      </div>
+      <Link to={`/trails/${trail.slug}`} className="mt-4 inline-block font-display text-sm font-semibold text-heading hover:underline">
+        Full trail intel →
+      </Link>
+    </div>
+  );
+}
 
 export default function EventDetail() {
   const { slug = '' } = useParams();
@@ -71,26 +101,7 @@ export default function EventDetail() {
                 ))}
               </ul>
             </div>
-            {trail && (
-              <div className="card p-5 md:p-6">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <p className="eyebrow text-heading">The trail</p>
-                    <h2 className="mt-2 text-2xl font-bold text-heading">{trail.name}</h2>
-                    <p className="mt-1 text-sm text-ink-muted">
-                      {trail.lengthMi} mi · {trail.gainFt.toLocaleString()} ft gain · {trail.permit}
-                    </p>
-                  </div>
-                  <StatusBadge value={trail.status} />
-                </div>
-                <div className="mt-6 text-ink">
-                  <ElevationChart profile={trail.profile} name={trail.name} />
-                </div>
-                <Link to={`/trails/${trail.slug}`} className="mt-4 inline-block font-display text-sm font-semibold text-heading hover:underline">
-                  Full trail intel →
-                </Link>
-              </div>
-            )}
+            {trail && <EventTrailCard trail={trail} />}
             {camp && (
               <div className="flex flex-col gap-4 rounded-3xl bg-gubat p-5 text-puti md:flex-row md:items-center md:p-6">
                 <img src="/icons/campsites.png" alt="" className="h-14 w-14" />

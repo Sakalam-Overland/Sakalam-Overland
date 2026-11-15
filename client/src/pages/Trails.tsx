@@ -8,6 +8,7 @@ import { Reveal } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { difficultyMeta, directionsUrl, fmt, localDate } from '../lib/format';
+import { useRouteShape } from '../lib/gpx';
 import { Chip } from './Events';
 
 const rigLevels = ['Stock AWD / crossover', 'Stock 4x4', 'Lifted + all-terrains', 'Built: lockers, armor'];
@@ -35,38 +36,59 @@ const fitMeta: Record<Fit, { label: string; cls: string }> = {
 
 const typeLabel: Record<Trail['type'], string> = { offroad: 'Off-road', hike: 'Hike', beach: 'Beach' };
 
+/** The elevation chart, a placeholder while a GPX file loads, or nothing when there's no data. */
+export function TrailElevation({ profile, name, loading, height }: { profile: [number, number][]; name: string; loading: boolean; height?: number }) {
+  if (loading) {
+    return (
+      <div className="text-ink">
+        <p className="eyebrow mb-3 text-heading">Elevation profile</p>
+        <div className="animate-pulse rounded-xl bg-tint" style={{ height: height ?? 220 }} aria-label="Loading elevation profile" />
+      </div>
+    );
+  }
+  if (profile.length < 2) return null;
+  return (
+    <div className="text-ink">
+      <p className="eyebrow mb-3 text-heading">Elevation profile</p>
+      <ElevationChart profile={profile} name={name} height={height} />
+    </div>
+  );
+}
+
 function TrailDetail({ trail }: { trail: Trail }) {
+  const { shape, loading } = useRouteShape(trail);
+  const stats = [
+    ['Length', shape.lengthMi !== undefined ? `${shape.lengthMi} mi` : null],
+    ['Gain', shape.gainFt !== undefined ? `${shape.gainFt.toLocaleString()} ft` : null],
+    ['From NYC', trail.driveFromNYC],
+    ['Season', trail.season],
+  ].filter((s): s is [string, string] => !!s[1]);
   return (
     <article className="card overflow-hidden" aria-labelledby="trail-title">
-      <div className="bg-gubat p-5 text-puti md:p-6 lg:p-5 xl:p-6">
+      <div className="bg-gubat px-5 py-4 text-puti md:px-6 md:py-5">
         <div className="flex flex-wrap items-center gap-2">
           <Tag dark>{typeLabel[trail.type]}</Tag>
           <StatusBadge value={trail.status} dark />
         </div>
-        <h2 id="trail-title" className="mt-3 text-2xl leading-tight font-bold md:text-3xl lg:text-2xl xl:text-3xl">
+        <h2 id="trail-title" className="mt-2.5 text-xl leading-tight font-bold md:text-2xl">
           {trail.name}
         </h2>
-        <p className="mt-1 text-puti/70">
+        <p className="mt-0.5 text-sm text-puti/70">
           {trail.region}, {trail.state} · {fmt.coords(trail.coords)}
         </p>
-        <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
-          {[
-            ['Length', `${trail.lengthMi} mi`],
-            ['Gain', `${trail.gainFt.toLocaleString()} ft`],
-            ['From NYC', trail.driveFromNYC],
-            ['Season', trail.season],
-          ].map(([k, v]) => (
+        <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-4">
+          {stats.map(([k, v]) => (
             <div key={k}>
               <dt className="eyebrow text-dahon">{k}</dt>
-              <dd className="mt-1 font-display font-semibold">{v}</dd>
+              <dd className="mt-0.5 font-display text-sm font-semibold md:text-base">{v}</dd>
             </div>
           ))}
         </dl>
-        <div className="mt-5 flex flex-wrap gap-2.5">
-          <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="btn-sun !px-5 !py-2.5">
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="btn-sun !px-4 !py-2 text-[0.8rem]">
             Directions <span aria-hidden>→</span>
           </a>
-          <Link to="/events" className="btn-ghost !px-5 !py-2.5 text-puti">
+          <Link to="/events" className="btn-ghost !px-4 !py-2 text-[0.8rem] text-puti">
             Find a group ride
           </Link>
         </div>
@@ -79,10 +101,7 @@ function TrailDetail({ trail }: { trail: Trail }) {
           <p className="mt-2 font-normal">{trail.statusNote}</p>
         </div>
         <p className="text-[0.95rem] leading-relaxed text-ink/85">{trail.summary}</p>
-        <div className="text-ink">
-          <p className="eyebrow mb-3 text-heading">Elevation profile</p>
-          <ElevationChart profile={trail.profile} name={trail.name} height={160} />
-        </div>
+        <TrailElevation profile={shape.profile} name={trail.name} loading={loading} height={160} />
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <p className="eyebrow text-heading">Permit and access</p>
@@ -109,6 +128,12 @@ function TrailDetail({ trail }: { trail: Trail }) {
   );
 }
 
+/** " · 9.4 mi" in the trail list, or nothing when the length isn't known. */
+function TrailLength({ trail }: { trail: Trail }) {
+  const { shape } = useRouteShape(trail);
+  return shape.lengthMi !== undefined ? <> · {shape.lengthMi} mi</> : null;
+}
+
 export default function Trails() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -133,29 +158,30 @@ export default function Trails() {
         sort the list by what fits.
       </PageHero>
 
-      <section className="bg-surface-2 py-10">
+      <section className="bg-surface-2 py-6 md:py-8">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="rounded-3xl bg-surface p-4 ring-1 ring-line/5 md:p-6">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-              <div className="lg:w-56">
-                <p className="eyebrow text-heading">Rig matcher</p>
-                <p className="mt-2 text-sm text-ink-muted">Pick your setup to see which trails are a good fit right now.</p>
+          <div className="rounded-2xl bg-surface px-4 py-3.5 ring-1 ring-line/5 md:px-5 md:py-4">
+            <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="eyebrow text-heading">Rig matcher</span>
+              <span className="text-xs text-ink-muted md:text-sm">Pick your setup to see which trails fit.</span>
+            </p>
+            <div className="mt-3 flex flex-col gap-2.5 xl:flex-row xl:items-center xl:gap-4">
+              <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Your rig">
+                <span className="mr-1 w-full shrink-0 font-display text-xs font-semibold text-ink-muted sm:w-20 xl:w-auto">Rig</span>
+                {rigLevels.map((r, i) => (
+                  <Chip small key={r} active={rig === i} onClick={() => setRig(rig === i ? null : i)}>
+                    {r}
+                  </Chip>
+                ))}
               </div>
-              <div className="flex-1 space-y-4">
-                <div className="flex flex-wrap gap-2" role="group" aria-label="Your rig">
-                  {rigLevels.map((r, i) => (
-                    <Chip key={r} active={rig === i} onClick={() => setRig(rig === i ? null : i)}>
-                      {r}
-                    </Chip>
-                  ))}
-                </div>
-                <div className="flex flex-wrap gap-2" role="group" aria-label="Your experience">
-                  {expLevels.map((r, i) => (
-                    <Chip key={r} active={exp === i} onClick={() => setExp(i)}>
-                      {r}
-                    </Chip>
-                  ))}
-                </div>
+              <span className="hidden h-5 w-px bg-line/15 xl:block" aria-hidden />
+              <div className="flex flex-wrap items-center gap-1.5" role="group" aria-label="Your experience">
+                <span className="mr-1 w-full shrink-0 font-display text-xs font-semibold text-ink-muted sm:w-20 xl:w-auto">Experience</span>
+                {expLevels.map((r, i) => (
+                  <Chip small key={r} active={exp === i} onClick={() => setExp(i)}>
+                    {r}
+                  </Chip>
+                ))}
               </div>
             </div>
           </div>
@@ -193,7 +219,8 @@ export default function Trails() {
                         <div>
                           <p className="font-display font-semibold">{t.name}</p>
                           <p className={`mt-0.5 text-sm ${active ? 'text-puti/70' : 'text-ink-muted'}`}>
-                            {typeLabel[t.type]} · {t.region}, {t.state} · {t.lengthMi} mi
+                            {typeLabel[t.type]} · {t.region}, {t.state}
+                            <TrailLength trail={t} />
                           </p>
                         </div>
                         <StatusBadge value={t.status} dark={active} />

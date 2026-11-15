@@ -20,11 +20,26 @@ export const faq = faqFile.items as FaqItem[];
 export const gallery = galleryFile.items as GalleryItem[];
 export const settings = settingsFile as SiteSettings;
 
+/** A number the CMS might have saved as "" or left out. */
+const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : undefined);
+
 // The CMS stores elevation points as { mile, ft } rows; the chart wants [mile, ft] pairs.
-export const trails = trailFile.items.map((t) => ({
+// Length, gain, elevation points and the GPX file are all optional, so blanks become undefined.
+type TrailRow = Omit<Trail, 'profile' | 'lengthMi' | 'gainFt' | 'gpx'> & {
+  profile?: { mile?: unknown; ft?: unknown }[];
+  lengthMi?: unknown;
+  gainFt?: unknown;
+  gpx?: string;
+};
+export const trails: Trail[] = (trailFile.items as unknown as TrailRow[]).map((t) => ({
   ...t,
-  profile: t.profile.map((p) => [p.mile, p.ft] as [number, number]),
-})) as Trail[];
+  lengthMi: num(t.lengthMi),
+  gainFt: num(t.gainFt),
+  gpx: t.gpx || undefined,
+  profile: (t.profile ?? [])
+    .map((p) => [num(p.mile), num(p.ft)])
+    .filter((p): p is [number, number] => p[0] !== undefined && p[1] !== undefined),
+}));
 
 export const kindLabels: Record<TripEvent['kind'], string> = {
   'group-ride': 'Group Ride',
