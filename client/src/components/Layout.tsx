@@ -91,7 +91,7 @@ function Nav() {
               <HeadlightsToggle />
             </li>
             <li className="ml-2">
-              <Link to="/community#join" className="btn-primary h-11 !py-0">
+              <Link to="/community#join" className="btn-sun h-11 !py-0">
                 Join the crew
               </Link>
             </li>
@@ -137,7 +137,7 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <Link to="/community#join" className="btn-primary relative mt-8 w-full justify-center">
+        <Link to="/community#join" className="btn-sun relative mt-8 w-full justify-center">
           Join the crew
         </Link>
         {/* Decorative ridgelines along the bottom of the panel */}
