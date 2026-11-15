@@ -231,7 +231,7 @@ export default function Community() {
           <div
             role="region"
             aria-label="Member rigs, swipe for more"
-            className="no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-12 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 lg:gap-8"
+            className="no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-12 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 xl:grid-cols-4"
           >
             {rigList.map((r, i) => (
               <div key={`${i}-${r.nickname}`} data-no-reveal className="flex w-[72%] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
@@ -243,12 +243,12 @@ export default function Community() {
                     tone={(['dusk', 'forest', 'night'] as const)[i % 3]}
                     className="aspect-[4/3] shrink-0"
                   />
-                  <div className="min-w-0 p-4 md:p-6">
-                    {r.nickname && <p className="font-display text-xl font-extrabold tracking-tight text-dahon md:text-2xl">"{r.nickname}"</p>}
-                    {r.vehicle && <p className="mt-1 font-display text-sm font-semibold md:text-base">{r.vehicle}</p>}
+                  <div className="min-w-0 p-4 md:p-5">
+                    {r.nickname && <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-xl">"{r.nickname}"</p>}
+                    {r.vehicle && <p className="mt-1 font-display text-sm font-semibold">{r.vehicle}</p>}
                     {r.owner && <p className="mt-0.5 text-sm text-abo">{r.owner}</p>}
                     {!!r.mods?.length && (
-                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                      <ul className="mt-3 flex flex-wrap gap-1.5">
                         {r.mods.map((m, j) => (
                           <li key={`${j}-${m}`} className="rounded-full bg-puti/10 px-2.5 py-1 font-display text-[0.7rem] font-semibold">
                             {m}

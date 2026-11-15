@@ -585,102 +585,34 @@ function Banderitas({ className = '' }: { className?: string }) {
   );
 }
 
-/** A jeepney route signboard: painted letters, pinstripes, and where the ride is headed. */
-function RouteSign() {
-  return (
-    <div className="relative w-full max-w-md rotate-[-2deg] rounded-[1.75rem] bg-[#f6efdc] p-2 text-gubat shadow-[0_30px_60px_-24px_rgba(0,0,0,0.7)] dark:bg-[#ece3c9]">
-      {/* Chrome hooks the sign hangs from */}
-      {['left-10', 'right-10'].map((pos) => (
-        <span key={pos} aria-hidden className={`absolute -top-5 ${pos} h-6 w-1.5 rounded-full bg-gradient-to-b from-[#e7eae6] to-[#8b918d]`} />
-      ))}
-      <div className="rounded-[1.4rem] border-[3px] border-araw p-1">
-        <div className="rounded-[1.1rem] border border-dashed border-[#e8553e]/70 px-4 py-5 text-center sm:px-6">
-          <p className="font-display text-[0.65rem] font-bold tracking-[0.4em] text-[#e8553e]">BIYAHENG</p>
-          <p className="mt-1 flex items-center justify-center gap-2 font-display text-[clamp(1.4rem,6.5vw,2.25rem)] leading-none font-extrabold tracking-tight whitespace-nowrap sm:gap-3">
-            NYC <span className="text-araw">⇄</span> KAHIT SAAN
-          </p>
-          <div className="mx-auto my-3 flex items-center justify-center gap-2" aria-hidden>
-            <span className="h-px w-10 bg-gubat/30" />
-            <svg viewBox="0 0 40 12" className="h-3 w-10 text-araw">
-              <path d={starPath(6, 6, 5)} fill="currentColor" />
-              <path d={starPath(20, 6, 5)} fill="currentColor" />
-              <path d={starPath(34, 6, 5)} fill="currentColor" />
-            </svg>
-            <span className="h-px w-10 bg-gubat/30" />
-          </div>
-          <p className="font-display text-sm font-bold">Sakay na! · Every weekend</p>
-          <p className="mt-0.5 text-xs text-gubat/70 italic">Kahit saan means "anywhere." Hop on.</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const firstRide = [
-  { title: 'Sign up', body: 'Join the list or RSVP to a ride. Free, takes 30 seconds, and you get the group chat invite.' },
-  { title: 'Get paired', body: 'First-timers ride behind a lead rig. We check your tires, recovery points and radio at the meetup.' },
-  { title: 'Hit the trail', body: 'We air down together and take it slow. Getting stuck is part of it, and somebody always has a strap.' },
-  { title: 'Kain tayo', body: 'Every run ends with food. Bring a dish if you can; there is always enough rice.' },
-];
 
 export function JoinBand() {
   const bandRef = usePauseOffscreen<HTMLElement>();
   return (
-    <section ref={bandRef} className="banana-leaf relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-20 pb-12 text-puti short:pt-16 short:pb-6 md:pt-24 md:pb-10">
-      {/* The flag's sun rising behind the band */}
-      <svg viewBox="-100 -100 200 200" className="pointer-events-none absolute -right-40 -bottom-56 -z-10 h-[38rem] w-[38rem] text-araw opacity-[0.12] md:-right-20" aria-hidden>
-        {Array.from({ length: 8 }, (_, i) => (
-          <g key={i} transform={`rotate(${i * 45})`} fill="currentColor">
-            <path d="M-6,-34 L-8,-96 L8,-96 L6,-34Z" />
-            <path d="M-14,-35 L-22,-86 L-17,-86 L-10,-35Z" />
-            <path d="M14,-35 L22,-86 L17,-86 L10,-35Z" />
-          </g>
-        ))}
-        <circle r="30" fill="currentColor" />
-      </svg>
+    <section ref={bandRef} className="banana-leaf relative isolate overflow-hidden pt-24 pb-14 text-puti md:pt-28 md:pb-16">
       <Banderitas className="absolute inset-x-0 top-0 h-16 w-full md:h-20" />
-
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-5 short:gap-4 md:gap-6 md:px-8 lg:grid-cols-12 lg:gap-14">
-        <Reveal className="lg:col-span-7">
+      <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 px-5 md:flex-row md:items-end md:justify-between md:gap-10 md:px-8">
+        <div>
           <p className="eyebrow text-araw">
             May puwesto pa <span className="ml-1 normal-case tracking-normal text-puti/60 italic">· there's room in the convoy</span>
           </p>
-          <h2 className="mt-3 font-display text-[clamp(4rem,12vw,8rem)] leading-[0.85] font-extrabold tracking-[-0.04em] md:mt-4">
+          <h2 className="mt-3 font-display text-5xl leading-none font-extrabold tracking-tight md:text-6xl">
             Tara na<span className="text-araw">.</span>
           </h2>
-          <p className="lead mt-3 max-w-lg text-puti/75 md:mt-4">
-            That means <em className="font-normal text-puti not-italic">"let's go."</em> First ride? We'll pair you with a lead rig, teach you to
-            air down, and save you a plate at the salu-salo.
+          <p className="mt-3 max-w-lg text-puti/75 md:text-lg">
+            That means <em className="font-normal text-puti not-italic">"let's go."</em> First ride? We'll pair you with a lead rig and save you a
+            plate at the salu-salo.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
-            <Link to="/community#join" className="btn bg-araw text-itim hover:bg-puti">
-              Join the crew <span aria-hidden>→</span>
-            </Link>
-            <Link to="/events" className="btn-ghost text-puti">
-              Find a ride
-            </Link>
-          </div>
-        </Reveal>
-        <Reveal delay={150} className="flex justify-center lg:col-span-5 lg:justify-end">
-          <RouteSign />
-        </Reveal>
-      </div>
-
-      {/* What a first ride looks like, so "join" feels concrete */}
-      <div className="mx-auto mt-8 w-full max-w-7xl px-5 short:hidden md:px-8">
-        <p className="eyebrow text-araw">Unang sakay · your first ride</p>
-        <ol className="mt-3 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4">
-          {firstRide.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 80} className="rounded-2xl bg-gubat-900/45 p-3 ring-1 ring-puti/15 backdrop-blur-[2px] sm:p-4 md:p-5">
-              <div className="flex items-center gap-3">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-araw font-display text-xs font-bold text-itim sm:h-8 sm:w-8 sm:text-sm">{i + 1}</span>
-                <h3 className="font-display text-sm font-bold sm:text-base md:text-lg">{step.title}</h3>
-              </div>
-              <p className="mt-2 hidden text-sm leading-relaxed text-puti/80 sm:block">{step.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
+        </div>
+        <div className="flex shrink-0 flex-wrap gap-3">
+          <Link to="/community#join" className="btn-sun">
+            Join the crew <span aria-hidden>→</span>
+          </Link>
+          <Link to="/events" className="btn-ghost text-puti">
+            Find a ride
+          </Link>
+        </div>
+      </Reveal>
     </section>
   );
 }
