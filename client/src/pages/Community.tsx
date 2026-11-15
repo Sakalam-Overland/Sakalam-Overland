@@ -267,12 +267,12 @@ export default function Community() {
             href={IG_URL}
             target="_blank"
             rel="noreferrer"
-            className="mt-6 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-puti/15 px-6 py-6 text-center transition hover:border-dahon/60 hover:bg-puti/5 sm:flex-row sm:gap-4 md:mt-8 md:rounded-3xl md:py-8"
+            className="mt-5 flex flex-col items-center justify-center gap-1 rounded-2xl border-2 border-dashed border-puti/15 px-5 py-3 text-center transition hover:border-dahon/60 hover:bg-puti/5 sm:flex-row sm:gap-3 md:mt-6 md:py-3.5"
           >
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-puti/10 text-xl text-dahon" aria-hidden>
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-puti/10 text-base text-dahon" aria-hidden>
               +
             </span>
-            <span className="font-display text-lg font-bold">Your rig here</span>
+            <span className="font-display font-bold">Your rig here</span>
             <span className="text-sm text-abo">Tag @nysakalamoverland on Instagram to get featured.</span>
           </a>
         </div>

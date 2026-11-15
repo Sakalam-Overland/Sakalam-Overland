@@ -7,7 +7,7 @@ import { PageHero } from '../components/Layout';
 import { Reveal } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
-import { difficultyMeta, directionsUrl, fmt } from '../lib/format';
+import { difficultyMeta, directionsUrl, fmt, localDate } from '../lib/format';
 import { Chip } from './Events';
 
 const rigLevels = ['Stock AWD / crossover', 'Stock 4x4', 'Lifted + all-terrains', 'Built: lockers, armor'];
@@ -38,18 +38,18 @@ const typeLabel: Record<Trail['type'], string> = { offroad: 'Off-road', hike: 'H
 function TrailDetail({ trail }: { trail: Trail }) {
   return (
     <article className="card overflow-hidden" aria-labelledby="trail-title">
-      <div className="bg-gubat p-5 text-puti md:p-6">
+      <div className="bg-gubat p-5 text-puti md:p-6 lg:p-5 xl:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <Tag dark>{typeLabel[trail.type]}</Tag>
           <StatusBadge value={trail.status} dark />
         </div>
-        <h2 id="trail-title" className="mt-3 text-2xl font-bold md:text-3xl">
+        <h2 id="trail-title" className="mt-3 text-2xl leading-tight font-bold md:text-3xl lg:text-2xl xl:text-3xl">
           {trail.name}
         </h2>
         <p className="mt-1 text-puti/70">
           {trail.region}, {trail.state} · {fmt.coords(trail.coords)}
         </p>
-        <dl className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4">
           {[
             ['Length', `${trail.lengthMi} mi`],
             ['Gain', `${trail.gainFt.toLocaleString()} ft`],
@@ -62,20 +62,28 @@ function TrailDetail({ trail }: { trail: Trail }) {
             </div>
           ))}
         </dl>
+        <div className="mt-5 flex flex-wrap gap-2.5">
+          <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="btn-sun !px-5 !py-2.5">
+            Directions <span aria-hidden>→</span>
+          </a>
+          <Link to="/events" className="btn-ghost !px-5 !py-2.5 text-puti">
+            Find a group ride
+          </Link>
+        </div>
       </div>
-      <div className="space-y-6 p-5 md:p-6">
+      <div className="space-y-5 p-5 md:p-6 lg:space-y-4 lg:p-5 xl:p-6">
         <div
-          className={`rounded-2xl px-5 py-4 ${trail.status === 'caution' ? 'bg-araw/15' : trail.status === 'closed' ? 'bg-[#b3261e]/10' : 'bg-tint'}`}
+          className={`rounded-2xl px-4 py-3 md:px-5 md:py-4 ${trail.status === 'caution' ? 'bg-araw/15' : trail.status === 'closed' ? 'bg-[#b3261e]/10' : 'bg-tint'}`}
         >
-          <p className="eyebrow text-ink">Current conditions · checked {fmt.long(trail.lastVerified)}</p>
+          <p className="eyebrow text-ink">Current conditions · checked {localDate(trail.lastVerified).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</p>
           <p className="mt-2 font-normal">{trail.statusNote}</p>
         </div>
-        <p className="text-base leading-relaxed text-ink/85">{trail.summary}</p>
+        <p className="text-[0.95rem] leading-relaxed text-ink/85">{trail.summary}</p>
         <div className="text-ink">
-          <p className="eyebrow mb-4 text-heading">Elevation profile</p>
-          <ElevationChart profile={trail.profile} name={trail.name} />
+          <p className="eyebrow mb-3 text-heading">Elevation profile</p>
+          <ElevationChart profile={trail.profile} name={trail.name} height={160} />
         </div>
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <p className="eyebrow text-heading">Permit and access</p>
             <p className="mt-2 font-normal">{trail.permit}</p>
@@ -86,23 +94,14 @@ function TrailDetail({ trail }: { trail: Trail }) {
           </div>
           <div>
             <p className="eyebrow text-heading">Gear list</p>
-            <ul className="mt-2 space-y-1.5">
-              {trail.gear.map((g) => (
-                <li key={g} className="flex gap-2 font-normal">
-                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-dahon" aria-hidden />
+            <ul className="mt-2.5 flex flex-wrap gap-1.5">
+              {trail.gear.map((g, i) => (
+                <li key={`${i}-${g}`} className="rounded-full bg-tint px-3 py-1 text-sm font-normal text-heading">
                   {g}
                 </li>
               ))}
             </ul>
           </div>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="btn-dark">
-            Directions
-          </a>
-          <Link to="/events" className="btn-ghost text-heading">
-            Find a group ride
-          </Link>
         </div>
         <p className="text-xs text-ink-muted">Conditions change fast. Always confirm with the land manager before you go.</p>
       </div>
@@ -163,7 +162,7 @@ export default function Trails() {
         </div>
       </section>
 
-      <section className="bg-surface-2 pb-24">
+      <section className="bg-surface-2 pb-16 md:pb-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 md:px-8 lg:grid-cols-12 [&>*]:min-w-0">
           <div className="lg:col-span-5">
             <div className="no-scrollbar mb-4 flex gap-2 overflow-x-auto">
@@ -210,7 +209,7 @@ export default function Trails() {
             </ul>
           </div>
           <div id="trail-detail" className="scroll-mt-24 lg:col-span-7">
-            <div className="lg:sticky lg:top-24">
+            <div className="lg:sticky lg:top-24 lg:max-h-[calc(100svh-7.5rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-3xl lg:[scrollbar-width:thin]">
               {selected && (
                 <div key={selected.slug} className="animate-[page-in_0.6s_var(--ease-trail)_backwards]">
                   <TrailDetail trail={selected} />

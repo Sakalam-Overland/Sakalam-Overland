@@ -1,6 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
-const H = 220;
+const DEFAULT_H = 220;
 const PAD = { top: 26, right: 16, bottom: 28, left: 52 };
 
 function niceTicks(min: number, max: number, count = 4) {
@@ -25,7 +25,7 @@ function elevationAt(profile: [number, number][], mile: number) {
   return profile[profile.length - 1][1];
 }
 
-export function ElevationChart({ profile, name }: { profile: [number, number][]; name: string }) {
+export function ElevationChart({ profile, name, height: H = DEFAULT_H }: { profile: [number, number][]; name: string; height?: number }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(320);
   const [hover, setHover] = useState<number | null>(null);
