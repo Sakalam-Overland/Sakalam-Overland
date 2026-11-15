@@ -173,19 +173,19 @@ collections:
       - name: rigs
         label: Rig showcase
         file: content/rigs.json
-        description: The named rigs on the Community page.
+        description: The named rigs on the Community page. Only the rig name is required. Add, reorder or delete rigs freely; the sample rigs are placeholders.
         fields:
           - name: items
             label: Rigs
             label_singular: Rig
             widget: list
-            summary: '"{{fields.nickname}}" · {{fields.owner}}'
+            summary: '"{{fields.nickname}}" · {{fields.vehicle}}'
             fields:
               - { name: nickname, label: Rig name, widget: string, hint: 'The fun name, e.g. Kalabaw' }
-              - { name: vehicle, label: Vehicle, widget: string, hint: 'Year, make and model' }
-              - { name: owner, label: Owner, widget: string, hint: First name and last initial. }
-              - { name: image, label: Photo, widget: image, required: false, choose_url: false }
-              - { name: mods, label: Mods, widget: list, hint: 'e.g. 3" lift, winch, roof-top tent' }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: Landscape photos of the whole rig look best. }
+              - { name: vehicle, label: Vehicle, widget: string, required: false, hint: 'Year, make and model' }
+              - { name: owner, label: Owner, widget: string, required: false, hint: First name and last initial. }
+              - { name: mods, label: Mods, widget: list, required: false, hint: 'e.g. 3" lift, winch, roof-top tent' }
 
       # ---------------------------------------------------------------- Merch
       - name: merch

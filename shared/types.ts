@@ -66,10 +66,11 @@ export interface Campsite {
 }
 
 export interface Rig {
-  owner: string;
-  vehicle: string;
   nickname: string;
-  mods: string[];
+  /** Optional so a rig can go up with just a name and photo. */
+  owner?: string;
+  vehicle?: string;
+  mods?: string[];
   image?: string;
 }
 

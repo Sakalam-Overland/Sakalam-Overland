@@ -187,9 +187,9 @@ export default function Campsites() {
         </div>
       </section>
 
-      <section className="bg-surface-2 py-10 md:py-8">
-        <div className="mx-auto max-w-7xl space-y-5 px-5 md:px-8">
-          {/* Compact header so the heading and the whole backpack fit one screen */}
+      <section className="bg-surface-2 py-10 md:py-8 lg:py-16 xl:py-20">
+        <div className="mx-auto max-w-7xl space-y-5 px-5 md:px-8 lg:space-y-10">
+          {/* Compact on tablets so the heading and backpack fit one screen; laptops and desktops get room to breathe */}
           <Reveal className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between md:gap-10">
             <div>
               <p className="eyebrow flex items-center gap-3 text-heading">
