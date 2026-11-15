@@ -1,1 +1,4 @@
+# Netlify has no login functions, so send the editor to the Vercel copy where sign-in works.
+/admin    https://sakalam-overland.vercel.app/admin/  302!
+/admin/*  https://sakalam-overland.vercel.app/admin/  302!
 /*  /index.html  200

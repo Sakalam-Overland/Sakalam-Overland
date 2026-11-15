@@ -10,16 +10,17 @@ This guide is for the crew members who keep the website up to date. You don't ne
 
 ## 1. Log in
 
-Go to **sakalam-overland.vercel.app/admin** and press **Log in**. A small window opens with two choices:
+Go to **sakalam-overland.vercel.app/admin** and press **Log in**. A small window opens with three choices:
 
 - **Continue with Google:** sign in with the Google account the site manager added.
+- **Continue with Yahoo:** sign in with the Yahoo email the site manager added.
 - **Continue with GitHub:** sign in with your GitHub account (first time only, press **Authorize**).
 
 The window closes by itself and you're in.
 
 ![Login screen with the Sakalam logo, a Log in button and the note "Use your Google or GitHub account"](images/01-login.png)
 
-> First time? Tell the site manager which login you'll use. For Google, they add your Gmail address to the editor list. For GitHub, they add you to the project and you accept the email invitation. Your usual Google or GitHub password is your login.
+> First time? Tell the site manager which login you'll use. For Google or Yahoo, they add your Gmail or Yahoo address to the editor list. For GitHub, they add you to the project and you accept the email invitation. Your usual Google or GitHub password is your login.
 
 ---
 
@@ -137,7 +138,7 @@ The bar turns green ("CHANGES SAVED"). Give it **1–2 minutes**, then refresh t
 
 | Problem | What to do |
 |---|---|
-| "Login" does nothing / I can't log in | Allow pop-ups for the site, then try again. If it says your account "isn't on the list of editors", ask the site manager to add that exact email. Forgot your password? Reset it with Google or GitHub. |
+| "Login" does nothing / I can't log in | Allow pop-ups for the site, then try again. If it says your account "isn't on the list of editors", ask the site manager to add that exact email. Use the **sakalam-overland.vercel.app/admin** address, not any other copy of the site. Forgot your password? Reset it with Google, Yahoo or GitHub. |
 | I published but the site didn't change | Wait 2 minutes, then refresh. On a phone, close the tab and reopen it. |
 | I made a mistake and published it | Fix it and publish again. Every version is saved, so the site manager can also restore an older one if needed. |
 | A red message says a box is required or invalid | Read the hint under that box (e.g. Web address must be lowercase with dashes). The form won't publish until it's fixed. |
@@ -176,9 +177,22 @@ The site is on Vercel, and owners sign in with GitHub. You only do this once.
    - `CMS_ALLOWED_EMAILS` = everyone allowed to edit, separated by commas, e.g. `tita@gmail.com, migs@gmail.com`
 8. **Redeploy** (as in step 3). To add or remove a Google editor later, edit `CMS_ALLOWED_EMAILS` and redeploy.
 
-Good to know: edits made through Google sign-in show up in GitHub's history under the owner of the key from step 5, not the person who made them. Only put people you trust on the list, since anyone on it can change the whole site.
+### Yahoo sign-in (optional, for editors who use Yahoo Mail)
 
-If the site moves to a new address, update the callback URLs in the GitHub OAuth app and Google credentials and `base_url`, `site_url` and `display_url` in `client/public/admin/config.yml`.
+Uses the same `GITHUB_CMS_TOKEN` and `CMS_ALLOWED_EMAILS` as Google sign-in, so do steps 5 and 7 first.
+
+9. **Create Yahoo login keys:** go to developer.yahoo.com/apps → **Create an App**.
+   - Application name: `Sakalam Overland CMS`
+   - Redirect URI: `https://sakalam-overland.vercel.app/api/yahoo-callback`
+   - OAuth client type: **Confidential client**
+   - API permissions: under **OpenID Connect Permissions**, tick **Email**
+   - Press **Create App** and copy the **Client ID** and **Client Secret**.
+10. **Add to Vercel's environment variables:** `YAHOO_CLIENT_ID` and `YAHOO_CLIENT_SECRET` from step 9. Add the editor's Yahoo address to `CMS_ALLOWED_EMAILS`.
+11. **Redeploy** (as in step 3). The **Continue with Yahoo** button appears once the keys are in.
+
+Good to know: edits made through Google or Yahoo sign-in show up in GitHub's history under the owner of the key from step 5, not the person who made them. Only put people you trust on the list, since anyone on it can change the whole site.
+
+If the site moves to a new address, update the callback URLs in the GitHub OAuth app, Google credentials and Yahoo app and `base_url`, `site_url` and `display_url` in `client/public/admin/config.yml`.
 
 **Editing on your own computer (no login needed):** run `npm run dev` and, in a second terminal, `npm run cms`, then open http://localhost:5173/admin. Changes save straight into the `content/` folder; commit them like any other change.
 
