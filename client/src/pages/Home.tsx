@@ -185,7 +185,7 @@ function Hero() {
           <div className="mt-[2.6svh] flex animate-rise flex-wrap gap-2.5 [animation-delay:300ms] md:mt-9 md:gap-3 [&>a]:max-sm:px-5 [&>a]:max-sm:py-2.5">
             <Link
               to="/events"
-              className="btn bg-araw text-gubat shadow-[0_10px_22px_-10px_rgba(246,184,26,0.85)] hover:-translate-y-0.5 hover:shadow-[0_16px_28px_-10px_rgba(246,184,26,1)] active:translate-y-0 focus-visible:outline-heading"
+              className="btn-sun"
             >
               Find a ride <span aria-hidden className="inline-block animate-[nudge_1.6s_ease-in-out_infinite] motion-reduce:animate-none">→</span>
             </Link>
