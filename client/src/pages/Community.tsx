@@ -1,5 +1,5 @@
 import type { JoinInput } from '@shared/types';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { IG_URL, InstagramIcon, PageHero } from '../components/Layout';
 import { faq, glossary, merch, settings } from '@shared/data';
 import { BoodleFight } from '../components/Food';
@@ -120,6 +120,42 @@ function JoinForm() {
   );
 }
 
+/** One FAQ question that slides open instead of snapping. */
+function FaqItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  return (
+    <div className={`rounded-2xl transition-colors duration-300 ${open ? 'bg-tint' : 'bg-surface-2'}`}>
+      <h3>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={id}
+          onClick={() => setOpen((o) => !o)}
+          className="flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left font-display text-sm font-semibold text-heading md:px-5 md:py-4 md:text-base"
+        >
+          {question}
+          <span className={`shrink-0 text-xl transition-transform duration-300 ease-(--ease-trail) ${open ? 'rotate-45' : ''}`} aria-hidden>
+            +
+          </span>
+        </button>
+      </h3>
+      {/* Animating grid rows from 0fr to 1fr slides the answer open at its natural height. */}
+      <div
+        id={id}
+        role="region"
+        aria-label={question}
+        inert={!open}
+        className={`grid transition-[grid-template-rows,opacity] duration-400 ease-(--ease-trail) motion-reduce:transition-none ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+      >
+        <div className="overflow-hidden">
+          <p className={`px-4 pb-4 text-ink/85 transition-transform duration-400 ease-(--ease-trail) md:px-5 md:pb-5 ${open ? 'translate-y-0' : '-translate-y-2'}`}>{answer}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /** Phones only: says the row above it scrolls sideways. */
 function SwipeHint({ dark = false }: { dark?: boolean }) {
   return (
@@ -132,6 +168,8 @@ function SwipeHint({ dark = false }: { dark?: boolean }) {
 
 export default function Community() {
   const { data: rigs } = useAsync(() => api.rigs(), []);
+  // Skip half-filled entries the CMS might save, so an empty card never shows.
+  const rigList = (rigs ?? []).filter((r) => r.nickname || r.image || r.vehicle);
 
   return (
     <>
@@ -165,7 +203,7 @@ export default function Community() {
       </section>
 
       {/* Rigs */}
-      <section id="rigs" className="scroll-mt-16 bg-deep py-8 text-puti md:py-12">
+      <section id="rigs" className="scroll-mt-16 bg-deep py-12 text-puti md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
           <SectionHead dark eyebrow="Rig showcase" tagalog="Mga sasakyan" title="Every rig gets a name.">
             Most of them are named after food or family. Tag us on Instagram to get yours featured.
@@ -174,29 +212,50 @@ export default function Community() {
           <div
             role="region"
             aria-label="Member rigs, swipe for more"
-            className="no-scrollbar -mx-5 mt-4 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-6 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3"
+            className="no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-12 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 lg:gap-8"
           >
-            {(rigs ?? []).map((r, i) => (
-              <div key={r.nickname} data-no-reveal className="flex w-[62%] max-w-[280px] shrink-0 snap-start md:w-auto md:max-w-none">
-                <article className="group flex w-full flex-col overflow-hidden rounded-2xl bg-puti/5 ring-1 ring-puti/10 md:flex-row md:rounded-3xl">
-                  <Photo name={`rig-${r.nickname.toLowerCase().replace(/\W+/g, '-')}`} src={r.image} alt={`${r.owner}'s ${r.vehicle}`} tone={(['dusk', 'forest', 'night'] as const)[i % 3]} className="aspect-[2/1] shrink-0 md:aspect-auto md:w-2/5" />
-                  <div className="min-w-0 p-3.5 md:p-4">
-                    <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-xl">"{r.nickname}"</p>
-                    <p className="mt-0.5 font-display text-xs font-semibold md:text-sm">{r.vehicle}</p>
-                    <p className="text-xs text-abo">{r.owner}</p>
-                    <ul className="mt-2.5 flex flex-wrap gap-1">
-                      {r.mods.map((m) => (
-                        <li key={m} className="rounded-full bg-puti/10 px-2 py-0.5 font-display text-[0.65rem] font-semibold">
-                          {m}
-                        </li>
-                      ))}
-                    </ul>
+            {rigList.map((r, i) => (
+              <div key={`${i}-${r.nickname}`} data-no-reveal className="flex w-[72%] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
+                <article className="group flex w-full flex-col overflow-hidden rounded-2xl bg-puti/5 ring-1 ring-puti/10 md:rounded-3xl">
+                  <Photo
+                    name={`rig-${(r.nickname || 'rig').toLowerCase().replace(/\W+/g, '-')}`}
+                    src={r.image}
+                    alt={[r.owner && `${r.owner}'s`, r.vehicle || 'rig', r.nickname && `"${r.nickname}"`].filter(Boolean).join(' ')}
+                    tone={(['dusk', 'forest', 'night'] as const)[i % 3]}
+                    className="aspect-[4/3] shrink-0"
+                  />
+                  <div className="min-w-0 p-4 md:p-6">
+                    {r.nickname && <p className="font-display text-xl font-extrabold tracking-tight text-dahon md:text-2xl">"{r.nickname}"</p>}
+                    {r.vehicle && <p className="mt-1 font-display text-sm font-semibold md:text-base">{r.vehicle}</p>}
+                    {r.owner && <p className="mt-0.5 text-sm text-abo">{r.owner}</p>}
+                    {!!r.mods?.length && (
+                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                        {r.mods.map((m, j) => (
+                          <li key={`${j}-${m}`} className="rounded-full bg-puti/10 px-2.5 py-1 font-display text-[0.7rem] font-semibold">
+                            {m}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </article>
               </div>
             ))}
           </div>
           <SwipeHint dark />
+          {/* Always-there invite, so the showcase has room to grow as more rigs are added. */}
+          <a
+            href={IG_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-puti/15 px-6 py-6 text-center transition hover:border-dahon/60 hover:bg-puti/5 sm:flex-row sm:gap-4 md:mt-8 md:rounded-3xl md:py-8"
+          >
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-puti/10 text-xl text-dahon" aria-hidden>
+              +
+            </span>
+            <span className="font-display text-lg font-bold">Your rig here</span>
+            <span className="text-sm text-abo">Tag @nysakalamoverland on Instagram to get featured.</span>
+          </a>
         </div>
       </section>
 
@@ -276,16 +335,8 @@ export default function Community() {
           <div className="md:col-span-5 md:row-start-2">
             <p className="eyebrow mb-2 text-heading md:hidden">Questions</p>
             <Reveal delay={100} className="space-y-2 md:space-y-3">
-              {faq.map(({ question: q, answer: a }) => (
-                <details key={q} className="group rounded-2xl bg-surface-2 px-4 py-3 open:bg-tint md:px-5 md:py-4">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-sm font-semibold text-heading md:text-base">
-                    {q}
-                    <span className="text-xl transition group-open:rotate-45" aria-hidden>
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 text-ink/85">{a}</p>
-                </details>
+              {faq.map(({ question, answer }, i) => (
+                <FaqItem key={`${i}-${question}`} question={question} answer={answer} />
               ))}
             </Reveal>
           </div>
