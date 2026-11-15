@@ -83,7 +83,7 @@ export default function Events() {
             ))}
             <span className="mx-2 h-6 w-px shrink-0 bg-line/15" />
             <label className="flex shrink-0 cursor-pointer items-center gap-2 font-display text-sm font-semibold text-ink">
-              <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)} className="h-4 w-4 accent-gubat dark:accent-dahon" />
+              <input type="checkbox" checked={openOnly} onChange={(e) => setOpenOnly(e.target.checked)} className="h-5 w-5 accent-gubat dark:accent-dahon" />
               Spots open
             </label>
           </div>

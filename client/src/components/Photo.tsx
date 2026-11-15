@@ -65,7 +65,7 @@ export function Photo({
       ) : fallback ? (
         <div className="absolute inset-0 [&>svg]:h-full [&>svg]:w-full">{fallback}</div>
       ) : (
-        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" role="img" aria-label={alt}>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" {...(alt ? { role: 'img', 'aria-label': alt } : { 'aria-hidden': true })}>
           <defs>
             <linearGradient id={`sky-${name}`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor={t.sky[0]} />

@@ -100,12 +100,12 @@ function Checklist() {
         <div className="relative grid gap-6 px-6 pt-6 pb-6 sm:grid-cols-2 md:px-14 lg:grid-cols-4">
           {Object.entries(checklist).map(([group, items]) => (
             <fieldset key={group}>
-              <legend className="eyebrow text-dahon">{group}</legend>
+              <legend className="eyebrow text-dahon-300">{group}</legend>
               <ul className="mt-2.5 space-y-1.5">
                 {items.map((item) => (
                   <li key={item}>
                     <label className="flex cursor-pointer items-start gap-3">
-                      <input type="checkbox" checked={done.includes(item)} onChange={() => toggle(item)} className="mt-1 h-4 w-4 shrink-0 accent-dahon" />
+                      <input type="checkbox" checked={done.includes(item)} onChange={() => toggle(item)} className="mt-0.5 h-5 w-5 shrink-0 accent-dahon" />
                       <span className={`transition ${done.includes(item) ? 'text-puti/40 line-through' : 'text-puti/85'}`}>{item}</span>
                     </label>
                   </li>
@@ -170,11 +170,11 @@ export default function Campsites() {
                     ))}
                   </ul>
                   <div className="mt-auto flex flex-wrap items-center gap-4 pt-3 font-display text-sm font-semibold text-heading">
-                    <a href={directionsUrl(c.coords)} target="_blank" rel="noreferrer" className="hover:underline">
+                    <a href={directionsUrl(c.coords)} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center hover:underline">
                       Directions
                     </a>
                     {c.nearbyTrail && (
-                      <Link to={`/trails/${c.nearbyTrail}`} className="hover:underline">
+                      <Link to={`/trails/${c.nearbyTrail}`} className="inline-flex min-h-6 items-center hover:underline">
                         Nearby trail →
                       </Link>
                     )}

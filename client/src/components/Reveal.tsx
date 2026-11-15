@@ -37,7 +37,7 @@ export function SectionHead({
 }) {
   return (
     <Reveal className={`max-w-3xl ${className}`}>
-      <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-dahon' : 'text-heading'}`}>
+      <p className={`eyebrow flex items-center gap-3 ${dark ? 'text-dahon-300' : 'text-heading'}`}>
         <span className={`h-px w-8 ${dark ? 'bg-dahon' : 'bg-heading'}`} />
         {eyebrow}
         {tagalog && <span className={`normal-case tracking-normal italic ${dark ? 'text-abo' : 'text-ink-muted'}`}>· {tagalog}</span>}

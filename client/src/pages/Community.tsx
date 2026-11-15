@@ -244,7 +244,7 @@ export default function Community() {
                     className="aspect-[4/3] shrink-0"
                   />
                   <div className="min-w-0 p-4 md:p-5">
-                    {r.nickname && <p className="font-display text-lg font-extrabold tracking-tight text-dahon md:text-xl">"{r.nickname}"</p>}
+                    {r.nickname && <p className="font-display text-lg font-extrabold tracking-tight text-dahon-300 md:text-xl">"{r.nickname}"</p>}
                     {r.vehicle && <p className="mt-1 font-display text-sm font-semibold">{r.vehicle}</p>}
                     {r.owner && <p className="mt-0.5 text-sm text-abo">{r.owner}</p>}
                     {!!r.mods?.length && (

@@ -73,15 +73,15 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
             </g>
             <g className="transition-colors duration-300">
               {/* Roof rack with a strapped-down load */}
-              <rect x="22" y="1.5" width="20" height="3.5" rx="1.2" className="fill-araw" />
-              <rect x="17" y="5" width="30" height="2" rx="1" className={on ? 'fill-abo' : 'fill-uling'} />
+              <rect x="19" y="1.5" width="26" height="3.5" rx="1.2" className="fill-araw" />
+              <rect x="14" y="5" width="36" height="2" rx="1" className={on ? 'fill-abo' : 'fill-uling'} />
               {/* Cab and windshield */}
-              <path d="M17,17 L21.5,7 H42.5 L47,17 Z" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              <path d="M21.5,15.5 L24.5,9.5 H39.5 L42.5,15.5 Z" className={on ? 'fill-gubat-900' : 'fill-dahon-100'} />
-              <path d="M26,14 L29,10.5 H31.5 L28.5,14 Z" className={on ? 'fill-puti/25' : 'fill-puti'} />
+              <path d="M13,17 L15,7.5 Q15.3,7 16,7 H48 Q48.7,7 49,7.5 L51,17 Z" className={on ? 'fill-dahon' : 'fill-gubat'} />
+              <path d="M16.5,15.5 L17.8,9.6 Q18,9 18.6,9 H45.4 Q46,9 46.2,9.6 L47.5,15.5 Z" className={on ? 'fill-gubat-900' : 'fill-dahon-100'} />
+              <path d="M21,14 L24,10.3 H27 L24,14 Z" className={on ? 'fill-puti/25' : 'fill-puti'} />
               {/* Mirrors */}
-              <rect x="10.5" y="12" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              <rect x="48.5" y="12" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
+              <rect x="7" y="11" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
+              <rect x="52" y="11" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
               {/* Body */}
               <rect x="10" y="16" width="44" height="15" rx="4" className={on ? 'fill-dahon' : 'fill-gubat'} />
               {/* Grille */}

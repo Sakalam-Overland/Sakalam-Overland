@@ -56,7 +56,7 @@ export default function EventDetail() {
       <section className={`${HEADER_BOX} bg-deep text-puti`}>
         <HeaderBackdrop scene="event" />
         <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
-          <Link to="/events" className="animate-rise font-display text-sm font-semibold text-abo transition hover:text-puti">
+          <Link to="/events" className="inline-flex min-h-6 animate-rise items-center font-display text-sm font-semibold text-abo transition hover:text-puti">
             ← All events
           </Link>
           <div className="mt-5 flex animate-rise flex-wrap items-center gap-3 [animation-delay:80ms]">
@@ -106,7 +106,7 @@ export default function EventDetail() {
               <div className="flex flex-col gap-4 rounded-3xl bg-gubat p-5 text-puti md:flex-row md:items-center md:p-6">
                 <img src="/icons/campsites.png" alt="" className="h-14 w-14" />
                 <div className="flex-1">
-                  <p className="eyebrow text-dahon">Where we sleep</p>
+                  <p className="eyebrow text-dahon-300">Where we sleep</p>
                   <p className="mt-1 font-display text-xl font-bold">{camp.name}</p>
                   <p className="text-sm text-puti/70">
                     {camp.sites} · {camp.fee} · {camp.access} access
@@ -130,11 +130,11 @@ export default function EventDetail() {
               </div>
               <RsvpForm event={event} onDone={setData} />
               <div className="flex flex-wrap gap-4 border-t border-line/10 pt-5 font-display text-sm font-semibold text-heading">
-                <a href={icsFor(event)} download={`${event.slug}.ics`} className="hover:underline">
+                <a href={icsFor(event)} download={`${event.slug}.ics`} className="inline-flex min-h-6 items-center hover:underline">
                   + Calendar
                 </a>
                 {trail && (
-                  <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="hover:underline">
+                  <a href={directionsUrl(trail.coords)} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center hover:underline">
                     Directions
                   </a>
                 )}

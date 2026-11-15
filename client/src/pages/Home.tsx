@@ -117,11 +117,11 @@ function NextRide({ className = '' }: { className?: string }) {
       <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gubat text-center font-display leading-none text-puti">
         <div>
           <span className="block text-xl font-extrabold">{fmt.day(next.start)}</span>
-          <span className="block text-[0.6rem] font-semibold tracking-widest text-dahon uppercase">{fmt.month(next.start)}</span>
+          <span className="block text-[0.6rem] font-semibold tracking-widest text-dahon-300 uppercase">{fmt.month(next.start)}</span>
         </div>
       </div>
       <div className="min-w-0">
-        <p className="eyebrow text-dahon">Next ride</p>
+        <p className="eyebrow text-leaf">Next ride</p>
         <p className="truncate font-display font-bold text-heading">{next.title}</p>
         <p className="text-xs text-ink-muted">{left === 0 ? 'Full · waitlist open' : `${left} spots left`}</p>
       </div>
@@ -169,7 +169,7 @@ function Hero() {
           </p>
           <h1 className="mt-[2svh] animate-rise font-display leading-[0.85] [animation-delay:100ms] md:mt-6">
             <span className="block text-[min(15vw,8svh)] font-extrabold md:text-[clamp(3.6rem,13vw,9rem)] tracking-[-0.04em] text-heading lg:text-[8vw] xl:text-[9rem]">SAKALAM</span>
-            <span className="mt-2 flex items-center gap-4 text-[min(5.5vw,3svh)] md:mt-3 md:text-[clamp(1.3rem,4vw,2.6rem)] font-semibold tracking-[0.42em] text-dahon">
+            <span className="mt-2 flex items-center gap-4 text-[min(5.5vw,3svh)] md:mt-3 md:text-[clamp(1.3rem,4vw,2.6rem)] font-bold tracking-[0.42em] text-[#4f9862] dark:text-dahon">
               OVERLAND
               <svg viewBox="0 0 40 12" className="h-3 w-10 shrink-0 text-araw" aria-hidden>
                 <path d={starPath(6, 6, 5)} fill="currentColor" />
@@ -202,7 +202,7 @@ function Hero() {
             {/* Snapshot tucked behind the tire */}
             <div className="absolute -top-6 right-0 w-[46%] rotate-6 rounded-md bg-white p-2 pb-7 shadow-[0_20px_40px_-18px_rgba(0,0,0,0.45)] sm:-right-8 lg:-right-2 min-[1400px]:-right-8">
               <Photo name="hero-snapshot" src={settings.heroPhoto} alt="Rigs lined up at a trailhead" tone="dawn" className="aspect-square rounded-sm" />
-              <p className="absolute right-0 bottom-1.5 left-0 text-center font-display text-[0.6rem] font-semibold tracking-[0.2em] text-ink-muted uppercase">
+              <p className="absolute right-0 bottom-1.5 left-0 text-center font-display text-[0.6rem] font-semibold tracking-[0.2em] text-abo-ink uppercase">
                 {settings.heroPhotoCaption}
               </p>
             </div>
@@ -263,7 +263,7 @@ function Meaning() {
                 <p lang="tl" className="font-baybayin text-4xl text-puti md:text-6xl" aria-label="Sakalam in Baybayin script">
                   ᜐᜃᜎᜋ᜔
                 </p>
-                <p className="eyebrow text-dahon md:mt-6">Baybayin · sa ka la m</p>
+                <p className="eyebrow text-dahon-300 md:mt-6">Baybayin · sa ka la m</p>
               </div>
             </div>
           </div>
@@ -295,7 +295,7 @@ function Pillars() {
                 <div className="flex shrink-0 items-center gap-3 md:w-full">
                   <img src={`/icons/${n.icon}.png`} alt="" className="h-10 w-10 shrink-0 transition group-hover:scale-110 md:h-11 md:w-11" />
                   <div className="hidden md:block">
-                    <p className="text-sm text-ink-muted italic transition group-hover:text-dahon">{n.tl}</p>
+                    <p className="text-sm text-ink-muted italic transition group-hover:text-leaf">{n.tl}</p>
                     <h3 className="text-xl font-bold text-heading transition group-hover:text-puti">{n.label}</h3>
                   </div>
                 </div>
@@ -303,15 +303,15 @@ function Pillars() {
                 <div className="min-w-0 flex-1 md:hidden">
                   <p className="flex items-baseline gap-2">
                     <span className="font-display text-base font-bold text-heading transition group-hover:text-puti">{n.label}</span>
-                    <span className="text-xs text-ink-muted italic transition group-hover:text-dahon">{n.tl}</span>
+                    <span className="text-xs text-ink-muted italic transition group-hover:text-leaf">{n.tl}</span>
                   </p>
                   <p className="truncate text-xs text-ink/75 transition group-hover:text-puti/75">{pillarCopy[n.to]}</p>
                 </div>
-                <span className="shrink-0 text-heading transition group-hover:translate-x-1 group-hover:text-dahon md:hidden" aria-hidden>
+                <span className="shrink-0 text-heading transition group-hover:translate-x-1 group-hover:text-leaf md:hidden" aria-hidden>
                   →
                 </span>
                 <p className="mt-3 hidden text-sm leading-snug text-ink/75 transition group-hover:text-puti/75 md:block">{pillarCopy[n.to]}</p>
-                <span className="mt-auto hidden pt-4 font-display text-sm font-semibold text-heading transition group-hover:text-dahon md:block">
+                <span className="mt-auto hidden pt-4 font-display text-sm font-semibold text-heading transition group-hover:text-leaf md:block">
                   Explore <span className="inline-block transition group-hover:translate-x-1">→</span>
                 </span>
               </Link>
@@ -593,8 +593,8 @@ export function JoinBand() {
       <Banderitas className="absolute inset-x-0 top-0 h-16 w-full md:h-20" />
       <Reveal className="mx-auto flex max-w-7xl flex-col gap-6 px-5 md:flex-row md:items-end md:justify-between md:gap-10 md:px-8">
         <div>
-          <p className="eyebrow text-araw">
-            May puwesto pa <span className="ml-1 normal-case tracking-normal text-puti/60 italic">· there's room in the convoy</span>
+          <p className="eyebrow text-[#ffcf4d]">
+            May puwesto pa <span className="ml-1 normal-case tracking-normal text-puti/85 italic">· there's room in the convoy</span>
           </p>
           <h2 className="mt-3 font-display text-5xl leading-none font-extrabold tracking-tight md:text-6xl">
             Tara na<span className="text-araw">.</span>
@@ -626,8 +626,8 @@ export default function Home() {
       <UpcomingEvents />
       <TrailBoard />
       <Beliefs />
-      <SaluSalo />
       <Gallery />
+      <SaluSalo />
       <JoinBand />
     </>
   );

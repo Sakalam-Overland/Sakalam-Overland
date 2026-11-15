@@ -27,7 +27,7 @@ const statusMeta: Record<TrailStatus, { label: string; cls: string }> = {
 };
 
 const darkStatus: Record<TrailStatus, string> = {
-  open: 'bg-dahon/20 text-dahon ring-dahon/40',
+  open: 'bg-dahon/20 text-dahon-300 ring-dahon/40',
   caution: 'bg-araw/15 text-araw ring-araw/40',
   seasonal: 'bg-puti/10 text-puti/80 ring-puti/20',
   closed: 'bg-[#f2b8b5]/15 text-[#f2b8b5] ring-[#f2b8b5]/30',

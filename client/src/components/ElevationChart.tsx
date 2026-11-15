@@ -140,7 +140,7 @@ export function ElevationChart({ profile, name, height: H = DEFAULT_H }: { profi
         )}
       </div>
       <details className="mt-3 text-sm">
-        <summary className="cursor-pointer font-display text-xs font-semibold text-heading">View as table</summary>
+        <summary className="inline-block cursor-pointer py-1 font-display text-xs font-semibold text-heading">View as table</summary>
         <table className="mt-2 w-full max-w-sm text-left tabular-nums">
           <thead>
             <tr className="text-ink-muted">

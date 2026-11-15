@@ -79,7 +79,7 @@ function TrailDetail({ trail }: { trail: Trail }) {
         <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-4">
           {stats.map(([k, v]) => (
             <div key={k}>
-              <dt className="eyebrow text-dahon">{k}</dt>
+              <dt className="eyebrow text-dahon-300">{k}</dt>
               <dd className="mt-0.5 font-display text-sm font-semibold md:text-base">{v}</dd>
             </div>
           ))}

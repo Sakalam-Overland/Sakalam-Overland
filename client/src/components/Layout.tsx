@@ -24,7 +24,7 @@ function Wordmark({ light = false }: { light?: boolean }) {
       <LogoMark decorative tone={light ? 'forest' : 'white'} className="h-10 w-10 transition-transform duration-700 ease-(--ease-trail) group-hover:rotate-[22.5deg]" />
       <span className={`font-display leading-none transition-colors ${light ? 'text-heading' : 'text-puti'}`}>
         <span className="block text-[1.05rem] font-extrabold tracking-[0.02em]">SAKALAM</span>
-        <span className="block text-[0.58rem] font-semibold tracking-[0.5em] text-dahon">OVERLAND</span>
+        <span className={`block text-[0.58rem] font-semibold tracking-[0.5em] ${light ? 'text-leaf' : 'text-dahon-300'}`}>OVERLAND</span>
       </span>
     </Link>
   );
@@ -198,7 +198,7 @@ function Footer() {
           </div>
           <div>
             <p className="eyebrow text-dahon">Follow</p>
-            <a href={IG_URL} target="_blank" rel="noreferrer" className={`mt-3 inline-flex items-center gap-2 break-all ${link}`}>
+            <a href={IG_URL} target="_blank" rel="noreferrer" className={`mt-2 inline-flex min-h-6 items-center gap-2 py-1 break-all ${link}`}>
               <InstagramIcon className="h-5 w-5 shrink-0" /> <span className="hidden sm:inline">@nysakalamoverland</span><span className="sm:hidden">Instagram</span>
             </a>
             <p className="mt-3 text-xs text-abo">New York · Pilipinas</p>
@@ -253,7 +253,7 @@ export function Layout() {
 
   return (
     <>
-      <a href="#main" className="sr-only z-[60] rounded bg-araw px-4 py-2 text-itim focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
+      <a href="#main" className="sr-only z-[60] rounded bg-araw px-4 py-2 text-itim font-display font-semibold focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:ring-2 focus:ring-itim focus:ring-offset-2">
         Skip to content
       </a>
       <Nav />

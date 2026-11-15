@@ -46,7 +46,7 @@ export function EventCard({ event, featured = false }: { event: TripEvent; featu
         <div className="text-center font-display leading-none text-heading">
           <span className="block text-[2.6rem] font-extrabold tracking-tighter tabular-nums">{fmt.day(event.start)}</span>
           {multi && <span className="mt-0.5 block text-xs font-semibold text-ink-muted tabular-nums">to {fmt.day(event.end)}</span>}
-          <span className="mt-1 block text-[0.65rem] font-semibold tracking-[0.2em] text-dahon uppercase">{fmt.weekday(event.start)}</span>
+          <span className="mt-1 block text-[0.65rem] font-semibold tracking-[0.2em] text-leaf uppercase">{fmt.weekday(event.start)}</span>
         </div>
         <div className="min-w-0">
           <h3 className="line-clamp-2 text-base leading-tight font-bold text-heading md:text-lg">{event.title}</h3>

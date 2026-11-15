@@ -20,10 +20,11 @@
   --color-gubat-700: #224d2e;
   --color-dahon-100: #e6f2e9;
   --color-uling-600: #3a3d3b;
-  --color-abo: #8b918d; /* muted ink on dark */
+  --color-abo: #a3aaa5; /* muted ink on dark; 4.5:1+ on every forest green */
   --color-abo-ink: #5c625e; /* muted ink on light */
   --color-papel: #f4f5f1; /* off-white surface */
   --color-dahon-300: #8fd19e; /* leaf green that keeps 4.5:1 on forest cards */
+  --color-leaf: var(--leaf); /* leaf green for small text on page surfaces: deeper in day mode so it stays readable */
 
   --font-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
   --font-body: 'Outfit', ui-sans-serif, system-ui, sans-serif;
@@ -60,6 +61,7 @@
   --ink: #272928;
   --ink-muted: #5c625e;
   --heading: #183b22;
+  --leaf: #387548;
   --line: #272928;
   --tint: #e6f2e9;
   --deep: #12301c;
@@ -75,6 +77,7 @@
   --ink: #dfe3dc;
   --ink-muted: #95a097;
   --heading: #f1efe6;
+  --leaf: #61ab73;
   --line: #dfe3dc;
   --tint: #1b3123;
   --deep: #060b08;

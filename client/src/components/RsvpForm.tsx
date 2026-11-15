@@ -45,7 +45,7 @@ export function RsvpForm({ event, onDone }: { event: TripEvent; onDone: (e: Trip
   if (status === 'done') {
     return (
       <div className="rounded-3xl bg-gubat p-6 text-puti" role="status">
-        <p className="eyebrow text-dahon">{waitlisted ? 'Nasa waitlist ka' : 'Kita-kits!'}</p>
+        <p className="eyebrow text-dahon-300">{waitlisted ? 'Nasa waitlist ka' : 'Kita-kits!'}</p>
         <h3 className="mt-3 text-3xl font-bold">{waitlisted ? "You're on the waitlist." : "You're in. See you there."}</h3>
         <p className="lead mt-3 text-puti/75">
           {waitlisted
