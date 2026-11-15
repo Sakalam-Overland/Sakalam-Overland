@@ -1,5 +1,6 @@
 # Static deploy. With no API behind it, the site uses the bundled data
-# and RSVPs/sign-ups run in demo mode.
+# and RSVPs/sign-ups run in demo mode. The content editor (/admin) only works
+# on Vercel, so client/public/_redirects sends /admin there.
 [build]
   command = "npm run build -w client"
   publish = "client/dist"

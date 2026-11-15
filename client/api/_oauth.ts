@@ -49,3 +49,22 @@ ${note}
   })();
 </script>`);
 }
+
+/** Emails from CMS_ALLOWED_EMAILS, a comma-separated list set in Vercel. Shared by Google and Yahoo sign-in. */
+export const allowedEmails = () =>
+  (process.env.CMS_ALLOWED_EMAILS ?? '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+
+/**
+ * Finish an email-based login (Google, Yahoo): if the provider vouches for an email on the allowlist,
+ * let the editor save with the site's limited GitHub key (GITHUB_CMS_TOKEN).
+ */
+export function finishEmailLogin(req: IncomingMessage, res: ServerResponse, email: string | undefined, verified: boolean) {
+  const e = email?.toLowerCase();
+  if (!e || !verified || !allowedEmails().includes(e)) {
+    return finish(req, res, 'error', { message: `${e ?? 'This account'} isn't on the list of editors. Ask the site manager to add it.` });
+  }
+  finish(req, res, 'success', { token: process.env.GITHUB_CMS_TOKEN, provider: 'github' });
+}

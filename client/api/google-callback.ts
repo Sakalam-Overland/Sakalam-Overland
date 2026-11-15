@@ -1,14 +1,7 @@
 // Google sign-in, step 2: confirm who signed in, check they're on the allowlist,
 // then let the editor save with the site's limited GitHub key (GITHUB_CMS_TOKEN).
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { finish, query, siteOrigin, stateMatches } from './_oauth.js';
-
-/** Emails from CMS_ALLOWED_EMAILS, a comma-separated list set in Vercel. */
-const allowed = () =>
-  (process.env.CMS_ALLOWED_EMAILS ?? '')
-    .split(',')
-    .map((e) => e.trim().toLowerCase())
-    .filter(Boolean);
+import { finish, finishEmailLogin, query, siteOrigin, stateMatches } from './_oauth.js';
 
 export default async function googleCallback(req: IncomingMessage, res: ServerResponse) {
   const code = query(req).get('code');
@@ -33,12 +26,7 @@ export default async function googleCallback(req: IncomingMessage, res: ServerRe
     // Ask Google directly who this is, rather than trusting anything from the browser.
     const u = await fetch('https://openidconnect.googleapis.com/v1/userinfo', { headers: { Authorization: `Bearer ${tokens.access_token}` } });
     const user = (await u.json()) as { email?: string; email_verified?: boolean };
-    const email = user.email?.toLowerCase();
-
-    if (!email || !user.email_verified || !allowed().includes(email)) {
-      return finish(req, res, 'error', { message: `${email ?? 'This account'} isn't on the list of editors. Ask the site manager to add it.` });
-    }
-    finish(req, res, 'success', { token: process.env.GITHUB_CMS_TOKEN, provider: 'github' });
+    finishEmailLogin(req, res, user.email, !!user.email_verified);
   } catch (err) {
     finish(req, res, 'error', { message: (err as Error).message });
   }
