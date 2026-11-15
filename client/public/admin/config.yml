@@ -4,7 +4,7 @@
 # The login handshake runs in /api/auth and /api/callback on Vercel.
 backend:
   name: github
-  repo: jessiey2/Sakalam-Overland
+  repo: Sakalam-Overland/Sakalam-Overland
   branch: main
   base_url: https://sakalam-overland.vercel.app
   auth_endpoint: api/auth
