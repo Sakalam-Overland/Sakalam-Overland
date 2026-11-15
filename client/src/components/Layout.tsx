@@ -91,8 +91,17 @@ function Nav() {
               <HeadlightsToggle />
             </li>
             <li className="ml-2">
-              <Link to="/community#join" className="btn-sun h-11 !py-0">
-                Join the crew
+              <Link to="/community#join" className="btn-sun group/join relative h-11 overflow-hidden !py-0 pr-5 pl-4">
+                {/* A light sheen sweeps across on hover */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-puti/60 to-transparent opacity-0 transition-[left,opacity] duration-700 ease-(--ease-trail) group-hover/join:left-full group-hover/join:opacity-100 motion-reduce:hidden"
+                />
+                <JoinSun className="relative h-5 w-5 transition-transform duration-700 ease-(--ease-trail) group-hover/join:rotate-[135deg]" />
+                <span className="relative">Join the crew</span>
+                <span aria-hidden className="relative -ml-0.5 transition-transform duration-300 group-hover/join:translate-x-1">
+                  →
+                </span>
               </Link>
             </li>
           </ul>
@@ -203,6 +212,18 @@ function Footer() {
         </p>
       </div>
     </footer>
+  );
+}
+
+/** The flag's eight-ray sun, small enough to sit inside a button. */
+function JoinSun({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="-12 -12 24 24" className={className} aria-hidden>
+      <circle r="4.2" fill="currentColor" />
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
+        <path key={a} d="M-1.6,-6.4 L0,-11 L1.6,-6.4 Z" fill="currentColor" transform={`rotate(${a})`} />
+      ))}
+    </svg>
   );
 }
 

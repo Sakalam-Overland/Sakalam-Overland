@@ -168,6 +168,10 @@ function SwipeHint({ dark = false }: { dark?: boolean }) {
 
 export default function Community() {
   const { data: rigs } = useAsync(() => api.rigs(), []);
+  const smallPhotos = [
+    { name: 'crew-food', src: settings.foodPhoto, alt: 'Boodle fight spread on banana leaves', fallback: <BoodleFight slice /> },
+    { name: 'crew-fire', src: settings.campfirePhoto, alt: 'Members around a campfire', tone: 'night' as const },
+  ].filter((p) => !settings.crewPhoto || p.src);
   // Skip half-filled entries the CMS might save, so an empty card never shows.
   const rigList = (rigs ?? []).filter((r) => r.nickname || r.image || r.vehicle);
 
@@ -182,10 +186,25 @@ export default function Community() {
       {/* Laptops: the photos take whatever height is left under the 360px page header and this section's padding, within limits. */}
       <section className="bg-surface py-8 md:py-12 lg:py-8">
         <div className="mx-auto grid max-w-7xl gap-5 px-5 md:grid-cols-2 md:items-center md:gap-8 md:px-8 lg:gap-12">
-          <Reveal className="grid grid-cols-2 gap-2 md:gap-3 lg:h-[clamp(390px,calc(100svh-424px),480px)] lg:grid-rows-[3fr_2fr]">
-            <Photo name="crew-group" src={settings.crewPhoto} alt="The crew lined up in front of their rigs" tone="forest" className="col-span-2 aspect-[5/2] rounded-2xl md:aspect-[2/1] md:rounded-3xl lg:aspect-auto" />
-            <Photo name="crew-food" src={settings.foodPhoto} alt="Boodle fight spread on banana leaves" className="aspect-[2/1] rounded-2xl short:hidden md:aspect-[3/2] md:rounded-3xl lg:aspect-auto" fallback={<BoodleFight slice />} />
-            <Photo name="crew-fire" src={settings.campfirePhoto} alt="Members around a campfire" tone="night" className="aspect-[2/1] rounded-2xl short:hidden md:aspect-[3/2] md:rounded-3xl lg:aspect-auto" />
+          {/* Once a real crew photo is in, the drawn food and campfire placeholders step aside so it gets the whole space.
+              Real food or campfire photos still show beside it. */}
+          <Reveal
+            className={`grid grid-cols-2 gap-2 md:gap-3 lg:h-[clamp(390px,calc(100svh-424px),480px)] ${smallPhotos.length ? 'lg:grid-rows-[3fr_2fr]' : 'lg:grid-rows-1'}`}
+          >
+            <Photo
+              name="crew-group"
+              src={settings.crewPhoto}
+              alt="The crew and their rigs"
+              tone="forest"
+              className={`col-span-2 rounded-2xl md:rounded-3xl lg:aspect-auto ${smallPhotos.length ? 'aspect-[5/2] md:aspect-[2/1]' : 'aspect-[16/9] md:aspect-[3/2]'}`}
+            />
+            {smallPhotos.map((p) => (
+              <Photo
+                key={p.name}
+                {...p}
+                className={`aspect-[2/1] rounded-2xl short:hidden md:aspect-[3/2] md:rounded-3xl lg:aspect-auto ${smallPhotos.length === 1 ? 'col-span-2' : ''}`}
+              />
+            ))}
           </Reveal>
           <div>
             <SectionHead eyebrow="Our story" tagalog="Kwento namin" title="From a group chat to a convoy.">
