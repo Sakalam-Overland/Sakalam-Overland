@@ -191,7 +191,7 @@ export default function Trails() {
       <section className="bg-surface-2 pb-16 md:pb-24">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 md:px-8 lg:grid-cols-12 [&>*]:min-w-0">
           <div className="lg:col-span-5">
-            <div className="no-scrollbar mb-4 flex gap-2 overflow-x-auto">
+            <div className="no-scrollbar -m-1 mb-3 flex gap-2 overflow-x-auto p-1">
               {(['all', 'offroad', 'beach', 'hike'] as const).map((t) => (
                 <Chip key={t} active={type === t} onClick={() => setType(t)}>
                   {t === 'all' ? 'All' : typeLabel[t]}

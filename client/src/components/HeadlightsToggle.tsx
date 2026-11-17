@@ -5,8 +5,8 @@ import { useTheme } from '../lib/theme';
  * Theme switch drawn as the front of a rig. Headlights on = Gabi (night) mode,
  * headlights off = Araw (day) mode.
  */
-const lights = [17.5, 46.5];
-const LIGHT_Y = 23.5;
+const lights = [12.5, 35.5];
+const LIGHT_Y = 19.5;
 
 export function HeadlightsToggle({ className = '' }: { className?: string }) {
   const { theme, toggle, hint, dismissHint } = useTheme();
@@ -18,7 +18,9 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
     toggle(r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : undefined);
   };
   const on = theme === 'dark';
-  const glowId = `hl-glow-${useId().replace(/:/g, '')}`;
+  const uid = useId().replace(/:/g, '');
+  const glowId = `hl-glow-${uid}`;
+  const maskId = `hl-rig-${uid}`;
   const label = on ? 'Headlights on: night mode' : 'Headlights off: day mode';
 
   return (
@@ -31,76 +33,62 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
         aria-label={`${label}. Switch to ${on ? 'day' : 'night'} mode`}
         aria-describedby={hint ? hintId : undefined}
         title={label}
-        className="group relative grid h-11 w-11 place-items-center rounded-full"
+        className="group relative grid h-10 w-10 place-items-center rounded-full"
       >
         {/* Pulse until the visitor has found it */}
         {hint && <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-araw/50 motion-reduce:hidden" />}
         <span
-          className={`relative grid h-11 w-11 place-items-center rounded-full shadow-[0_6px_16px_-6px_rgba(0,0,0,0.45)] ring-2 transition duration-300 group-hover:scale-110 group-active:scale-95 ${
-            on ? 'bg-gubat-900 ring-araw' : 'bg-puti ring-gubat/15 group-hover:ring-araw'
+          className={`relative grid h-10 w-10 place-items-center rounded-full ring-1 transition duration-300 ease-(--ease-trail) group-hover:-translate-y-px group-active:translate-y-0 ${
+            on
+              ? 'bg-[radial-gradient(circle_at_50%_30%,#1d4029,#08170d_75%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_0_0_3px_rgba(246,184,26,0.12),0_6px_18px_-6px_rgba(246,184,26,0.55)] ring-araw/60'
+              : 'bg-[radial-gradient(circle_at_50%_25%,#ffffff,#eef2ec_80%)] shadow-[inset_0_1px_0_#fff,0_1px_2px_rgba(24,59,34,0.1),0_6px_14px_-6px_rgba(24,59,34,0.35)] ring-gubat/10 group-hover:ring-gubat/25'
           }`}
         >
-          <svg viewBox="0 0 64 44" className="h-7 w-10 overflow-visible" aria-hidden>
+          <svg viewBox="0 0 48 36" className="h-[22px] w-[30px] overflow-visible" aria-hidden>
             <defs>
               <radialGradient id={glowId}>
-                <stop offset="0" stopColor="#f6b81a" stopOpacity="0.9" />
-                <stop offset="0.45" stopColor="#f6b81a" stopOpacity="0.35" />
+                <stop offset="0" stopColor="#ffd666" stopOpacity="0.85" />
+                <stop offset="0.5" stopColor="#f6b81a" stopOpacity="0.3" />
                 <stop offset="1" stopColor="#f6b81a" stopOpacity="0" />
               </radialGradient>
+              {/* The rig as one silhouette, with the glass, grille slots and lamps cut out of it */}
+              <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="36">
+                <rect x="13" y="1.6" width="22" height="1.6" rx="0.8" fill="#fff" />
+                <path d="M15.5,3 V5 M32.5,3 V5" stroke="#fff" strokeWidth="1.4" />
+                <path d="M11,14 L13.1,6.2 Q13.4,5 14.6,5 H33.4 Q34.6,5 34.9,6.2 L37,14 Z" fill="#fff" />
+                <rect x="2.8" y="10.2" width="4" height="3" rx="1" fill="#fff" />
+                <rect x="41.2" y="10.2" width="4" height="3" rx="1" fill="#fff" />
+                <rect x="6" y="13" width="36" height="12.5" rx="3.5" fill="#fff" />
+                <rect x="4" y="26.4" width="40" height="3" rx="1.5" fill="#fff" />
+                <rect x="9" y="30" width="7" height="5" rx="1.6" fill="#fff" />
+                <rect x="32" y="30" width="7" height="5" rx="1.6" fill="#fff" />
+                {/* cut-outs */}
+                <path d="M14.3,12.4 L15.6,7.6 Q15.8,7 16.4,7 H31.6 Q32.2,7 32.4,7.6 L33.7,12.4 Z" fill="#000" />
+                <path d="M17,11.6 L18.2,8 H20.6 L19.4,11.6 Z" fill="#fff" opacity="0.55" />
+                <rect x="20.6" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />
+                <rect x="23.25" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />
+                <rect x="25.9" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />
+                {lights.map((cx) => (
+                  <circle key={cx} cx={cx} cy={LIGHT_Y} r="3.2" fill="#000" />
+                ))}
+              </mask>
             </defs>
-            {/* Glow and short rays, only with the lights on */}
-            <g className={`origin-center transition duration-500 ease-(--ease-trail) ${on ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}>
+            {/* Soft glow in front of the lamps, only with the lights on */}
+            <g className={`transition duration-500 ease-(--ease-trail) ${on ? 'opacity-100' : 'opacity-0'}`}>
               {lights.map((cx) => (
-                <g key={cx}>
-                  <circle cx={cx} cy={LIGHT_Y} r="13" fill={`url(#${glowId})`} />
-                  {[-50, 0, 50].map((a) => {
-                    const rad = ((a + (cx < 32 ? 180 : 0)) * Math.PI) / 180;
-                    return (
-                      <line
-                        key={a}
-                        x1={cx + Math.cos(rad) * 8}
-                        y1={LIGHT_Y + Math.sin(rad) * 8}
-                        x2={cx + Math.cos(rad) * 12}
-                        y2={LIGHT_Y + Math.sin(rad) * 12}
-                        stroke="#f6b81a"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                      />
-                    );
-                  })}
-                </g>
+                <circle key={cx} cx={cx} cy={LIGHT_Y} r="9" fill={`url(#${glowId})`} />
               ))}
             </g>
-            <g className="transition-colors duration-300">
-              {/* Roof rack with a strapped-down load */}
-              <rect x="19" y="1.5" width="26" height="3.5" rx="1.2" className="fill-araw" />
-              <rect x="14" y="5" width="36" height="2" rx="1" className={on ? 'fill-abo' : 'fill-uling'} />
-              {/* Cab and windshield */}
-              <path d="M13,17 L15,7.5 Q15.3,7 16,7 H48 Q48.7,7 49,7.5 L51,17 Z" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              <path d="M16.5,15.5 L17.8,9.6 Q18,9 18.6,9 H45.4 Q46,9 46.2,9.6 L47.5,15.5 Z" className={on ? 'fill-gubat-900' : 'fill-dahon-100'} />
-              <path d="M21,14 L24,10.3 H27 L24,14 Z" className={on ? 'fill-puti/25' : 'fill-puti'} />
-              {/* Mirrors */}
-              <rect x="7" y="11" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              <rect x="52" y="11" width="5" height="3.5" rx="1" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              {/* Body */}
-              <rect x="10" y="16" width="44" height="15" rx="4" className={on ? 'fill-dahon' : 'fill-gubat'} />
-              {/* Grille */}
-              <rect x="25" y="18.5" width="14" height="10" rx="2" className="fill-gubat-900" />
-              <path d="M28.5,20.5 V26.5 M32,20.5 V26.5 M35.5,20.5 V26.5" strokeWidth="1.6" strokeLinecap="round" className={on ? 'stroke-dahon-300' : 'stroke-puti/55'} />
-              {/* Bumper and tires */}
-              <rect x="7" y="31" width="50" height="4.5" rx="2.25" className={on ? 'fill-abo' : 'fill-uling'} />
-              <rect x="13" y="35.5" width="9" height="6.5" rx="2" className={on ? 'fill-uling-600' : 'fill-itim'} />
-              <rect x="42" y="35.5" width="9" height="6.5" rx="2" className={on ? 'fill-uling-600' : 'fill-itim'} />
-            </g>
-            {/* Headlights */}
+            <rect width="48" height="36" mask={`url(#${maskId})`} className={`transition-colors duration-300 ${on ? 'fill-[#eef1ea]' : 'fill-gubat'}`} />
+            {/* Lamps: a thin chrome ring by day, lit by night */}
             {lights.map((cx) => (
               <circle
                 key={cx}
                 cx={cx}
                 cy={LIGHT_Y}
-                r="4.2"
-                strokeWidth="1.6"
-                className={`transition-colors duration-300 ${on ? 'fill-araw stroke-[#fff3c4]' : 'fill-[#e7eae6] stroke-gubat-900'}`}
+                r="2.3"
+                strokeWidth="1"
+                className={`transition-colors duration-300 ${on ? 'fill-[#ffd666] stroke-[#fff6d6]' : 'fill-transparent stroke-gubat/45'}`}
               />
             ))}
           </svg>

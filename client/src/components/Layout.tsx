@@ -91,7 +91,7 @@ function Nav() {
               <HeadlightsToggle />
             </li>
             <li className="ml-2">
-              <Link to="/community#join" className="btn-sun group/join relative h-11 overflow-hidden !py-0">
+              <Link to="/community#join" className="btn-sun group/join relative h-10 overflow-hidden !px-5 !py-0 text-[0.8rem]">
                 {/* A light sheen sweeps across on hover */}
                 <span
                   aria-hidden
