@@ -53,9 +53,9 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
               </radialGradient>
               {/* The rig as one silhouette, with the glass, grille slots and lamps cut out of it */}
               <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="36">
-                <rect x="13" y="1.6" width="22" height="1.6" rx="0.8" fill="#fff" />
-                <path d="M15.5,3 V5 M32.5,3 V5" stroke="#fff" strokeWidth="1.4" />
-                <path d="M11,14 L13.1,6.2 Q13.4,5 14.6,5 H33.4 Q34.6,5 34.9,6.2 L37,14 Z" fill="#fff" />
+                <rect x="11" y="1.6" width="26" height="1.6" rx="0.8" fill="#fff" />
+                <path d="M13.5,3 V5 M34.5,3 V5" stroke="#fff" strokeWidth="1.4" />
+                <path d="M9,14 L11.1,6.2 Q11.4,5 12.6,5 H35.4 Q36.6,5 36.9,6.2 L39,14 Z" fill="#fff" />
                 <rect x="2.8" y="10.2" width="4" height="3" rx="1" fill="#fff" />
                 <rect x="41.2" y="10.2" width="4" height="3" rx="1" fill="#fff" />
                 <rect x="6" y="13" width="36" height="12.5" rx="3.5" fill="#fff" />
@@ -63,8 +63,8 @@ export function HeadlightsToggle({ className = '' }: { className?: string }) {
                 <rect x="9" y="30" width="7" height="5" rx="1.6" fill="#fff" />
                 <rect x="32" y="30" width="7" height="5" rx="1.6" fill="#fff" />
                 {/* cut-outs */}
-                <path d="M14.3,12.4 L15.6,7.6 Q15.8,7 16.4,7 H31.6 Q32.2,7 32.4,7.6 L33.7,12.4 Z" fill="#000" />
-                <path d="M17,11.6 L18.2,8 H20.6 L19.4,11.6 Z" fill="#fff" opacity="0.55" />
+                <path d="M11.9,12.4 L13.3,7.6 Q13.5,7 14.1,7 H33.9 Q34.5,7 34.7,7.6 L36.1,12.4 Z" fill="#000" />
+                <path d="M15,11.6 L16.2,8 H18.6 L17.4,11.6 Z" fill="#fff" opacity="0.55" />
                 <rect x="20.6" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />
                 <rect x="23.25" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />
                 <rect x="25.9" y="16.3" width="1.5" height="6" rx="0.75" fill="#000" />

@@ -81,6 +81,8 @@ export interface MerchItem {
   name: string;
   note: string;
   image?: string;
+  /** Kept in the CMS but left off the site, e.g. a product that isn't ready yet. */
+  hidden?: boolean;
 }
 
 export interface GlossaryItem {

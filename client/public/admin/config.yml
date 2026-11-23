@@ -205,11 +205,12 @@ collections:
             label: Products
             label_singular: Product
             widget: list
-            summary: '{{fields.name}}'
+            summary: "{{fields.name}}{{fields.hidden | ternary(' · hidden', '')}}"
             fields:
               - { name: name, label: Product, widget: string }
               - { name: note, label: Short description, widget: string }
               - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: Square photos look best. }
+              - { name: hidden, label: Hide from site, widget: boolean, default: false, required: false, hint: Turn on to take a product off the site for now without deleting it. }
 
       # ---------------------------------------------------------------- Vocab
       - name: glossary

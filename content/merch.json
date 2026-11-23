@@ -13,12 +13,14 @@
     {
       "name": "Trail Tee",
       "note": "Logo front, Baybayin on the back",
-      "image": ""
+      "image": "",
+      "hidden": true
     },
     {
       "name": "Custom Hoodie",
       "note": "Your rig name embroidered",
-      "image": ""
+      "image": "",
+      "hidden": true
     }
   ]
 }

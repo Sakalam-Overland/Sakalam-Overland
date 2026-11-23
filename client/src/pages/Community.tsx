@@ -172,6 +172,7 @@ export default function Community() {
     { name: 'crew-food', src: settings.foodPhoto, alt: 'Boodle fight spread on banana leaves', fallback: <BoodleFight slice /> },
     { name: 'crew-fire', src: settings.campfirePhoto, alt: 'Members around a campfire', tone: 'night' as const },
   ].filter((p) => !settings.crewPhoto || p.src);
+  const shownMerch = merch.filter((m) => !m.hidden);
   // Skip half-filled entries the CMS might save, so an empty card never shows.
   const rigList = (rigs ?? []).filter((r) => r.nickname || r.image || r.vehicle);
 
@@ -316,11 +317,12 @@ export default function Community() {
               </a>
             </Reveal>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 md:mt-6 md:grid-cols-4 md:gap-4">
-            {merch.map((m, i) => (
+          {/* Columns follow how many products are showing, so a short list still fills the row. */}
+          <div className={`mt-4 grid grid-cols-2 gap-3 md:mt-6 md:gap-4 ${shownMerch.length <= 2 ? 'md:grid-cols-2' : shownMerch.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-4'}`}>
+            {shownMerch.map((m, i) => (
               <Reveal key={m.name} delay={i * 80}>
                 <div className="group">
-                  <div className="relative aspect-[3/2] overflow-hidden rounded-2xl short:aspect-[5/2] md:aspect-square md:rounded-3xl lg:aspect-[4/3]">
+                  <div className={`relative aspect-[3/2] overflow-hidden rounded-2xl short:aspect-[5/2] md:rounded-3xl ${shownMerch.length <= 2 ? 'md:aspect-[3/2]' : 'md:aspect-square lg:aspect-[4/3]'}`}>
                     <Photo name={`merch-${m.name.toLowerCase().replace(/\s+/g, '-')}`} src={m.image} alt={m.name} tone={(['dusk', 'forest', 'night', 'dawn'] as const)[i % 4]} className="h-full" />
                     {!m.image && (
                     <img
