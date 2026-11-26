@@ -2,6 +2,7 @@ import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Layout } from './components/Layout';
+import { Splash } from './components/Splash';
 import { ThemeProvider } from './lib/theme';
 import './index.css';
 import Home from './pages/Home';
@@ -19,6 +20,7 @@ const Fallback = () => <div className="min-h-screen bg-deep" />;
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider>
+      <Splash />
       <BrowserRouter>
         <Suspense fallback={<Fallback />}>
           <Routes>

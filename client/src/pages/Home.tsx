@@ -7,9 +7,11 @@ import { IG_URL, InstagramIcon, navItems } from '../components/Layout';
 import { SpareTire } from '../components/LicensePlate';
 import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
+import { Slideshow } from '../components/Slideshow';
 import { LogoMark, starPath } from '../components/SunMark';
 import { gallery, settings } from '@shared/data';
 import { useAsync } from '../hooks/useAsync';
+import { usePageTitle } from '../hooks/usePageTitle';
 import { usePauseOffscreen } from '../hooks/usePauseOffscreen';
 import { api } from '../lib/api';
 import { fmt } from '../lib/format';
@@ -145,7 +147,7 @@ function HeroStats() {
         <div key={label} className={i ? 'border-l border-heading/15 pl-5 sm:pl-8' : ''}>
           <dt className="sr-only">{label}</dt>
           <dd className="font-display text-2xl font-extrabold text-heading tabular-nums sm:text-3xl">{n}</dd>
-          <dd className="text-xs text-ink-muted sm:text-sm">{label}</dd>
+          <dd className="text-sm text-ink/75 md:text-base">{label}</dd>
         </div>
       ))}
     </dl>
@@ -188,9 +190,6 @@ function Hero() {
               className="btn-sun"
             >
               Find a ride <span aria-hidden className="inline-block animate-[nudge_1.6s_ease-in-out_infinite] motion-reduce:animate-none">→</span>
-            </Link>
-            <Link to="/community#join" className="btn-ghost text-heading">
-              Join the crew
             </Link>
           </div>
           <HeroStats />
@@ -442,7 +441,7 @@ function TrailBoard() {
                   <div className="col-start-2 row-start-1 justify-self-end md:col-start-auto md:row-start-auto md:justify-self-auto">
                     <StatusBadge value={t.status} dark />
                   </div>
-                  <p className="hidden text-xs text-abo tabular-nums md:block">checked {t.lastVerified.slice(5).replace('-', '/')}</p>
+                  <p className="hidden text-sm text-puti/75 tabular-nums md:block">checked {t.lastVerified.slice(5).replace('-', '/')}</p>
                 </Link>
               </li>
             ))}
@@ -523,11 +522,8 @@ function SaluSalo() {
 }
 
 function Gallery() {
-  // First photo is the big one; the grid holds four.
-  const layout = ['col-span-2 md:row-span-2', '', '', 'col-span-2'];
-  const tones = ['forest', 'dawn', 'night', 'dusk'] as const;
   return (
-    <section className="flex min-h-[100svh] items-center bg-surface py-12 md:block md:min-h-0 md:py-12">
+    <section className="bg-surface py-12 md:py-16">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <SectionHead eyebrow="From the trail" tagalog="Mula sa daan" title="Mud, sand, sunrise. Repeat." />
@@ -537,13 +533,9 @@ function Gallery() {
             </a>
           </Reveal>
         </div>
-        <div className="mt-6 grid auto-rows-[min(19svh,150px)] short:auto-rows-[16svh] grid-cols-2 gap-3 md:mt-8 md:auto-rows-[190px] md:grid-cols-4 md:gap-4">
-          {gallery.slice(0, 4).map((s, i) => (
-            <Reveal key={`${s.caption}-${i}`} delay={i * 80} className={`group ${layout[i % layout.length]}`}>
-              <Photo name={`gallery-${i}`} src={s.image} alt={s.alt} tone={tones[i % tones.length]} caption={s.caption} className="h-full rounded-3xl" />
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-6 md:mt-8">
+          <Slideshow slides={gallery} />
+        </Reveal>
       </div>
     </section>
   );
@@ -618,6 +610,7 @@ export function JoinBand() {
 }
 
 export default function Home() {
+  usePageTitle();
   return (
     <>
       <Hero />

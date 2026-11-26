@@ -1,5 +1,6 @@
 import { PageHero } from '../components/Layout';
 import { Reveal, SectionHead } from '../components/Reveal';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const palette = [
   { token: 'puti', name: 'Puti · White', hex: '#FFFFFF', rgb: '255, 255, 255', use: 'Surfaces, type on dark' },
@@ -13,6 +14,7 @@ const palette = [
 const icons = ['home', 'events', 'trails', 'campsites', 'community'];
 
 export default function Brand() {
+  usePageTitle('Brand');
   return (
     <>
       <PageHero scene="brand" eyebrow="Brand guide" tagalog="Gabay" icon="home" title={<>The system behind the sun.</>}>

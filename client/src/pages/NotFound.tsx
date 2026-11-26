@@ -1,7 +1,9 @@
 import { Link } from 'react-router';
 import { LogoMark } from '../components/SunMark';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export default function NotFound({ what = 'page' }: { what?: string }) {
+  usePageTitle('Not found');
   return (
     <section className="grid min-h-[80vh] place-items-center bg-deep px-5 pt-28 text-center text-puti">
       <div>

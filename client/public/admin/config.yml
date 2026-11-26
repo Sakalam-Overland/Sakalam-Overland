@@ -229,20 +229,29 @@ collections:
 
       # ---------------------------------------------------------------- Gallery
       - name: gallery
-        label: Home page photos
+        label: Home page slideshow
         file: content/gallery.json
-        description: The "From the trail" grid. The first photo shows largest. Four photos fit.
+        description: The "From the trail" slideshow on the home page. Each slide is a photo, an uploaded video, or an Instagram post. Drag to reorder.
         fields:
           - name: items
-            label: Photos
-            label_singular: Photo
+            label: Slides
+            label_singular: Slide
             widget: list
-            max: 4
-            summary: '{{fields.caption}}'
+            max: 12
+            summary: "{{fields.caption}}{{fields.instagram | ternary(' · Instagram', '')}}{{fields.video | ternary(' · video', '')}}"
             fields:
-              - { name: image, label: Photo, widget: image, required: false, choose_url: false }
-              - { name: caption, label: Place, widget: string, hint: Shown on the photo, e.g. Pine Barrens }
-              - { name: alt, label: Describe the photo, widget: string, hint: For people using screen readers, e.g. Three trucks crossing a sandy road. }
+              - { name: image, label: Photo, widget: image, required: false, choose_url: false, hint: For a video or Instagram slide this is optional and only used as the small thumbnail. }
+              - { name: instagram, label: Instagram post link (optional), widget: string, required: false, pattern: ['^$|^https://(www\.)?instagram\.com/', 'Paste the full link, e.g. https://www.instagram.com/p/ABC123/'], hint: 'Paste a public post or reel link to show it with Instagram''s own player. Reels with licensed music may only play on Instagram.' }
+              - name: video
+                label: Video file (optional)
+                widget: file
+                required: false
+                choose_url: false
+                media_folder: /client/public/media
+                public_folder: /media
+                hint: An MP4 plays right on the page. Keep it short (under 30 seconds, under 20 MB).
+              - { name: caption, label: Title, widget: string, hint: 'Shown on the slide, e.g. Pine Barrens or Mud run' }
+              - { name: alt, label: Describe it, widget: string, hint: For people using screen readers, e.g. Three trucks crossing a sandy road. }
 
       # ---------------------------------------------------------------- FAQ
       - name: faq

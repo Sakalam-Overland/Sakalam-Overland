@@ -1,8 +1,36 @@
 {
   "items": [
-    { "caption": "Pine Barrens", "alt": "Misty river winding between pine trees", "image": "/photos/gallery-pine-barrens.jpg" },
-    { "caption": "Smith Point", "alt": "Aerial view of a sandy barrier beach between bay and ocean", "image": "/photos/gallery-smith-point.jpg" },
-    { "caption": "Moose River", "alt": "Aerial view of a river winding through autumn forest", "image": "/photos/gallery-moose-river.jpg" },
-    { "caption": "Rausch Creek", "alt": "Small waterfall running over mossy boulders", "image": "/photos/camp-rausch-creek-camp.jpg" }
+    {
+      "caption": "Pine Barrens",
+      "alt": "Misty river winding between pine trees",
+      "image": "/photos/gallery-pine-barrens.jpg"
+    },
+    {
+      "caption": "Mud run",
+      "alt": "Video: rigs crawling through a flooded, muddy forest trail.",
+      "instagram": "https://www.instagram.com/p/DAg-VpRSJ14/",
+      "image": ""
+    },
+    {
+      "caption": "Smith Point",
+      "alt": "Aerial view of a sandy barrier beach between bay and ocean",
+      "image": "/photos/gallery-smith-point.jpg"
+    },
+    {
+      "caption": "Moose River",
+      "alt": "Aerial view of a river winding through autumn forest",
+      "image": "/photos/gallery-moose-river.jpg"
+    },
+    {
+      "caption": "Sand at sunset",
+      "alt": "Video: a crew 4Runner parked on beach sand as the sun goes down.",
+      "instagram": "https://www.instagram.com/p/DgK8eOKhlGC/",
+      "image": ""
+    },
+    {
+      "caption": "Rausch Creek",
+      "alt": "Small waterfall running over mossy boulders",
+      "image": "/photos/camp-rausch-creek-camp.jpg"
+    }
   ]
 }

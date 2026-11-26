@@ -8,6 +8,7 @@ import { Reveal } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { directionsUrl, fmt } from '../lib/format';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const checklist = {
   Shelter: ['Tent or rooftop tent', 'Sleeping bag rated 10° below forecast', 'Pad', 'Camp chair'],
@@ -135,6 +136,7 @@ function Checklist() {
 const accessNote = { '2WD': 'Any car', AWD: 'Gravel, some ruts', '4x4': 'Sand or deep ruts', 'Hike-in': 'On foot' } as const;
 
 export default function Campsites() {
+  usePageTitle('Campsites');
   const { data } = useAsync(() => api.campsites(), []);
   const tones = ['night', 'forest', 'dusk', 'dawn', 'forest'] as const;
 

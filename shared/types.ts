@@ -99,7 +99,12 @@ export interface FaqItem {
 export interface GalleryItem {
   caption: string;
   alt: string;
+  /** A photo, or the cover/thumbnail for a video slide. */
   image?: string;
+  /** An uploaded video file (mp4), played right on the page. */
+  video?: string;
+  /** A public Instagram post or reel link, shown with Instagram's own player. */
+  instagram?: string;
 }
 
 export interface SiteSettings {

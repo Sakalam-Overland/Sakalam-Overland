@@ -9,6 +9,7 @@ import { useAsync } from '../hooks/useAsync';
 import { api } from '../lib/api';
 import { localDate } from '../lib/format';
 import { JoinBand } from './Home';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export function Chip({ active, onClick, children, small = false }: { active: boolean; onClick: () => void; children: React.ReactNode; small?: boolean }) {
   return (
@@ -51,6 +52,7 @@ function ViewToggle({ view, onChange, className = '' }: { view: View; onChange: 
 }
 
 export default function Events() {
+  usePageTitle('Events');
   const { data, loading } = useAsync(() => api.events(), []);
   const [kind, setKind] = useState<EventKind | 'all'>('all');
   const [openOnly, setOpenOnly] = useState(false);

@@ -12,6 +12,7 @@ import { useRouteShape } from '../lib/gpx';
 import NotFound from './NotFound';
 import { TrailElevation } from './Trails';
 import type { Trail } from '@shared/types';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 /** The trail an event runs on, with whatever length, gain and elevation we know. */
 function EventTrailCard({ trail }: { trail: Trail }) {
@@ -44,6 +45,7 @@ function EventTrailCard({ trail }: { trail: Trail }) {
 export default function EventDetail() {
   const { slug = '' } = useParams();
   const { data: event, error, loading, setData } = useAsync(() => api.event(slug), [slug]);
+  usePageTitle(event ? `${event.title} · Events` : 'Events');
 
   if (error) return <NotFound what="event" />;
   if (loading || !event) return <div className="min-h-screen bg-deep" />;

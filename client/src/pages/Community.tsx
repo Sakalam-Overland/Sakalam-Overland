@@ -7,6 +7,7 @@ import { Photo } from '../components/Photo';
 import { Reveal, SectionHead } from '../components/Reveal';
 import { useAsync } from '../hooks/useAsync';
 import { ApiError, api } from '../lib/api';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const interestOptions: { value: JoinInput['interests'][number]; label: string }[] = [
   { value: 'overlanding', label: 'Overlanding' },
@@ -167,6 +168,7 @@ function SwipeHint({ dark = false }: { dark?: boolean }) {
 }
 
 export default function Community() {
+  usePageTitle('Community');
   const { data: rigs } = useAsync(() => api.rigs(), []);
   const smallPhotos = [
     { name: 'crew-food', src: settings.foodPhoto, alt: 'Boodle fight spread on banana leaves', fallback: <BoodleFight slice /> },
@@ -174,7 +176,10 @@ export default function Community() {
   ].filter((p) => !settings.crewPhoto || p.src);
   const shownMerch = merch.filter((m) => !m.hidden);
   // Skip half-filled entries the CMS might save, so an empty card never shows.
-  const rigList = (rigs ?? []).filter((r) => r.nickname || r.image || r.vehicle);
+  const named = (rigs ?? []).filter((r) => r.nickname || r.image || r.vehicle);
+  // Rigs without a photo stay in the CMS but sit out until they have one, so the showcase never looks half-finished.
+  const rigList = named.some((r) => r.image) ? named.filter((r) => r.image) : named;
+  const rigCols = rigList.length <= 2 ? 'md:grid-cols-2 lg:max-w-4xl' : rigList.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
 
   return (
     <>
@@ -232,7 +237,7 @@ export default function Community() {
           <div
             role="region"
             aria-label="Member rigs, swipe for more"
-            className="no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-12 md:grid md:grid-cols-2 md:gap-5 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 xl:grid-cols-4"
+            className={`no-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto overflow-y-hidden overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-12 md:grid md:gap-5 md:overflow-visible md:px-0 md:pb-0 ${rigCols}`}
           >
             {rigList.map((r, i) => (
               <div key={`${i}-${r.nickname}`} data-no-reveal className="flex w-[72%] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">

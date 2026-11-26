@@ -206,7 +206,7 @@ function Footer() {
         </div>
       </div>
       <div className="relative border-t border-puti/10">
-        <p className="mx-auto max-w-7xl px-5 py-4 text-xs text-abo md:px-8">
+        <p className="mx-auto max-w-7xl px-5 py-4 text-sm text-puti/75 md:px-8">
           © {new Date().getFullYear()} Sakalam Overland. Tread lightly and leave the trail better than you found it.
         </p>
       </div>

@@ -24,14 +24,14 @@
     },
     {
       "owner": "Paolo D.",
-      "vehicle": "2016 Toyota Tacoma",
+      "vehicle": "Chevrolet Colorado ZR2",
       "nickname": "Tita Taco",
       "mods": [
         "Bed rack",
-        "Fridge",
+        "Roof-top tent",
         "Awning"
       ],
-      "image": ""
+      "image": "/photos/rig-chevy-colorado.jpg"
     },
     {
       "owner": "Kat S.",
@@ -46,25 +46,25 @@
     },
     {
       "owner": "Rico M.",
-      "vehicle": "2022 Ford Bronco Badlands",
+      "vehicle": "Toyota 4Runner",
       "nickname": "Lumpia",
       "mods": [
-        "35s",
-        "Steel bumper",
-        "Cargo drawers"
+        "Roof-top tent",
+        "Snorkel",
+        "Swing-out tire carrier"
       ],
-      "image": ""
+      "image": "/photos/rig-4runner-sak4lam.jpg"
     },
     {
       "owner": "Ana T.",
-      "vehicle": "2014 Lexus GX460",
+      "vehicle": "Lexus GX",
       "nickname": "Adobo",
       "mods": [
-        "Air suspension delete",
-        "Skid plates",
-        "Ladder"
+        "Roof-top tent",
+        "Winch bumper",
+        "Awning"
       ],
-      "image": ""
+      "image": "/photos/rig-lexus-gx.jpg"
     }
   ]
 }
